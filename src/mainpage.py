@@ -77,7 +77,7 @@
 #  avoid confusion with the standard Python library called @c time, which has
 #  different functionality. 
 #  Reference:
-#  @c https://docs.micropython.org/en/latest/pyboard/library/utime.html
+#  https://docs.micropython.org/en/latest/pyboard/library/utime.html
 #  @code
 #  import utime
 #  utime.sleep (0.5)       # Sleep for 0.5 sec, blocking tasks (bad)
@@ -91,7 +91,7 @@
 #
 #  @subsection sspins GPIO Pins
 #  Reference: 
-#  @c https://docs.micropython.org/en/latest/pyboard/library/pyb.Pin.html
+#  https://docs.micropython.org/en/latest/pyboard/library/pyb.Pin.html
 #  @code
 #  # Set up a pin as an output and control it
 #  pinC0 = pyb.Pin (pyb.Pin.board.PC0, pyb.Pin.OUT_PP)
@@ -128,7 +128,7 @@
 #  When using timer interrupts, this is the frequency at which interrupts 
 #  occur.  Only certain pins can be used with timers. Look for pins associated 
 #  with the channels of timers in the STM32 data sheet. Reference:
-#  @c https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html
+#  https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html
 #  @code
 #  timmy = pyb.Timer (1, freq = 1000)             # Timer 1 running at 1000 Hz
 #  timmy.counter ()                               # Get timer value
@@ -148,7 +148,7 @@
 #  @subsection sspwm Pulse Width Modulation
 #  Only certain pins can be used for PWM. Look for pins associated with the
 #  channels of timers in the STM32 data sheet. Reference: 
-#  @c https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html
+#  https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html
 #  @code
 #  pinA1 = pyb.Pin (pyb.Pin.board.PA1, pyb.Pin.OUT_PP)
 #  tim2 = pyb.Timer (2, freq=1000)
@@ -162,7 +162,7 @@
 #  pins can be used as A/D pins; see the STM32 datasheet pin alternate 
 #  function table to find out which ones will work (or just try some in the
 #  REPL and see which don't give you a @c ValueError ). Reference:
-#  @c https://docs.micropython.org/en/latest/pyboard/library/pyb.ADC.html
+#  https://docs.micropython.org/en/latest/pyboard/library/pyb.ADC.html
 #  @code
 #  adcpin = pyb.ADC (pyb.Pin.board.PA4)
 #  volts = adcpin.read ()
@@ -179,7 +179,7 @@
 #  internal address 5 in a sensor at I<sup>2</sup>C bus address 0x2A and 
 #  reads a byte of data from the sensor's register at internal address 7. 
 #  Reference: 
-#  @c https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html
+#  https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html
 #  @code
 #  i2c1 = pyb.I2C (1, pyb.I2C.MASTER, baudrate = 100000)
 #  i2c1.scan ()                       # Check for devices on the bus

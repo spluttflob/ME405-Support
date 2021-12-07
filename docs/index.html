@@ -123,7 +123,7 @@ Quick Reference</h1>
 <p>This section contains some quick hints about how to use various functions of the Nucleo<sup>TM</sup> boards with MicroPython as they are set up for ME405.</p>
 <h2><a class="anchor" id="sstiming"></a>
 Timing</h2>
-<p>MicroPython has two time related libraries, <code>time</code> and <code>utime</code>, which provide the same functionality. The use of <code>utime</code> is recommended to avoid confusion with the standard Python library called <code>time</code>, which has different functionality. Reference: <code><a href="https://docs.micropython.org/en/latest/pyboard/library/utime.html">https://docs.micropython.org/en/latest/pyboard/library/utime.html</a></code> </p><div class="fragment"><div class="line">import utime</div>
+<p>MicroPython has two time related libraries, <code>time</code> and <code>utime</code>, which provide the same functionality. The use of <code>utime</code> is recommended to avoid confusion with the standard Python library called <code>time</code>, which has different functionality. Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/utime.html">https://docs.micropython.org/en/latest/pyboard/library/utime.html</a> </p><div class="fragment"><div class="line">import utime</div>
 <div class="line">utime.sleep (0.5)       <span class="comment"># Sleep for 0.5 sec, blocking tasks (bad)</span></div>
 <div class="line">utime.sleep_us (10)     <span class="comment"># Sleep for only 10 us, which is usually OK</span></div>
 <div class="line"> </div>
@@ -133,7 +133,7 @@ Timing</h2>
 <div class="line">duration = utime.ticks_diff (utime.ticks_us, start_time)</div>
 </div><!-- fragment --><h2><a class="anchor" id="sspins"></a>
 GPIO Pins</h2>
-<p>Reference: <code><a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.Pin.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.Pin.html</a></code> </p><div class="fragment"><div class="line"><span class="comment"># Set up a pin as an output and control it</span></div>
+<p>Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.Pin.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.Pin.html</a> </p><div class="fragment"><div class="line"><span class="comment"># Set up a pin as an output and control it</span></div>
 <div class="line">pinC0 = pyb.Pin (pyb.Pin.board.PC0, pyb.Pin.OUT_PP)</div>
 <div class="line">pinC0.high ()</div>
 <div class="line">pinC0.low ()</div>
@@ -158,7 +158,7 @@ External Interrupts</h2>
 <div class="line"><span class="keywordflow">print</span> (isr_count)</div>
 </div><!-- fragment --><h2><a class="anchor" id="sstimers"></a>
 Timers and Timer Interrupts</h2>
-<p>The frequency given in the <code>freq</code> parameter of the <code>pyb.Timer</code> constructor is the frequency at which the timer overflows and restarts counting at zero. When using timer interrupts, this is the frequency at which interrupts occur. Only certain pins can be used with timers. Look for pins associated with the channels of timers in the STM32 data sheet. Reference: <code><a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html</a></code> </p><div class="fragment"><div class="line">timmy = pyb.Timer (1, freq = 1000)             <span class="comment"># Timer 1 running at 1000 Hz</span></div>
+<p>The frequency given in the <code>freq</code> parameter of the <code>pyb.Timer</code> constructor is the frequency at which the timer overflows and restarts counting at zero. When using timer interrupts, this is the frequency at which interrupts occur. Only certain pins can be used with timers. Look for pins associated with the channels of timers in the STM32 data sheet. Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html</a> </p><div class="fragment"><div class="line">timmy = pyb.Timer (1, freq = 1000)             <span class="comment"># Timer 1 running at 1000 Hz</span></div>
 <div class="line">timmy.counter ()                               <span class="comment"># Get timer value</span></div>
 <div class="line">timer.freq (100)                               <span class="comment"># Change rollover rate</span></div>
 <div class="line"> </div>
@@ -173,20 +173,20 @@ Timers and Timer Interrupts</h2>
 <div class="line">timmy.callback (toggler)</div>
 </div><!-- fragment --><h2><a class="anchor" id="sspwm"></a>
 Pulse Width Modulation</h2>
-<p>Only certain pins can be used for PWM. Look for pins associated with the channels of timers in the STM32 data sheet. Reference: <code><a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html</a></code> </p><div class="fragment"><div class="line">pinA1 = pyb.Pin (pyb.Pin.board.PA1, pyb.Pin.OUT_PP)</div>
+<p>Only certain pins can be used for PWM. Look for pins associated with the channels of timers in the STM32 data sheet. Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html</a> </p><div class="fragment"><div class="line">pinA1 = pyb.Pin (pyb.Pin.board.PA1, pyb.Pin.OUT_PP)</div>
 <div class="line">tim2 = pyb.Timer (2, freq=1000)</div>
 <div class="line">ch2 = tim2.channel (2, pyb.Timer.PWM, pin=pinA1)</div>
 <div class="line">ch2.pulse_width_percent (30)</div>
 </div><!-- fragment --><h2><a class="anchor" id="ssadc"></a>
 Analog to Digital Conversion (ADC or A/D)</h2>
-<p>It is very important to apply only voltages in the range from 0 to 3.3V to each A/D pin. Excessive or negative voltages can destroy things. Not all pins can be used as A/D pins; see the STM32 datasheet pin alternate function table to find out which ones will work (or just try some in the REPL and see which don't give you a <code>ValueError</code> ). Reference: <code><a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.ADC.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.ADC.html</a></code> </p><div class="fragment"><div class="line">adcpin = pyb.ADC (pyb.Pin.board.PA4)</div>
+<p>It is very important to apply only voltages in the range from 0 to 3.3V to each A/D pin. Excessive or negative voltages can destroy things. Not all pins can be used as A/D pins; see the STM32 datasheet pin alternate function table to find out which ones will work (or just try some in the REPL and see which don't give you a <code>ValueError</code> ). Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.ADC.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.ADC.html</a> </p><div class="fragment"><div class="line">adcpin = pyb.ADC (pyb.Pin.board.PA4)</div>
 <div class="line">volts = adcpin.read ()</div>
 </div><!-- fragment --><h2><a class="anchor" id="ssdac"></a>
 Digital to Analog Conversion (DAC or D/A)</h2>
 <p>Some STM32 chips have digial to analog converters, and others don't. Digital to analog conversion is not officially supported on ME405 boards, but you can look for class <code>pyb.DAC</code> and if it's there, search for MicroPython documentation on how to use it.</p>
 <h2><a class="anchor" id="ssi2c"></a>
 I²C</h2>
-<p>The following example sends the bytes <code>07</code> and <code>FF</code> to the register at internal address 5 in a sensor at I<sup>2</sup>C bus address 0x2A and reads a byte of data from the sensor's register at internal address 7. Reference: <code><a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html</a></code> </p><div class="fragment"><div class="line">i2c1 = pyb.I2C (1, pyb.I2C.MASTER, baudrate = 100000)</div>
+<p>The following example sends the bytes <code>07</code> and <code>FF</code> to the register at internal address 5 in a sensor at I<sup>2</sup>C bus address 0x2A and reads a byte of data from the sensor's register at internal address 7. Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html</a> </p><div class="fragment"><div class="line">i2c1 = pyb.I2C (1, pyb.I2C.MASTER, baudrate = 100000)</div>
 <div class="line">i2c1.scan ()                       <span class="comment"># Check for devices on the bus</span></div>
 <div class="line">i2c1.mem_write (<span class="stringliteral">&#39;\x07&#39;</span>, 0x2A, 5)   <span class="comment"># Send command and parameter to sensor</span></div>
 <div class="line">rsp = i2c1.mem_read (1, 0x2A, 7)   <span class="comment"># Read sensor data</span></div>
@@ -210,7 +210,7 @@ Flash Memory Problems</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Dec 6 2021 22:42:04 for ME405 Library by
+    <li class="footer">Generated on Mon Dec 6 2021 22:55:32 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
