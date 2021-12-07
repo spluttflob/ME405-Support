@@ -2,6 +2,7 @@
 
 This repository holds code used in the ME405 course at Cal Poly. 
 
+The documentation pages are at <https://spluttflob.github.io/ME405-Support/>.
 
 ### Scheduler Files
 
@@ -19,10 +20,10 @@ The `cotask.py` and `task_share.py` modules are central to this structure.
    a PC.
 
 * To read keys without blocking a microcontroller running MicroPython,
-  you may use the `USB_VCP` class (an example will be posted here if
-  needed). 
+  you may use the `USB_VCP` class. 
 
+  
 ### Homework Support Files
 
-Most homework support is maintained by the lecture instructor. 
+Most homework support is maintained by the course instructors. 
 If any additional files are needed, they may be kept here. 
