@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ME405 Library: Related Pages</title>
+<title>ME405 Library: TaskList Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,7 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classTaskList.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,17 +96,22 @@ $(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Related Pages</div>  </div>
+<div class="title">TaskList Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-</div><!-- directory -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class holds the list of tasks which will be run by the task scheduler. The task list is usually not directly used by the programmer except when tasks are added to it and the scheduler is called. An example showing the use of the task list is given in the last few lines of the documentation for class <code>Task</code>.</p>
+<p>The task list is sorted by priority so that the scheduler can efficiently look through the list to find the highest priority task which is ready to run at any given time. Tasks can also be scheduled in a simpler "round-robin" fashion. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/<a class="el" href="cotask_8py.html">cotask.py</a></li>
+</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Dec 15 2021 12:28:00 for ME405 Library by
+    <li class="navelem"><a class="el" href="classTaskList.html">TaskList</a></li>
+    <li class="footer">Generated on Wed Dec 15 2021 12:19:16 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

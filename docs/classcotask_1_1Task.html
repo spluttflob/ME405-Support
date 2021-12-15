@@ -228,9 +228,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize a task object so it may be run by the scheduler. </p>
-<pre class="fragment">   This method initializes a task object, saving copies of constructor
-   parameters and preparing an empty dictionary for states.
-</pre><dl class="params"><dt>Parameters</dt><dd>
+<p>This method initializes a task object, saving copies of constructor parameters and preparing an empty dictionary for states.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">run_fun</td><td>The function which implements the task's code. It must be a generator which yields the current state. </td></tr>
     <tr><td class="paramname">name</td><td>The name of the task, by default <code>NoName</code>. This should be overridden with a more descriptive name by the programmer. </td></tr>
@@ -262,9 +261,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method converts the task to a string for diagnostic use. </p>
-<pre class="fragment">   It shows information about the task, including execution time
-   profiling results if profiling has been done.
-</pre> 
+<p>It shows information about the task, including execution time profiling results if profiling has been done. </p>
+
 </div>
 </div>
 <a id="a6e51a228f985aec8c752bd72a73730ae"></a>
@@ -284,10 +282,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method returns a string containing the task's transition trace. </p>
-<pre class="fragment">   The trace is a set of tuples, each of which contains a time and the
-   states from and to which the system transitioned.
-   @return A possibly quite large string showing state transitions
-</pre> 
+<p>The trace is a set of tuples, each of which contains a time and the states from and to which the system transitioned. </p><dl class="section return"><dt>Returns</dt><dd>A possibly quite large string showing state transitions </dd></dl>
+
 </div>
 </div>
 <a id="a78e74d18a5ba94074c2b5309394409a5"></a>
@@ -328,11 +324,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method checks if the task is ready to run. </p>
-<pre class="fragment">   If the task runs on a timer, this method checks what time it is; if not,
-   this method checks the flag which indicates that the task is ready to
-   go. This method may be overridden in descendent classes to implement
-   some other behavior.
-</pre> 
+<p>If the task runs on a timer, this method checks what time it is; if not, this method checks the flag which indicates that the task is ready to go. This method may be overridden in descendent classes to implement some other behavior. </p>
+
 </div>
 </div>
 <a id="a1bcbfa7dd7086112af20b7247ffa4a2e"></a>
@@ -352,8 +345,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method resets the variables used for execution time profiling. </p>
-<pre class="fragment">   This method is also used by @c __init__() to create the variables.
-</pre> 
+<p>This method is also used by <code><b>init</b></code>() to create the variables. </p>
+
 </div>
 </div>
 <a id="af60def0ed4a1bc5fec32f3cf8b8a90c8"></a>
@@ -373,12 +366,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method is called by the scheduler; it attempts to run this task. </p>
-<pre class="fragment">   If the task is not yet ready to run, this method returns @c False
-   immediately; if this task is ready to run, it runs the task's generator
-   up to the next @c yield() and then returns @c True.
+<p>If the task is not yet ready to run, this method returns <code>False</code> immediately; if this task is ready to run, it runs the task's generator up to the next <code>yield()</code> and then returns <code>True</code>.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> if the task ran or <code>False</code> if it did not </dd></dl>
 
-   @return @c True if the task ran or @c False if it did not
-</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -409,7 +399,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>cotask</b></li><li class="navelem"><a class="el" href="classcotask_1_1Task.html">Task</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 12:07:59 for ME405 Library by
+    <li class="footer">Generated on Wed Dec 15 2021 12:28:00 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

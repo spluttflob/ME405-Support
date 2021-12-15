@@ -247,11 +247,28 @@ class Queue:
 
 # ============================================================================
 
+## An item which holds data to be shared between tasks.
+#  This class implements a shared data item which can be protected against
+#  data corruption by pre-emptive multithreading. Multithreading which can
+#  corrupt shared data includes the use of ordinary interrupts as well as the
+#  use of pre-emptive multithreading such as by a Real-Time Operating System
+#  (RTOS).
+# 
+#  An example of the creation and use of a share is as follows:
+#  @code
+#  import task_share
+# 
+#  # This share holds a signed short (16-bit) integer
+#  my_share = task_share.Queue ('h', name="My Share")
+# 
+#  # Somewhere in one task, put data into the share
+#  my_share.put (some_data)
+# 
+#  # In another task, read data from the share
+#  something = my_share.get ()
+#  @endcode
+
 class Share:
-    """ This class implements a shared data item which can be protected 
-    against data corruption by pre-emptive multithreading. Multithreading 
-    which can corrupt shared data includes the use of ordinary interrupts as 
-    well as the use of a Real-Time Operating System (RTOS). """
 
     ## A counter used to give serial numbers to shares for diagnostic use.
     ser_num = 0

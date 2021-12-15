@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('classtask__share_1_1Share.html',''); i
 </div><!--header-->
 <div class="contents">
 
-<p>This class implements a shared data item which can be protected against data corruption by pre-emptive multithreading.  
+<p>An item which holds data to be shared between tasks.  
  <a href="classtask__share_1_1Share.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -130,9 +130,19 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="separator:a2e8df029af46fbfd44ef0c2e7e8c7af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class implements a shared data item which can be protected against data corruption by pre-emptive multithreading. </p>
-<p>Multithreading which can corrupt shared data includes the use of ordinary interrupts as well as the use of a Real-Time Operating System (RTOS). </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"><p>An item which holds data to be shared between tasks. </p>
+<p>This class implements a shared data item which can be protected against data corruption by pre-emptive multithreading. Multithreading which can corrupt shared data includes the use of ordinary interrupts as well as the use of pre-emptive multithreading such as by a Real-Time Operating System (RTOS).</p>
+<p>An example of the creation and use of a share is as follows: </p><div class="fragment"><div class="line"><span class="keyword">import</span> task_share</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># This share holds a signed short (16-bit) integer</span></div>
+<div class="line">my_share = <a class="code" href="classtask__share_1_1Queue.html">task_share.Queue</a> (<span class="stringliteral">&#39;h&#39;</span>, name=<span class="stringliteral">&quot;My Share&quot;</span>)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Somewhere in one task, put data into the share</span></div>
+<div class="line">my_share.put (some_data)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># In another task, read data from the share</span></div>
+<div class="line">something = my_share.get ()</div>
+</div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3139fd0c5d1df7fc15e003892d557b9a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3139fd0c5d1df7fc15e003892d557b9a">&#9670;&nbsp;</a></span>__init__()</h2>
 
@@ -298,11 +308,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclasstask__share_1_1Queue_html"><div class="ttname"><a href="classtask__share_1_1Queue.html">task_share.Queue</a></div><div class="ttdoc">A queue which is used to transfer data from one task to another.</div><div class="ttdef"><b>Definition:</b> task_share.py:53</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>task_share</b></li><li class="navelem"><a class="el" href="classtask__share_1_1Share.html">Share</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 12:07:59 for ME405 Library by
+    <li class="footer">Generated on Wed Dec 15 2021 12:28:00 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

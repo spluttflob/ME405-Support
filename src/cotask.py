@@ -53,7 +53,6 @@ class Task:
                   period = None, profile = False, trace = False):
         """
         Initialize a task object so it may be run by the scheduler.
-        
         This method initializes a task object, saving copies of constructor
         parameters and preparing an empty dictionary for states.
         
@@ -119,7 +118,6 @@ class Task:
     def schedule (self) -> bool:
         """
         This method is called by the scheduler; it attempts to run this task.
-
         If the task is not yet ready to run, this method returns @c False
         immediately; if this task is ready to run, it runs the task's generator
         up to the next @c yield() and then returns @c True.
@@ -177,7 +175,6 @@ class Task:
     def ready (self) -> bool:
         """
         This method checks if the task is ready to run.
-        
         If the task runs on a timer, this method checks what time it is; if not,
         this method checks the flag which indicates that the task is ready to
         go. This method may be overridden in descendent classes to implement
@@ -205,7 +202,6 @@ class Task:
     def reset_profile (self):
         """
         This method resets the variables used for execution time profiling.
-
         This method is also used by @c __init__() to create the variables.
         """
         self._runs = 0
@@ -218,7 +214,6 @@ class Task:
     def get_trace (self):
         """
         This method returns a string containing the task's transition trace.
-        
         The trace is a set of tuples, each of which contains a time and the
         states from and to which the system transitioned. 
         @return A possibly quite large string showing state transitions
@@ -250,7 +245,6 @@ class Task:
     def __repr__ (self):
         """
         This method converts the task to a string for diagnostic use.
-
         It shows information about the task, including execution time
         profiling results if profiling has been done.
         """
@@ -274,25 +268,25 @@ class Task:
 
 # =============================================================================
 
+## A list of tasks used internally by the task scheduler.
+#  This class holds the list of tasks which will be run by the task scheduler.
+#  The task list is usually not directly used by the programmer except when
+#  tasks are added to it and the scheduler is called. An example showing the
+#  use of the task list is given in the last few lines of the documentation
+#  for class @c Task. 
+# 
+#  The task list is sorted by priority so that the scheduler can efficiently
+#  look through the list to find the highest priority task which is ready to
+#  run at any given time. Tasks can also be scheduled in a simpler
+#  "round-robin" fashion.
+#
 class TaskList:
-    """
-    This class holds the list of tasks which will be run by the task scheduler.
-    
-    The task list is usually not directly used by the programmer except when
-    tasks are added to it and the scheduler is called. An example showing the
-    use of the task list is given in the last few lines of the documentation
-    for class @c Task. 
-
-    The task list is sorted by priority so that the scheduler can efficiently
-    look through the list to find the highest priority task which is ready to
-    run at any given time. Tasks can also be scheduled in a simpler
-    "round-robin" fashion. 
-"""
 
     def __init__ (self):
-        """ Initialize the task list. This creates the list of priorities in
-        which tasks will be organized by priority. """
-
+        """
+        Initialize the task list. This creates the list of priorities in
+        which tasks will be organized by priority.
+        """
         ## The list of priority lists. Each priority for which at least one 
         #  task has been created has a list whose first element is a task 
         #  priority and whose other elements are references to task objects at
@@ -301,11 +295,12 @@ class TaskList:
 
 
     def append (self, task):
-        """ Append a task to the task list. The list will be sorted by task 
+        """
+        Append a task to the task list. The list will be sorted by task 
         priorities so that the scheduler can quickly find the highest priority
         task which is ready to run at any given time. 
-        @param task The task to be appended to the list """
-
+        @param task The task to be appended to the list
+        """
         # See if there's a tasklist with the given priority in the main list
         new_pri = task.priority
         for pri in self.pri_list:
@@ -328,14 +323,16 @@ class TaskList:
 
     @micropython.native
     def rr_sched (self):
-        """ This scheduling method runs tasks in a round-robin fashion. Each
+        """
+        Run tasks in order, ignoring the tasks' priorities.
+        This scheduling method runs tasks in a round-robin fashion. Each
         time it is called, it goes through the list of tasks and gives each of
-        them a chance to run. This scheduler runs the highest priority tasks 
-        first, but that's not important to a round-robin scheduler, as they 
-        are all given a chance to run each time through the list, and it takes
+        them a chance to run. Although this scheduler first runs higher priority
+        tasks first, that has no significant effect in the long run, as all the
+        tasks are given a chance to run each time through the list, and it takes
         about the same amount of time before each is given a chance to run 
-        again. """
-
+        again.
+        """
         # For each priority level, run all tasks at that level
         for pri in self.pri_list:
             for task in pri[2:]:
@@ -344,10 +341,12 @@ class TaskList:
 
     @micropython.native
     def pri_sched (self):
-        """ This scheduler runs tasks in a priority based fashion. Each time 
-        it is called, it finds the next task which is ready to run and calls 
-        that task's @c run() method. """
-
+        """
+        Run tasks according to their priorities.
+        This scheduler runs tasks in a priority based fashion. Each time it is
+        called, it finds the highest priority task which is ready to run and
+        calls that task's @c run() method.
+        """
         # Go down the list of priorities, beginning with the highest
         for pri in self.pri_list:
             # Within each priority list, run tasks in round-robin order
