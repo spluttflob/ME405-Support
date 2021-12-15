@@ -115,8 +115,8 @@ Preparing Nucleo-64s for ME405</h2>
 <h1><a class="anchor" id="ss_modules"></a>
 Components</h1>
 <ul>
-<li>The basic functionality of cooperatively (mostly) multitasking real-time software is provided in <code>cotask.py</code>.</li>
-<li>Communication of information between tasks, including thread-safe transfer of data between interrupt service routines and cooperatively scheduled "regular" tasks, is supported by code in <code>task_share.py</code>.</li>
+<li>The basic functionality of cooperatively (mostly) multitasking real-time software is provided in <code><a class="el" href="cotask_8py.html">cotask.py</a></code>.</li>
+<li>Communication of information between tasks, including thread-safe transfer of data between interrupt service routines and cooperatively scheduled "regular" tasks, is supported by code in <code><a class="el" href="task__share_8py.html">task_share.py</a></code>.</li>
 <li>A number of device drivers are provided, while others are left as an exercise for the student.</li>
 </ul>
 <h1><a class="anchor" id="sqref"></a>
@@ -124,7 +124,7 @@ Quick Reference</h1>
 <p>This section contains some quick hints about how to use various functions of the Nucleo<sup>TM</sup> boards with MicroPython as they are set up for ME405.</p>
 <h2><a class="anchor" id="sstiming"></a>
 Timing</h2>
-<p>MicroPython has two time related libraries, <code>time</code> and <code>utime</code>, which provide the same functionality. The use of <code>utime</code> is recommended to avoid confusion with the standard Python library called <code>time</code>, which has different functionality. Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/utime.html">https://docs.micropython.org/en/latest/pyboard/library/utime.html</a> </p><div class="fragment"><div class="line">import utime</div>
+<p>MicroPython has two time related libraries, <code>time</code> and <code>utime</code>, which provide the same functionality. The use of <code>utime</code> is recommended to avoid confusion with the standard Python library called <code>time</code>, which has different functionality. Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/utime.html">https://docs.micropython.org/en/latest/pyboard/library/utime.html</a> </p><div class="fragment"><div class="line"><span class="keyword">import</span> utime</div>
 <div class="line">utime.sleep (0.5)       <span class="comment"># Sleep for 0.5 sec, blocking tasks (bad)</span></div>
 <div class="line">utime.sleep_us (10)     <span class="comment"># Sleep for only 10 us, which is usually OK</span></div>
 <div class="line"> </div>
@@ -211,7 +211,7 @@ Flash Memory Problems</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Dec 6 2021 23:12:55 for ME405 Library by
+    <li class="footer">Generated on Wed Dec 15 2021 10:10:20 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

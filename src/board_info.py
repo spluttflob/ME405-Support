@@ -76,7 +76,7 @@
 #      The following procedure is used to flash MicroPython onto the Nucleo:
 #
 #      * Obtain an up-to-date copy of the compiled MicroPython binary file
-#        such as <a href=http://wind.calpoly.edu/ME405/firmware.bin>firmware.bin</a>
+#        from this repository's main folder.
 #      * Unplug the Nucleo from USB
 #      * Move the jumper near the reset switch on the Nucleo from E5V to U5V 
 #      * Plug in the Nucleo's (not the shoe's) USB connector to the PC
