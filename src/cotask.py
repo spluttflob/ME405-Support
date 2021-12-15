@@ -15,54 +15,63 @@ import utime                           # Micropython version of time library
 import micropython                     # This shuts up incorrect warnings
 
 
+## Implements multitasking with scheduling and some performance logging.
+#  
+#  This class implements behavior common to tasks in a cooperative 
+#  multitasking system which runs in MicroPython. The ability to be scheduled
+#  on the basis of time or an external software trigger or interrupt is 
+#  implemented, state transitions can be recorded, and run times can be
+#  profiled. The user's task code must be implemented in a generator which
+#  yields the state (and the CPU) after it has run for a short and bounded 
+#  period of time. 
+#
+#  Example:
+#    @code
+#        def task1_fun ():
+#            ''' This function just switches states repeatedly for no reason '''
+#            state = 0
+#            while True:
+#                if state == 0:
+#                    state = 1
+#                elif state == 1:
+#                    state = 0
+#                yield (state)
+#
+#        # In main routine, create this task and set it to run twice per second
+#        task1 = cotask.Task (task1_fun, name = 'Task 1', priority = 1, 
+#                             period = 500, profile = True, trace = True)
+#
+#        # Add the task to the list (so it will be run) and run scheduler
+#        cotask.task_list.append (task1)
+#        while True: 
+#            cotask.task_list.pri_sched ()
+#    @endcode
+#
 class Task:
-    """ This class implements behavior common to tasks in a cooperative 
-    multitasking system which runs in MicroPython. The ability to be scheduled
-    on the basis of time or an external software trigger or interrupt is 
-    implemented, state transitions can be recorded, and run times can be
-    profiled. The user's task code must be implemented in a generator which
-    yields the state (and the CPU) after it has run for a short and bounded 
-    period of time. 
 
-    Example:
-    \code
-    def task1_fun ():
-        ''' Simple and silly task which just toggles its state '''
-        state = 0
-        while True:
-            if state == 0:
-                state = 1
-            elif state == 1:
-                state = 0
-            yield (state)
-
-    # In main routine. This task runs twice per second
-    task1 = cotask.Task (task1_fun, name = 'Task 1', priority = 1, 
-                         period = 500, profile = True, trace = True)
-    cotask.task_list.append (task1)
-    while True: 
-        cotask.task_list.pri_sched ()
-    \endcode """
-
-
-    def __init__ (self, run_fun, name = 'NoName', priority = 0, 
+    def __init__ (self, run_fun, name = "NoName", priority = 0, 
                   period = None, profile = False, trace = False):
-        """ Initializes a task object, saving copies of constructor parameters
-        and preparing an empty dictionary for states. 
-        @param run_fun The function which implements the task's code. It must
-            be a generator which yields the current state
-        @param name The name of the task, by default 'NoName.' This should
-            @b really be overridden with a more descriptive name by the user
-        @param priority The priority of the task, a positive integer with
-            higher numbers meaning higher priority (default 0)
-        @param period The time in milliseconds between runs of the task if 
-            it's run by a timer or @c None if the task is not run by a timer.
-            The time can be given in a @c float or @c int; it will be 
-            converted to microseconds for internal use by the scheduler
-        @param profile Set to @c True to enable run-time profiling 
-        @param trace Set to @c True to generate a list of transitions between
-            states. @b Note: This slows things down and allocates memory. """
-
+        """
+        Initialize a task object so it may be run by the scheduler.
+        
+        This method initializes a task object, saving copies of constructor
+        parameters and preparing an empty dictionary for states.
+        
+        Args:
+            run_fun: The function which implements the task's code. It must
+                     be a generator which yields the current state.
+            name: The name of the task, by default @c NoName. This should
+                  be overridden with a more descriptive name by the programmer.
+            priority: The priority of the task, a positive integer with
+                      higher numbers meaning higher priority (default 0)
+            period: The time in milliseconds between runs of the task if it's
+                    run by a timer or @c None if the task is not run by a timer.
+                    The time can be given in a @c float or @c int; it will be 
+                    converted to microseconds for internal use by the scheduler.
+            profile: Set to @c True to enable run-time profiling 
+            trace: Set to @c True to generate a list of transitions between
+                   states. @b Note: This slows things down and allocates memory.
+        """
         # The function which is run to implement this task's code. Since it 
         # is a generator, we "run" it here, which doesn't actually run it but
         # gets it going as a generator which is ready to yield values
@@ -108,13 +117,15 @@ class Task:
 
 
     def schedule (self) -> bool:
-        """ This method is called by the scheduler; it attempts to run this 
-        task. If the task is not yet ready to run, this method returns 
-        @c False immediately; if this task is ready to run, it runs the 
-        task's generator up to the next @c yield() and then returns @c True.
+        """
+        This method is called by the scheduler; it attempts to run this task.
+
+        If the task is not yet ready to run, this method returns @c False
+        immediately; if this task is ready to run, it runs the task's generator
+        up to the next @c yield() and then returns @c True.
+
         @return @c True if the task ran or @c False if it did not
         """
-
         if self.ready ():
 
             # Reset the go flag for the next run
@@ -164,12 +175,14 @@ class Task:
 
     @micropython.native
     def ready (self) -> bool:
-        """ This method checks if the task is ready to run. If the task
-        runs on a timer, this method checks what time it is; if not, this 
-        method checks the flag which indicates that the task is ready to go. 
-        This method may be overridden in descendent classes to implement some 
-        other behavior. """
-
+        """
+        This method checks if the task is ready to run.
+        
+        If the task runs on a timer, this method checks what time it is; if not,
+        this method checks the flag which indicates that the task is ready to
+        go. This method may be overridden in descendent classes to implement
+        some other behavior.
+        """
         # If this task uses a timer, check if it's time to run run() again. If
         # so, set go flag and set the timer to go off at the next run time
         if self.period != None:
@@ -190,10 +203,11 @@ class Task:
 
 
     def reset_profile (self):
-        """ This method resets the variables used for execution time 
-        profiling. It's also used by @c __init__() to create the variables.
         """
+        This method resets the variables used for execution time profiling.
 
+        This method is also used by @c __init__() to create the variables.
+        """
         self._runs = 0
         self._run_sum = 0
         self._slowest = 0
@@ -202,11 +216,13 @@ class Task:
 
 
     def get_trace (self):
-        """ This method returns a string containing the task's transition 
-        trace. The trace is a set of tuples, each of which contains a time 
-        and the states from and to which the system transitioned. 
-        @return A possibly quite large string showing state transitions """
-
+        """
+        This method returns a string containing the task's transition trace.
+        
+        The trace is a set of tuples, each of which contains a time and the
+        states from and to which the system transitioned. 
+        @return A possibly quite large string showing state transitions
+        """
         tr_str = 'Task ' + self.name + ':'
         if self._trace:
             tr_str += '\n'
@@ -223,19 +239,21 @@ class Task:
 
 
     def go (self):
-        """ Method to set a flag so that this task indicates that it's 
-        ready to run. This method may be called from an interrupt service 
-        routine or from another task which has data that this task needs to 
-        process soon. """
-
+        """
+        Method to set a flag so that this task indicates that it's ready to run.
+        This method may be called from an interrupt service routine or from
+        another task which has data that this task needs to process soon.
+        """
         self.go_flag = True
 
 
     def __repr__ (self):
-        """ This method converts the task to a string for diagnostic use.
-        It shows information about the task, including execution time
-        profiling results if profiling has been done. """
+        """
+        This method converts the task to a string for diagnostic use.
 
+        It shows information about the task, including execution time
+        profiling results if profiling has been done.
+        """
         rst = '{:<16s}{: 4d}'.format (self.name, self.priority)
         try:
             rst += '{: 10.1f}'.format (self.period / 1000.0)
@@ -257,14 +275,19 @@ class Task:
 # =============================================================================
 
 class TaskList:
-    """ This class holds the list of tasks which will be run by the task 
-    scheduler. The task list is sorted by priority so that the scheduler can 
-    efficiently look through the list to find the highest priority task which
-    is ready to run at any given time. Tasks can also be scheduled in a 
-    simpler "round-robin" fashion. 
+    """
+    This class holds the list of tasks which will be run by the task scheduler.
+    
+    The task list is usually not directly used by the programmer except when
+    tasks are added to it and the scheduler is called. An example showing the
+    use of the task list is given in the last few lines of the documentation
+    for class @c Task. 
 
-    An example showing the use of the task list is given in the documentation
-    for class @c Task. """
+    The task list is sorted by priority so that the scheduler can efficiently
+    look through the list to find the highest priority task which is ready to
+    run at any given time. Tasks can also be scheduled in a simpler
+    "round-robin" fashion. 
+"""
 
     def __init__ (self):
         """ Initialize the task list. This creates the list of priorities in
@@ -343,9 +366,9 @@ class TaskList:
 
 
     def __repr__ (self):
-        """ Create some diagnostic text showing the tasks in the task list.
         """
-
+        Create some diagnostic text showing the tasks in the task list.
+        """
         ret_str = 'TASK             PRI    PERIOD    RUNS   AVG DUR   MAX ' \
             'DUR  AVG LATE  MAX LATE\n'
         for pri in self.pri_list:

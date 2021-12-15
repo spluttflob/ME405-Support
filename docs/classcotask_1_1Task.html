@@ -104,14 +104,14 @@ $(document).ready(function(){initNavTree('classcotask_1_1Task.html',''); initRes
 </div><!--header-->
 <div class="contents">
 
-<p>This class implements behavior common to tasks in a cooperative multitasking system which runs in MicroPython.  
+<p>Implements multitasking with scheduling and some performance logging.  
  <a href="classcotask_1_1Task.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a20a30d252e750706e77553a6244ae457"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#a20a30d252e750706e77553a6244ae457">__init__</a> (self, run_fun, <a class="el" href="classcotask_1_1Task.html#ab54e069dd0b4f0a2f8e7f00c94998a10">name</a>='NoName', <a class="el" href="classcotask_1_1Task.html#aeced93c7b7d23e33de9693d278aef88b">priority</a>=0, <a class="el" href="classcotask_1_1Task.html#a44f980f61f1908764c6821fa886590ca">period</a>=None, profile=False, trace=False)</td></tr>
-<tr class="memdesc:a20a30d252e750706e77553a6244ae457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a task object, saving copies of constructor parameters and preparing an empty dictionary for states.  <a href="classcotask_1_1Task.html#a20a30d252e750706e77553a6244ae457">More...</a><br /></td></tr>
-<tr class="separator:a20a30d252e750706e77553a6244ae457"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912aa5a1bed736fa76e110ab0448e97b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#a912aa5a1bed736fa76e110ab0448e97b">__init__</a> (self, run_fun, <a class="el" href="classcotask_1_1Task.html#ab54e069dd0b4f0a2f8e7f00c94998a10">name</a>=&quot;NoName&quot;, priority=0, <a class="el" href="classcotask_1_1Task.html#a44f980f61f1908764c6821fa886590ca">period</a>=None, profile=False, trace=False)</td></tr>
+<tr class="memdesc:a912aa5a1bed736fa76e110ab0448e97b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a task object so it may be run by the scheduler.  <a href="classcotask_1_1Task.html#a912aa5a1bed736fa76e110ab0448e97b">More...</a><br /></td></tr>
+<tr class="separator:a912aa5a1bed736fa76e110ab0448e97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af60def0ed4a1bc5fec32f3cf8b8a90c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#af60def0ed4a1bc5fec32f3cf8b8a90c8">schedule</a> (self)</td></tr>
 <tr class="memdesc:af60def0ed4a1bc5fec32f3cf8b8a90c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is called by the scheduler; it attempts to run this task.  <a href="classcotask_1_1Task.html#af60def0ed4a1bc5fec32f3cf8b8a90c8">More...</a><br /></td></tr>
 <tr class="separator:af60def0ed4a1bc5fec32f3cf8b8a90c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,23 +150,29 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a96733bb9f4349a3f284083d1d4e64f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class implements behavior common to tasks in a cooperative multitasking system which runs in MicroPython. </p>
-<p>The ability to be scheduled on the basis of time or an external software trigger or interrupt is implemented, state transitions can be recorded, and run times can be profiled. The user's task code must be implemented in a generator which yields the state (and the CPU) after it has run for a short and bounded period of time.</p>
-<p><b>Examples</b> </p><div class="fragment"></div><!-- fragment --> <div class="fragment"><div class="line">   <span class="keyword">def </span>task1_fun ():</div>
-<div class="line">       <span class="stringliteral">&#39;&#39;&#39; Simple and silly task which just toggles its state &#39;&#39;&#39;</span></div>
-<div class="line">@code</div>
-<div class="line">       state = 0</div>
-</div><!-- fragment --><p> while True: if state == 0: </p><div class="fragment"><div class="line">state = 1</div>
-</div><!-- fragment --><p> elif state == 1: </p><div class="fragment"><div class="line">state = 0</div>
-</div><!-- fragment --><p> yield (state)</p>
-<div class="fragment"><div class="line"><span class="comment"># In main routine. This task runs twice per second</span></div>
+<div class="textblock"><p>Implements multitasking with scheduling and some performance logging. </p>
+<p>This class implements behavior common to tasks in a cooperative multitasking system which runs in MicroPython. The ability to be scheduled on the basis of time or an external software trigger or interrupt is implemented, state transitions can be recorded, and run times can be profiled. The user's task code must be implemented in a generator which yields the state (and the CPU) after it has run for a short and bounded period of time.</p>
+<p>Example: </p><div class="fragment"><div class="line"><span class="keyword">def </span>task1_fun ():</div>
+<div class="line">    <span class="stringliteral">&#39;&#39;&#39; This function just switches states repeatedly for no reason &#39;&#39;&#39;</span></div>
+<div class="line">    state = 0</div>
+<div class="line">    <span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
+<div class="line">        <span class="keywordflow">if</span> state == 0:</div>
+<div class="line">            state = 1</div>
+<div class="line">        <span class="keywordflow">elif</span> state == 1:</div>
+<div class="line">            state = 0</div>
+<div class="line">        <span class="keywordflow">yield</span> (state)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># In main routine, create this task and set it to run twice per second</span></div>
 <div class="line">task1 = <a class="code" href="classcotask_1_1Task.html">cotask.Task</a> (task1_fun, name = <span class="stringliteral">&#39;Task 1&#39;</span>, priority = 1,</div>
 <div class="line">                     period = 500, profile = <span class="keyword">True</span>, trace = <span class="keyword">True</span>)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Add the task to the list (so it will be run) and run scheduler</span></div>
 <div class="line">cotask.task_list.append (task1)</div>
-</div><!-- fragment --><p> while True: cotask.task_list.pri_sched ()  </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a20a30d252e750706e77553a6244ae457"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20a30d252e750706e77553a6244ae457">&#9670;&nbsp;</a></span>__init__()</h2>
+<div class="line"><span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
+<div class="line">    cotask.task_list.pri_sched ()</div>
+</div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a912aa5a1bed736fa76e110ab0448e97b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912aa5a1bed736fa76e110ab0448e97b">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +193,7 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>name</em> = <code>'NoName'</code>, </td>
+          <td class="paramname"><em>name</em> = <code>&quot;NoName&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -221,13 +227,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a task object, saving copies of constructor parameters and preparing an empty dictionary for states. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Initialize a task object so it may be run by the scheduler. </p>
+<pre class="fragment">   This method initializes a task object, saving copies of constructor
+   parameters and preparing an empty dictionary for states.
+</pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">run_fun</td><td>The function which implements the task's code. It must be a generator which yields the current state </td></tr>
-    <tr><td class="paramname">name</td><td>The name of the task, by default 'NoName.' This should <b>really</b> be overridden with a more descriptive name by the user </td></tr>
+    <tr><td class="paramname">run_fun</td><td>The function which implements the task's code. It must be a generator which yields the current state. </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the task, by default <code>NoName</code>. This should be overridden with a more descriptive name by the programmer. </td></tr>
     <tr><td class="paramname">priority</td><td>The priority of the task, a positive integer with higher numbers meaning higher priority (default 0) </td></tr>
-    <tr><td class="paramname">period</td><td>The time in milliseconds between runs of the task if it's run by a timer or <code>None</code> if the task is not run by a timer. The time can be given in a <code>float</code> or <code>int</code>; it will be converted to microseconds for internal use by the scheduler </td></tr>
+    <tr><td class="paramname">period</td><td>The time in milliseconds between runs of the task if it's run by a timer or <code>None</code> if the task is not run by a timer. The time can be given in a <code>float</code> or <code>int</code>; it will be converted to microseconds for internal use by the scheduler. </td></tr>
     <tr><td class="paramname">profile</td><td>Set to <code>True</code> to enable run-time profiling </td></tr>
     <tr><td class="paramname">trace</td><td>Set to <code>True</code> to generate a list of transitions between states. <b>Note:</b> This slows things down and allocates memory. </td></tr>
   </table>
@@ -254,8 +262,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method converts the task to a string for diagnostic use. </p>
-<p>It shows information about the task, including execution time profiling results if profiling has been done. </p>
-
+<pre class="fragment">   It shows information about the task, including execution time
+   profiling results if profiling has been done.
+</pre> 
 </div>
 </div>
 <a id="a6e51a228f985aec8c752bd72a73730ae"></a>
@@ -275,8 +284,10 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method returns a string containing the task's transition trace. </p>
-<p>The trace is a set of tuples, each of which contains a time and the states from and to which the system transitioned. </p><dl class="section return"><dt>Returns</dt><dd>A possibly quite large string showing state transitions </dd></dl>
-
+<pre class="fragment">   The trace is a set of tuples, each of which contains a time and the
+   states from and to which the system transitioned.
+   @return A possibly quite large string showing state transitions
+</pre> 
 </div>
 </div>
 <a id="a78e74d18a5ba94074c2b5309394409a5"></a>
@@ -317,8 +328,11 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method checks if the task is ready to run. </p>
-<p>If the task runs on a timer, this method checks what time it is; if not, this method checks the flag which indicates that the task is ready to go. This method may be overridden in descendent classes to implement some other behavior. </p>
-
+<pre class="fragment">   If the task runs on a timer, this method checks what time it is; if not,
+   this method checks the flag which indicates that the task is ready to
+   go. This method may be overridden in descendent classes to implement
+   some other behavior.
+</pre> 
 </div>
 </div>
 <a id="a1bcbfa7dd7086112af20b7247ffa4a2e"></a>
@@ -338,8 +352,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method resets the variables used for execution time profiling. </p>
-<p>It's also used by <code><b>init</b></code>() to create the variables. </p>
-
+<pre class="fragment">   This method is also used by @c __init__() to create the variables.
+</pre> 
 </div>
 </div>
 <a id="af60def0ed4a1bc5fec32f3cf8b8a90c8"></a>
@@ -359,8 +373,12 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method is called by the scheduler; it attempts to run this task. </p>
-<p>If the task is not yet ready to run, this method returns <code>False</code> immediately; if this task is ready to run, it runs the task's generator up to the next <code>yield()</code> and then returns <code>True</code>. </p><dl class="section return"><dt>Returns</dt><dd><code>True</code> if the task ran or <code>False</code> if it did not </dd></dl>
+<pre class="fragment">   If the task is not yet ready to run, this method returns @c False
+   immediately; if this task is ready to run, it runs the task's generator
+   up to the next @c yield() and then returns @c True.
 
+   @return @c True if the task ran or @c False if it did not
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -386,12 +404,12 @@ Public Attributes</h2></td></tr>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclasscotask_1_1Task_html"><div class="ttname"><a href="classcotask_1_1Task.html">cotask.Task</a></div><div class="ttdoc">This class implements behavior common to tasks in a cooperative multitasking system which runs in Mic...</div><div class="ttdef"><b>Definition:</b> cotask.py:55</div></div>
+<div class="ttc" id="aclasscotask_1_1Task_html"><div class="ttname"><a href="classcotask_1_1Task.html">cotask.Task</a></div><div class="ttdoc">Implements multitasking with scheduling and some performance logging.</div><div class="ttdef"><b>Definition:</b> cotask.py:50</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>cotask</b></li><li class="navelem"><a class="el" href="classcotask_1_1Task.html">Task</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 10:10:20 for ME405 Library by
+    <li class="footer">Generated on Wed Dec 15 2021 12:07:59 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -104,13 +104,13 @@ $(document).ready(function(){initNavTree('classtask__share_1_1Queue.html',''); i
 </div><!--header-->
 <div class="contents">
 
-<p>This class implements a queue which is used to transfer data from one task to another.  
+<p>A queue which is used to transfer data from one task to another.  
  <a href="classtask__share_1_1Queue.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a91ce05bf47c2634013fdb2689c2b207f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html#a91ce05bf47c2634013fdb2689c2b207f">__init__</a> (self, type_code, size, thread_protect=True, overwrite=False, name=None)</td></tr>
-<tr class="memdesc:a91ce05bf47c2634013fdb2689c2b207f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a queue by allocating memory for the contents and setting up the components in an empty configuration.  <a href="classtask__share_1_1Queue.html#a91ce05bf47c2634013fdb2689c2b207f">More...</a><br /></td></tr>
+<tr class="memdesc:a91ce05bf47c2634013fdb2689c2b207f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a queue object to carry and buffer data between tasks.  <a href="classtask__share_1_1Queue.html#a91ce05bf47c2634013fdb2689c2b207f">More...</a><br /></td></tr>
 <tr class="separator:a91ce05bf47c2634013fdb2689c2b207f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae785bdf9d397d61729c22656471a81df"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html#ae785bdf9d397d61729c22656471a81df">put</a> (self, item, in_ISR=False)</td></tr>
 <tr class="memdesc:ae785bdf9d397d61729c22656471a81df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put an item into the queue.  <a href="classtask__share_1_1Queue.html#ae785bdf9d397d61729c22656471a81df">More...</a><br /></td></tr>
@@ -119,16 +119,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af2aef1dd3eed21c4b6c2e601cb8497d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an item from the queue.  <a href="classtask__share_1_1Queue.html#af2aef1dd3eed21c4b6c2e601cb8497d4">More...</a><br /></td></tr>
 <tr class="separator:af2aef1dd3eed21c4b6c2e601cb8497d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cb2d23978b90a232cf9cea4cc0ccb6b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html#a7cb2d23978b90a232cf9cea4cc0ccb6b">any</a> (self)</td></tr>
-<tr class="memdesc:a7cb2d23978b90a232cf9cea4cc0ccb6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>True</code> if there are any items in the queue and <code>False</code> if the queue is empty.  <a href="classtask__share_1_1Queue.html#a7cb2d23978b90a232cf9cea4cc0ccb6b">More...</a><br /></td></tr>
+<tr class="memdesc:a7cb2d23978b90a232cf9cea4cc0ccb6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if there are any items in the queue.  <a href="classtask__share_1_1Queue.html#a7cb2d23978b90a232cf9cea4cc0ccb6b">More...</a><br /></td></tr>
 <tr class="separator:a7cb2d23978b90a232cf9cea4cc0ccb6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9ada059fc09a44adc9084901e2f7266"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html#af9ada059fc09a44adc9084901e2f7266">empty</a> (self)</td></tr>
-<tr class="memdesc:af9ada059fc09a44adc9084901e2f7266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>True</code> if there are no items in the queue and <code>False</code> if there are any items therein.  <a href="classtask__share_1_1Queue.html#af9ada059fc09a44adc9084901e2f7266">More...</a><br /></td></tr>
+<tr class="memdesc:af9ada059fc09a44adc9084901e2f7266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the queue is empty.  <a href="classtask__share_1_1Queue.html#af9ada059fc09a44adc9084901e2f7266">More...</a><br /></td></tr>
 <tr class="separator:af9ada059fc09a44adc9084901e2f7266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0482d70ce6405fd8d85628b5cf95d471"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html#a0482d70ce6405fd8d85628b5cf95d471">full</a> (self)</td></tr>
-<tr class="memdesc:a0482d70ce6405fd8d85628b5cf95d471"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns <code>True</code> if the queue is already full and there is no room for more data without overwriting existing data.  <a href="classtask__share_1_1Queue.html#a0482d70ce6405fd8d85628b5cf95d471">More...</a><br /></td></tr>
+<tr class="memdesc:a0482d70ce6405fd8d85628b5cf95d471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the queue is full.  <a href="classtask__share_1_1Queue.html#a0482d70ce6405fd8d85628b5cf95d471">More...</a><br /></td></tr>
 <tr class="separator:a0482d70ce6405fd8d85628b5cf95d471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a713321bacac5d93ecf89c4be1c15fe30"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html#a713321bacac5d93ecf89c4be1c15fe30">num_in</a> (self)</td></tr>
-<tr class="memdesc:a713321bacac5d93ecf89c4be1c15fe30"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns the number of items which are currently in the queue.  <a href="classtask__share_1_1Queue.html#a713321bacac5d93ecf89c4be1c15fe30">More...</a><br /></td></tr>
+<tr class="memdesc:a713321bacac5d93ecf89c4be1c15fe30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check how many items are in the queue.  <a href="classtask__share_1_1Queue.html#a713321bacac5d93ecf89c4be1c15fe30">More...</a><br /></td></tr>
 <tr class="separator:a713321bacac5d93ecf89c4be1c15fe30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94d0801557844c8f7dcb772ca768a1a4"><td class="memItemLeft" align="right" valign="top"><a id="a94d0801557844c8f7dcb772ca768a1a4"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html#a94d0801557844c8f7dcb772ca768a1a4">__repr__</a> (self)</td></tr>
@@ -143,9 +143,20 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="separator:a6f9d87b116eb16dba0867d3746af9f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class implements a queue which is used to transfer data from one task to another. </p>
-<p>If parameter 'thread_protect' is <code>True</code>, the transfer will be protected from corruption in the case that one thread might interrupt another due to threading or due to one thread being run as an interrupt service routine. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"><p>A queue which is used to transfer data from one task to another. </p>
+<p>If parameter 'thread_protect' is <code>True</code> when a queue is created, transfers of data will be protected from corruption in the case that one task might interrupt another due to use in a pre-emptive multithreading environment or due to one task being run as an interrupt service routine.</p>
+<p>An example of the creation and use of a queue is as follows:</p>
+<div class="fragment"><div class="line"><span class="keyword">import</span> task_share</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># This queue holds unsigned short (16-bit) integers</span></div>
+<div class="line">my_queue = <a class="code" href="classtask__share_1_1Queue.html">task_share.Queue</a> (<span class="stringliteral">&#39;H&#39;</span>, 100, name=<span class="stringliteral">&quot;My Queue&quot;</span>)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Somewhere in one task, put data into the queue</span></div>
+<div class="line">my_queue.put (some_data)</div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># In another task, read data from the queue</span></div>
+<div class="line">something = my_queue.get ()</div>
+</div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a91ce05bf47c2634013fdb2689c2b207f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a91ce05bf47c2634013fdb2689c2b207f">&#9670;&nbsp;</a></span>__init__()</h2>
 
@@ -196,25 +207,27 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div><div class="memdoc">
 
-<p>Initialize a queue by allocating memory for the contents and setting up the components in an empty configuration. </p>
-<p>The data type code is given as for the Python 'array' type, which can be any of</p><ul>
-<li>b (signed char), B (unsigned char)</li>
-<li>h (signed short), H (unsigned short)</li>
-<li>i (signed int), I (unsigned int)</li>
-<li>l (signed long), L (unsigned long)</li>
-<li>q (signed long long), Q (unsigned long long)</li>
-<li>f (float), or d (double-precision float) <dl class="params"><dt>Parameters</dt><dd>
+<p>Initialize a queue object to carry and buffer data between tasks. </p>
+<p>This method sets up a queue by allocating memory for the contents and setting up the components in an empty configuration.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type_code</td><td>The type of data items which the queue can hold </td></tr>
     <tr><td class="paramname">size</td><td>The maximum number of items which the queue can hold </td></tr>
     <tr><td class="paramname">thread_protect</td><td><code>True</code> if mutual exclusion protection is used </td></tr>
     <tr><td class="paramname">overwrite</td><td>If <code>True</code>, oldest data will be overwritten with new data if the queue becomes full </td></tr>
-    <tr><td class="paramname">name</td><td>A short name for the queue, default <code>QueueN</code> where <code>N</code> is a serial number for the queue </td></tr>
+    <tr><td class="paramname">name</td><td>A short name for the queue, default <code>QueueN</code> where <code>N</code> is a serial number for the queue</td></tr>
   </table>
   </dd>
 </dl>
-</li>
+<dl class="section user"><dt>Data Types</dt><dd>Each queue can only carry data of one particular type which must be chosen from the following list. The data type is specified by a type code which is given as for the Python 'array' type, which can be any of the following:<ul>
+<li>b (signed char), B (unsigned char) - 8 bit integers</li>
+<li>h (signed short), H (unsigned short) - 16 bit integers</li>
+<li>i (signed int), I (unsigned int) - 32 bit integers (probably)</li>
+<li>l (signed long), L (unsigned long) - 32 bit integers</li>
+<li>q (signed long long), Q (unsigned long long) - 64 bit integers</li>
+<li>f (float), or d (double-precision float) </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>
@@ -235,8 +248,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div><div class="memdoc">
 
-<p>Returns <code>True</code> if there are any items in the queue and <code>False</code> if the queue is empty. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>True</code> if items are in the queue, <code>False</code> if not </dd></dl>
+<p>Check if there are any items in the queue. </p>
+<p>Returns <code>True</code> if there are any items in the queue and <code>False</code> if the queue is empty. </p><dl class="section return"><dt>Returns</dt><dd><code>True</code> if items are in the queue, <code>False</code> if not </dd></dl>
 
 </div>
 </div>
@@ -256,8 +269,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div><div class="memdoc">
 
-<p>Returns <code>True</code> if there are no items in the queue and <code>False</code> if there are any items therein. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>True</code> if queue is empty, <code>False</code> if it's not empty </dd></dl>
+<p>Check if the queue is empty. </p>
+<p>Returns <code>True</code> if there are no items in the queue and <code>False</code> if there are any items therein. </p><dl class="section return"><dt>Returns</dt><dd><code>True</code> if queue is empty, <code>False</code> if it's not empty </dd></dl>
 
 </div>
 </div>
@@ -277,8 +290,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div><div class="memdoc">
 
-<p>This method returns <code>True</code> if the queue is already full and there is no room for more data without overwriting existing data. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>True</code> if the queue is full </dd></dl>
+<p>Check if the queue is full. </p>
+<p>This method returns <code>True</code> if the queue is already full and there is no room for more data without overwriting existing data. </p><dl class="section return"><dt>Returns</dt><dd><code>True</code> if the queue is full </dd></dl>
 
 </div>
 </div>
@@ -309,7 +322,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </div><div class="memdoc">
 
 <p>Read an item from the queue. </p>
-<p>If there isn't anything in there, wait (blocking the calling process) until something becomes available. If non-blocking reads are needed, one should call <code><a class="el" href="classtask__share_1_1Queue.html#a7cb2d23978b90a232cf9cea4cc0ccb6b" title="Returns True if there are any items in the queue and False if the queue is empty.">any()</a></code> to check for items before attempting to read any items. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>If there isn't anything in there, wait (blocking the calling process) until something becomes available. If non-blocking reads are needed, one should call <code><a class="el" href="classtask__share_1_1Queue.html#a7cb2d23978b90a232cf9cea4cc0ccb6b" title="Check if there are any items in the queue.">any()</a></code> to check for items before attempting to read from the queue. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">in_ISR</td><td>Set this to <code>True</code> if calling from within an ISR </td></tr>
   </table>
@@ -334,8 +347,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div><div class="memdoc">
 
-<p>This method returns the number of items which are currently in the queue. </p>
-<dl class="section return"><dt>Returns</dt><dd>The number of items in the queue </dd></dl>
+<p>Check how many items are in the queue. </p>
+<p>This method returns the number of items which are currently in the queue. </p><dl class="section return"><dt>Returns</dt><dd>The number of items in the queue </dd></dl>
 
 </div>
 </div>
@@ -372,7 +385,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </div><div class="memdoc">
 
 <p>Put an item into the queue. </p>
-<p>If there isn't room for the item, wait (blocking the calling process) until room becomes available, unless the <code>overwrite</code> constructor parameter was set to <code>True</code> to allow old data to be clobbered. If non-blocking behavior without overwriting is needed, one should call <code><a class="el" href="classtask__share_1_1Queue.html#a0482d70ce6405fd8d85628b5cf95d471" title="This method returns True if the queue is already full and there is no room for more data without over...">full()</a></code> to ensure that the queue is not full before putting data into it. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>If there isn't room for the item, wait (blocking the calling process) until room becomes available, unless the <code>overwrite</code> constructor parameter was set to <code>True</code> to allow old data to be clobbered. If non-blocking behavior without overwriting is needed, one should call <code><a class="el" href="classtask__share_1_1Queue.html#a0482d70ce6405fd8d85628b5cf95d471" title="Check if the queue is full.">full()</a></code> to ensure that the queue is not full before putting data into it. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">item</td><td>The item to be placed into the queue </td></tr>
     <tr><td class="paramname">in_ISR</td><td>Set this to <code>True</code> if calling from within an ISR </td></tr>
@@ -387,11 +400,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclasstask__share_1_1Queue_html"><div class="ttname"><a href="classtask__share_1_1Queue.html">task_share.Queue</a></div><div class="ttdoc">A queue which is used to transfer data from one task to another.</div><div class="ttdef"><b>Definition:</b> task_share.py:53</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>task_share</b></li><li class="navelem"><a class="el" href="classtask__share_1_1Queue.html">Queue</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 10:10:20 for ME405 Library by
+    <li class="footer">Generated on Wed Dec 15 2021 12:07:59 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

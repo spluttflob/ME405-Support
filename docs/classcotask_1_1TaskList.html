@@ -134,8 +134,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class holds the list of tasks which will be run by the task scheduler. </p>
-<p>The task list is sorted by priority so that the scheduler can efficiently look through the list to find the highest priority task which is ready to run at any given time. Tasks can also be scheduled in a simpler "round-robin" fashion.</p>
-<p>An example showing the use of the task list is given in the documentation for class <code><a class="el" href="classcotask_1_1Task.html" title="This class implements behavior common to tasks in a cooperative multitasking system which runs in Mic...">Task</a></code>. </p>
+<p>The task list is usually not directly used by the programmer except when tasks are added to it and the scheduler is called. An example showing the use of the task list is given in the last few lines of the documentation for class <code><a class="el" href="classcotask_1_1Task.html" title="Implements multitasking with scheduling and some performance logging.">Task</a></code>.</p>
+<p>The task list is sorted by priority so that the scheduler can efficiently look through the list to find the highest priority task which is ready to run at any given time. Tasks can also be scheduled in a simpler "round-robin" fashion. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a288413cdeddf60664542a92ce201200a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a288413cdeddf60664542a92ce201200a">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -264,7 +264,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>cotask</b></li><li class="navelem"><a class="el" href="classcotask_1_1TaskList.html">TaskList</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 10:10:20 for ME405 Library by
+    <li class="footer">Generated on Wed Dec 15 2021 12:07:59 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
