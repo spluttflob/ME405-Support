@@ -120,15 +120,20 @@ Variables</h2></td></tr>
 <tr class="separator:ae54e25f8d14958f642bcc22ddeb6c56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This file contains classes to run cooperatively scheduled tasks in a multitasking system. Tasks are created as descendents of <code>class</code> <code>CoTask</code>, with the user overriding the <code><a class="el" href="print__task_8py.html#abe2a60b9d48d38a4c9ec85bd891aafca" title="Run function for the task which prints stuff.">run()</a></code> method of <code>CoTask</code> and the <code>ready()</code> method if appropriate. References to all the tasks to be run in the system are kept in a list maintained by class <code>CoTaskList</code>; the system scheduler then runs the tasks' <code><a class="el" href="print__task_8py.html#abe2a60b9d48d38a4c9ec85bd891aafca" title="Run function for the task which prints stuff.">run()</a></code> methods according to a chosen scheduling algorithm such as round-robin or highest-priority-first.</p>
-<dl class="section copyright"><dt>Copyright</dt><dd>This program is copyrighted by JR Ridgely and released under the GNU Public License, version 3.0. </dd></dl>
+<div class="textblock"><p>This file contains classes to run cooperatively scheduled tasks in a multitasking system.</p>
+<p>Tasks are created as generators, functions which have infinite loops and call <code>yield</code> at least once in the loop. References to all the tasks to be run in the system are kept in a list maintained by class <code>CoTaskList</code>; the system scheduler then runs the tasks' <code><a class="el" href="print__task_8py.html#abe2a60b9d48d38a4c9ec85bd891aafca">run()</a></code> methods according to a chosen scheduling algorithm such as round-robin or highest-priority-first.</p>
+<dl class="section author"><dt>Author</dt><dd>JR Ridgely </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2017-Jan-01 JRR Approximate date of creation of file </dd>
+<dd>
+2021-Dec-18 JRR Docstrings modified to work without DoxyPyPy </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>This program is copyright (c) 2017-2021 by JR Ridgely and released under the GNU Public License, version 3.0. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="cotask_8py.html">cotask.py</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 12:28:00 for ME405 Library by
+    <li class="footer">Generated on Sat Dec 18 2021 22:30:27 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

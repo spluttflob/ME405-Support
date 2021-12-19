@@ -209,25 +209,32 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 
 <p>Initialize a queue object to carry and buffer data between tasks. </p>
 <p>This method sets up a queue by allocating memory for the contents and setting up the components in an empty configuration.</p>
+<p>Each queue can only carry data of one particular type which must be chosen from the following list. The data type is specified by a one-letter type code which is given as for the Python <code>array.array</code> type, which can be any of the following: </p><table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft"></th><th class="markdownTableHeadLeft"></th><th class="markdownTableHeadLeft"></th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>b</b> (signed char) </td><td class="markdownTableBodyLeft"><b>B</b> (unsigned char) </td><td class="markdownTableBodyLeft">8 bit integers  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><b>h</b> (signed short) </td><td class="markdownTableBodyLeft"><b>H</b> (unsigned short) </td><td class="markdownTableBodyLeft">16 bit integers  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>i</b> (signed int) </td><td class="markdownTableBodyLeft"><b>I</b> (unsigned int) </td><td class="markdownTableBodyLeft">32 bit integers (probably)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><b>l</b> (signed long) </td><td class="markdownTableBodyLeft"><b>L</b> (unsigned long) </td><td class="markdownTableBodyLeft">32 bit integers  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>q</b> (signed long long) </td><td class="markdownTableBodyLeft"><b>Q</b> (unsigned long long) </td><td class="markdownTableBodyLeft">64 bit integers  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><b>f</b> (float) </td><td class="markdownTableBodyLeft"><b>d</b> (double-precision float) </td><td class="markdownTableBodyLeft"></td></tr>
+</table>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type_code</td><td>The type of data items which the queue can hold </td></tr>
     <tr><td class="paramname">size</td><td>The maximum number of items which the queue can hold </td></tr>
     <tr><td class="paramname">thread_protect</td><td><code>True</code> if mutual exclusion protection is used </td></tr>
     <tr><td class="paramname">overwrite</td><td>If <code>True</code>, oldest data will be overwritten with new data if the queue becomes full </td></tr>
-    <tr><td class="paramname">name</td><td>A short name for the queue, default <code>QueueN</code> where <code>N</code> is a serial number for the queue</td></tr>
+    <tr><td class="paramname">name</td><td>A short name for the queue, default <code>QueueN</code> where <code>N</code> is a serial number for the queue </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Data Types</dt><dd>Each queue can only carry data of one particular type which must be chosen from the following list. The data type is specified by a type code which is given as for the Python 'array' type, which can be any of the following:<ul>
-<li>b (signed char), B (unsigned char) - 8 bit integers</li>
-<li>h (signed short), H (unsigned short) - 16 bit integers</li>
-<li>i (signed int), I (unsigned int) - 32 bit integers (probably)</li>
-<li>l (signed long), L (unsigned long) - 32 bit integers</li>
-<li>q (signed long long), Q (unsigned long long) - 64 bit integers</li>
-<li>f (float), or d (double-precision float) </li>
-</ul>
-</dd></dl>
 
 </div>
 </div>
@@ -400,12 +407,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclasstask__share_1_1Queue_html"><div class="ttname"><a href="classtask__share_1_1Queue.html">task_share.Queue</a></div><div class="ttdoc">A queue which is used to transfer data from one task to another.</div><div class="ttdef"><b>Definition:</b> task_share.py:53</div></div>
+<div class="ttc" id="aclasstask__share_1_1Queue_html"><div class="ttname"><a href="classtask__share_1_1Queue.html">task_share.Queue</a></div><div class="ttdoc">A queue which is used to transfer data from one task to another.</div><div class="ttdef"><b>Definition:</b> task_share.py:31</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>task_share</b></li><li class="navelem"><a class="el" href="classtask__share_1_1Queue.html">Queue</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 12:28:00 for ME405 Library by
+    <li class="footer">Generated on Sat Dec 18 2021 22:18:51 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

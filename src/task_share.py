@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-
-#
-## @file task_share.py
-#  This file contains classes which allow tasks to share data without the risk
-#  of data corruption by interrupts. 
-#
-#  @copyright This program is copyright (c) JR Ridgely and released under the
-#  GNU Public License, version 3.0. 
+"""!
+@file task_share.py
+This file contains classes which allow tasks to share data without the risk
+of data corruption by interrupts. 
+
+@author JR Ridgely
+@date   2017-Jan-01 JRR Approximate date of creation of file
+@date   2021-Dec-18 JRR Docstrings changed to work without DoxyPyPy
+@copyright This program is copyright (c) 2017-2021 by JR Ridgely and released
+           under the GNU Public License, version 3.0. 
 
 import array
 import gc
@@ -19,7 +21,7 @@ share_list = []
 
 
 def show_all ():
-    """
+    """!
     Create a string holding a diagnostic printout showing the status of
     each queue and share in the system. 
     @return A string containing information about each queue and share
@@ -28,62 +30,63 @@ def show_all ():
     return '\n'.join (gen)
 
 
-## A queue which is used to transfer data from one task to another.
-#
-#  If parameter 'thread_protect' is @c True when a queue is created, transfers
-#  of data will be protected from corruption in the case that one task might
-#  interrupt another due to use in a pre-emptive multithreading environment or
-#  due to one task being run as an interrupt service routine.
-#
-#  An example of the creation and use of a queue is as follows:
-#
-#  @code
-#  import task_share
-#
-#  # This queue holds unsigned short (16-bit) integers
-#  my_queue = task_share.Queue ('H', 100, name="My Queue")
-#
-#  # Somewhere in one task, put data into the queue
-#  my_queue.put (some_data)
-#
-#  # In another task, read data from the queue
-#  something = my_queue.get ()
-#  @endcode
-#
 class Queue:
+    """!
+    A queue which is used to transfer data from one task to another.
 
+    If parameter 'thread_protect' is @c True when a queue is created, transfers
+    of data will be protected from corruption in the case that one task might
+    interrupt another due to use in a pre-emptive multithreading environment or
+    due to one task being run as an interrupt service routine.
+
+    An example of the creation and use of a queue is as follows:
+
+    @code
+    import task_share
+
+    # This queue holds unsigned short (16-bit) integers
+    my_queue = task_share.Queue ('H', 100, name="My Queue")
+
+    # Somewhere in one task, put data into the queue
+    my_queue.put (some_data)
+
+    # In another task, read data from the queue
+    something = my_queue.get ()
+    @endcode
+    """
     ## A counter used to give serial numbers to queues for diagnostic use.
     ser_num = 0
 
     def __init__ (self, type_code, size, thread_protect = True, 
                   overwrite = False, name = None):
-        """
+        """!
         Initialize a queue object to carry and buffer data between tasks.
+
         This method sets up a queue by allocating memory for the contents and 
         setting up the components in an empty configuration. 
 
-        Args:
-            type_code: The type of data items which the queue can hold
-            size: The maximum number of items which the queue can hold
-            thread_protect: @c True if mutual exclusion protection is used
-            overwrite: If @c True, oldest data will be overwritten with new
-                data if the queue becomes full 
-            name: A short name for the queue, default @c QueueN where @c N
-                is a serial number for the queue
+        Each queue can only carry data of one particular type which must be
+        chosen from the following list. The data type is specified by a 
+        one-letter type code which is given as for the Python @c array.array
+        type, which can be any of the following:
+        |      |      |      |
+        |:-----|:-----|:-----|
+        | **b** (signed char) | **B** (unsigned char) | 8 bit integers |
+        | **h** (signed short) | **H** (unsigned short) | 16 bit integers |
+        | **i** (signed int) | **I** (unsigned int) | 32 bit integers (probably) |
+        | **l** (signed long) | **L** (unsigned long) | 32 bit integers |
+        | **q** (signed long long) | **Q** (unsigned long long) | 64 bit integers |
+        | **f** (float) | **d** (double-precision float) | |
 
-        Data Types:
-            Each queue can only carry data of one particular type which must be
-            chosen from the following list. The data type is specified by a
-            type code which is given as for the Python 'array' type, which can
-            be any of the following:
-            * b (signed char), B (unsigned char) - 8 bit integers
-            * h (signed short), H (unsigned short) - 16 bit integers
-            * i (signed int), I (unsigned int) - 32 bit integers (probably)
-            * l (signed long), L (unsigned long) - 32 bit integers
-            * q (signed long long), Q (unsigned long long) - 64 bit integers
-            * f (float), or d (double-precision float)
+        @param type_code The type of data items which the queue can hold
+        @param size The maximum number of items which the queue can hold
+        @param thread_protect @c True if mutual exclusion protection is used
+        @param overwrite If @c True, oldest data will be overwritten with new
+               data if the queue becomes full 
+        @param name A short name for the queue, default @c QueueN where @c N
+               is a serial number for the queue
+
         """
-
         self._size = size
         self._thread_protect = thread_protect
         self._overwrite = overwrite
@@ -117,8 +120,9 @@ class Queue:
 
     @micropython.native
     def put (self, item, in_ISR = False):
-        """
+        """!
         Put an item into the queue.
+
         If there isn't room for the item, wait (blocking the calling process)
         until room becomes available, unless the @c overwrite constructor
         parameter was set to @c True to allow old data to be clobbered. If
@@ -141,7 +145,7 @@ class Queue:
 
         # Prevent data corruption by blocking interrupts during data transfer
         if self._thread_protect and not in_ISR:
-            irq_state = pyb.disable_irq ()
+            _irq_state = pyb.disable_irq ()
 
         # Write the data and advance the counts and pointers
         self._buffer[self._wr_idx] = item
@@ -154,13 +158,14 @@ class Queue:
 
         # Re-enable interrupts
         if self._thread_protect and not in_ISR:
-            pyb.enable_irq (irq_state)
+            pyb.enable_irq (_irq_state)
 
 
     @micropython.native
     def get (self, in_ISR = False):
-        """
+        """!
         Read an item from the queue.
+
         If there isn't anything in there, wait (blocking the calling process)
         until something becomes available. If non-blocking reads are needed,
         one should call @c any() to check for items before attempting to read
@@ -195,8 +200,9 @@ class Queue:
 
     @micropython.native
     def any (self):
-        """
+        """!
         Check if there are any items in the queue.
+
         Returns @c True if there are any items in the queue and @c False
         if the queue is empty.
         @return @c True if items are in the queue, @c False if not
@@ -206,8 +212,9 @@ class Queue:
 
     @micropython.native
     def empty (self):
-        """
+        """!
         Check if the queue is empty.
+
         Returns @c True if there are no items in the queue and @c False if 
         there are any items therein.
         @return @c True if queue is empty, @c False if it's not empty
@@ -217,8 +224,9 @@ class Queue:
 
     @micropython.native
     def full (self):
-        """
+        """!
         Check if the queue is full.
+
         This method returns @c True if the queue is already full and there
         is no room for more data without overwriting existing data. 
         @return @c True if the queue is full
@@ -228,8 +236,9 @@ class Queue:
 
     @micropython.native
     def num_in (self):
-        """
+        """!
         Check how many items are in the queue.
+
         This method returns the number of items which are currently in the 
         queue.
         @return The number of items in the queue
@@ -238,7 +247,7 @@ class Queue:
 
 
     def __repr__ (self):
-        """
+        """!
         This method puts diagnostic information about the queue into a string.
         """
         return ('{:<12s} Queue {: 8d} R:{:d} W:{:d}'.format (self._name, 
@@ -247,52 +256,56 @@ class Queue:
 
 # ============================================================================
 
-## An item which holds data to be shared between tasks.
-#  This class implements a shared data item which can be protected against
-#  data corruption by pre-emptive multithreading. Multithreading which can
-#  corrupt shared data includes the use of ordinary interrupts as well as the
-#  use of pre-emptive multithreading such as by a Real-Time Operating System
-#  (RTOS).
-# 
-#  An example of the creation and use of a share is as follows:
-#  @code
-#  import task_share
-# 
-#  # This share holds a signed short (16-bit) integer
-#  my_share = task_share.Queue ('h', name="My Share")
-# 
-#  # Somewhere in one task, put data into the share
-#  my_share.put (some_data)
-# 
-#  # In another task, read data from the share
-#  something = my_share.get ()
-#  @endcode
 
 class Share:
+    """!
+    An item which holds data to be shared between tasks.
+    This class implements a shared data item which can be protected against
+    data corruption by pre-emptive multithreading. Multithreading which can
+    corrupt shared data includes the use of ordinary interrupts as well as the
+    use of pre-emptive multithreading such as by a Real-Time Operating System
+    (RTOS).
+ 
+    An example of the creation and use of a share is as follows:
+    @code
+    import task_share
 
+    # This share holds a signed short (16-bit) integer
+    my_share = task_share.Queue ('h', name="My Share")
+
+    # Somewhere in one task, put data into the share
+    my_share.put (some_data)
+
+    # In another task, read data from the share
+    something = my_share.get ()
+    @endcode
+    """
     ## A counter used to give serial numbers to shares for diagnostic use.
     ser_num = 0
 
     def __init__ (self, type_code, thread_protect = True, name = None):
-        """
+        """!
         Create a shared data item used to transfer data between tasks.
+
         This method allocates memory in which the shared data will be buffered.
+
+        Each share can only carry data of one particular type which must be
+        chosen from the following list. The data type is specified by a 
+        one-letter type code which is given as for the Python @c array.array
+        type, which can be any of the following:
+        |      |      |      |
+        |:-----|:-----|:-----|
+        | **b** (signed char) | **B** (unsigned char) | 8 bit integers |
+        | **h** (signed short) | **H** (unsigned short) | 16 bit integers |
+        | **i** (signed int) | **I** (unsigned int) | 32 bit integers (probably) |
+        | **l** (signed long) | **L** (unsigned long) | 32 bit integers |
+        | **q** (signed long long) | **Q** (unsigned long long) | 64 bit integers |
+        | **f** (float) | **d** (double-precision float) | |
+
         @param type_code The type of data items which the share can hold
         @param thread_protect True if mutual exclusion protection is used
         @param name A short name for the share, default @c ShareN where @c N
-            is a serial number for the share
-
-        Data Types:
-            Each share can only carry data of one particular type which must be
-            chosen from the following list. The data type is specified by a
-            type code which is given as for the Python 'array' type, which can
-            be any of the following:
-            * b (signed char), B (unsigned char) - 8 bit integers
-            * h (signed short), H (unsigned short) - 16 bit integers
-            * i (signed int), I (unsigned int) - 32 bit integers (probably)
-            * l (signed long), L (unsigned long) - 32 bit integers
-            * q (signed long long), Q (unsigned long long) - 64 bit integers
-            * f (float), or d (double-precision float)
+               is a serial number for the share
         """
         self._buffer = array.array (type_code, [0])
         self._thread_protect = thread_protect
@@ -306,8 +319,9 @@ class Share:
 
     @micropython.native
     def put (self, data, in_ISR = False):
-        """
+        """!
         Write an item of data into the share.
+
         This method puts data into the share; any old data is overwritten.
         This code disables interrupts during the writing so as to prevent
         data corrupting by an interrupt service routine which might access
@@ -329,8 +343,9 @@ class Share:
 
     @micropython.native
     def get (self, in_ISR = False):
-        """
+        """!
         Read an item of data from the share.
+
         If thread protection is enabled, interrupts are disabled during the time
         that the data is being read so as to prevent data corruption by changes
         in the data as it is being read. 
@@ -350,8 +365,9 @@ class Share:
 
 
     def __repr__ (self):
-        """
+        """!
         Puts diagnostic information about the share into a string.
+
         Shares are pretty simple, so there's not much to put. 
         """
 

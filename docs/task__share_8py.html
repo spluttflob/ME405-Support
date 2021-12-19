@@ -106,64 +106,173 @@ $(document).ready(function(){initNavTree('task__share_8py.html',''); initResizab
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html">task_share.Queue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A queue which is used to transfer data from one task to another.  <a href="classtask__share_1_1Queue.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Share.html">task_share.Share</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An item which holds data to be shared between tasks.  <a href="classtask__share_1_1Share.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a130cad0bc96d3138e77344ea85586b7c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a130cad0bc96d3138e77344ea85586b7c">task_share.show_all</a> ()</td></tr>
-<tr class="memdesc:a130cad0bc96d3138e77344ea85586b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a string holding a diagnostic printout showing the status of each queue and share in the system.  <a href="task__share_8py.html#a130cad0bc96d3138e77344ea85586b7c">More...</a><br /></td></tr>
-<tr class="separator:a130cad0bc96d3138e77344ea85586b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af032a49e9d55c3a2ada81ec0475ded59"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#af032a49e9d55c3a2ada81ec0475ded59">task_share.get</a> (self, in_ISR=False)</td></tr>
+<tr class="memdesc:af032a49e9d55c3a2ada81ec0475ded59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an item from the queue.  <a href="task__share_8py.html#af032a49e9d55c3a2ada81ec0475ded59">More...</a><br /></td></tr>
+<tr class="separator:af032a49e9d55c3a2ada81ec0475ded59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a519e4f895fc70a90dc76ed4fbec5b1c2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a519e4f895fc70a90dc76ed4fbec5b1c2">task_share.any</a> (self)</td></tr>
+<tr class="memdesc:a519e4f895fc70a90dc76ed4fbec5b1c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if there are any items in the queue.  <a href="task__share_8py.html#a519e4f895fc70a90dc76ed4fbec5b1c2">More...</a><br /></td></tr>
+<tr class="separator:a519e4f895fc70a90dc76ed4fbec5b1c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879fba7784882759e5aeefe5a684bb62"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a879fba7784882759e5aeefe5a684bb62">task_share.empty</a> (self)</td></tr>
+<tr class="memdesc:a879fba7784882759e5aeefe5a684bb62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the queue is empty.  <a href="task__share_8py.html#a879fba7784882759e5aeefe5a684bb62">More...</a><br /></td></tr>
+<tr class="separator:a879fba7784882759e5aeefe5a684bb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5abe5ea8ef62d23028e52e04e422eff7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a5abe5ea8ef62d23028e52e04e422eff7">task_share.full</a> (self)</td></tr>
+<tr class="memdesc:a5abe5ea8ef62d23028e52e04e422eff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the queue is full.  <a href="task__share_8py.html#a5abe5ea8ef62d23028e52e04e422eff7">More...</a><br /></td></tr>
+<tr class="separator:a5abe5ea8ef62d23028e52e04e422eff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebd5a28c3a8ad98b01b08474d8e56ac5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#aebd5a28c3a8ad98b01b08474d8e56ac5">task_share.num_in</a> (self)</td></tr>
+<tr class="memdesc:aebd5a28c3a8ad98b01b08474d8e56ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check how many items are in the queue.  <a href="task__share_8py.html#aebd5a28c3a8ad98b01b08474d8e56ac5">More...</a><br /></td></tr>
+<tr class="separator:aebd5a28c3a8ad98b01b08474d8e56ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3777ac99b717589591b2e455a9336ad9"><td class="memItemLeft" align="right" valign="top"><a id="a3777ac99b717589591b2e455a9336ad9"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a3777ac99b717589591b2e455a9336ad9">task_share.__repr__</a> (self)</td></tr>
+<tr class="memdesc:a3777ac99b717589591b2e455a9336ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method puts diagnostic information about the queue into a string. <br /></td></tr>
+<tr class="separator:a3777ac99b717589591b2e455a9336ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a75818e5b662453e3723d0f234c85e519"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a75818e5b662453e3723d0f234c85e519">task_share.share_list</a> = []</td></tr>
-<tr class="memdesc:a75818e5b662453e3723d0f234c85e519"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a system-wide list of all the queues and shared variables.  <a href="task__share_8py.html#a75818e5b662453e3723d0f234c85e519">More...</a><br /></td></tr>
-<tr class="separator:a75818e5b662453e3723d0f234c85e519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a1fd498d8eb0481c185fa0218886ddf"><td class="memItemLeft" align="right" valign="top"><a id="a0a1fd498d8eb0481c185fa0218886ddf"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>task_share.my_queue</b> = task_share.Queue ('H', 100, name=&quot;My Queue&quot;)</td></tr>
+<tr class="separator:a0a1fd498d8eb0481c185fa0218886ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa40915cdbd414cd2ada95c9af4b6172a"><td class="memItemLeft" align="right" valign="top"><a id="aa40915cdbd414cd2ada95c9af4b6172a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>task_share.something</b> = my_queue.get ()</td></tr>
+<tr class="separator:aa40915cdbd414cd2ada95c9af4b6172a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file contains classes which allow tasks to share data without the risk of data corruption by interrupts.</p>
-<dl class="section copyright"><dt>Copyright</dt><dd>This program is copyright (c) JR Ridgely and released under the GNU Public License, version 3.0. </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>JR Ridgely </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2017-Jan-01 JRR Approximate date of creation of file </dd>
+<dd>
+2021-Dec-18 JRR Docstrings changed to work without DoxyPyPy </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>This program is copyright (c) 2017-2021 by JR Ridgely and released under the GNU Public License, version 3.0.</dd></dl>
+<p>import array import gc import pyb import micropython</p>
+<h2><a class="anchor" id="autotoc_md0"></a>
+This is a system-wide list of all the queues and shared variables. It is</h2>
+<h1><a class="anchor" id="autotoc_md1"></a>
+used to create diagnostic printouts.</h1>
+<p>share_list = []</p>
+<p>def show_all (): </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a130cad0bc96d3138e77344ea85586b7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a130cad0bc96d3138e77344ea85586b7c">&#9670;&nbsp;</a></span>show_all()</h2>
+<a id="a519e4f895fc70a90dc76ed4fbec5b1c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a519e4f895fc70a90dc76ed4fbec5b1c2">&#9670;&nbsp;</a></span>any()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def task_share.show_all </td>
+          <td class="memname">def task_share.any </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create a string holding a diagnostic printout showing the status of each queue and share in the system. </p>
-<dl class="section return"><dt>Returns</dt><dd>A string containing information about each queue and share </dd></dl>
+<p>Check if there are any items in the queue. </p>
+<p>Returns <code>True</code> if there are any items in the queue and <code>False</code> if the queue is empty. </p><dl class="section return"><dt>Returns</dt><dd><code>True</code> if items are in the queue, <code>False</code> if not </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a75818e5b662453e3723d0f234c85e519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75818e5b662453e3723d0f234c85e519">&#9670;&nbsp;</a></span>share_list</h2>
+<a id="a879fba7784882759e5aeefe5a684bb62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a879fba7784882759e5aeefe5a684bb62">&#9670;&nbsp;</a></span>empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">list task_share.share_list = []</td>
+          <td class="memname">def task_share.empty </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This is a system-wide list of all the queues and shared variables. </p>
-<p>It is used to create diagnostic printouts. </p>
+<p>Check if the queue is empty. </p>
+<p>Returns <code>True</code> if there are no items in the queue and <code>False</code> if there are any items therein. </p><dl class="section return"><dt>Returns</dt><dd><code>True</code> if queue is empty, <code>False</code> if it's not empty </dd></dl>
+
+</div>
+</div>
+<a id="a5abe5ea8ef62d23028e52e04e422eff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5abe5ea8ef62d23028e52e04e422eff7">&#9670;&nbsp;</a></span>full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def task_share.full </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the queue is full. </p>
+<p>This method returns <code>True</code> if the queue is already full and there is no room for more data without overwriting existing data. </p><dl class="section return"><dt>Returns</dt><dd><code>True</code> if the queue is full </dd></dl>
+
+</div>
+</div>
+<a id="af032a49e9d55c3a2ada81ec0475ded59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af032a49e9d55c3a2ada81ec0475ded59">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def task_share.get </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>in_ISR</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read an item from the queue. </p>
+<p>If there isn't anything in there, wait (blocking the calling process) until something becomes available. If non-blocking reads are needed, one should call <code><a class="el" href="task__share_8py.html#a519e4f895fc70a90dc76ed4fbec5b1c2" title="Check if there are any items in the queue.">any()</a></code> to check for items before attempting to read from the queue. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in_ISR</td><td>Set this to <code>True</code> if calling from within an ISR </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aebd5a28c3a8ad98b01b08474d8e56ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd5a28c3a8ad98b01b08474d8e56ac5">&#9670;&nbsp;</a></span>num_in()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def task_share.num_in </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check how many items are in the queue. </p>
+<p>This method returns the number of items which are currently in the queue. </p><dl class="section return"><dt>Returns</dt><dd>The number of items in the queue </dd></dl>
 
 </div>
 </div>
@@ -173,7 +282,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="task__share_8py.html">task_share.py</a></li>
-    <li class="footer">Generated on Wed Dec 15 2021 12:28:00 for ME405 Library by
+    <li class="footer">Generated on Sat Dec 18 2021 22:30:27 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

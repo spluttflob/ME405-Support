@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['share_41',['Share',['../classtask__share_1_1Share.html',1,'task_share']]]
+  ['task_38',['Task',['../classcotask_1_1Task.html',1,'cotask']]],
+  ['tasklist_39',['TaskList',['../classcotask_1_1TaskList.html',1,'cotask']]]
 ];

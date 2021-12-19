@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['schedule_64',['schedule',['../classcotask_1_1Task.html#af60def0ed4a1bc5fec32f3cf8b8a90c8',1,'cotask::Task']]],
-  ['show_5fall_65',['show_all',['../task__share_8py.html#a130cad0bc96d3138e77344ea85586b7c',1,'task_share']]]
+  ['schedule_60',['schedule',['../classcotask_1_1Task.html#af60def0ed4a1bc5fec32f3cf8b8a90c8',1,'cotask::Task']]]
 ];

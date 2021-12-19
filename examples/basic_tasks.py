@@ -1,4 +1,4 @@
-"""
+"""!
 @file basic_tasks.py
     This file contains a demonstration program that runs some tasks, an
     inter-task shared variable, and a queue. The tasks don't really @b do
@@ -17,7 +17,7 @@ import task_share
 
 
 def task1_fun ():
-    """
+    """!
     Task which puts things into a share and a queue.
     """
     counter = 0
@@ -30,7 +30,7 @@ def task1_fun ():
 
 
 def task2_fun ():
-    """
+    """!
     Task which takes things out of a queue and share to display.
     """
     while True:
