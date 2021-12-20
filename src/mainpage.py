@@ -75,7 +75,8 @@
 #  MicroPython has two time related libraries, @c time and @c utime, which 
 #  provide the same functionality. The use of @c utime is recommended to
 #  avoid confusion with the standard Python library called @c time, which has
-#  different functionality. 
+#  different functionality.
+#
 #  Reference:
 #  https://docs.micropython.org/en/latest/pyboard/library/utime.html
 #  @code
@@ -127,7 +128,9 @@
 #  is the frequency at which the timer overflows and restarts counting at zero.
 #  When using timer interrupts, this is the frequency at which interrupts 
 #  occur.  Only certain pins can be used with timers. Look for pins associated 
-#  with the channels of timers in the STM32 data sheet. Reference:
+#  with the channels of timers in the STM32 data sheet.
+#
+#  Reference:
 #  https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html
 #  @code
 #  timmy = pyb.Timer (1, freq = 1000)             # Timer 1 running at 1000 Hz
@@ -147,7 +150,9 @@
 #
 #  @subsection sspwm Pulse Width Modulation
 #  Only certain pins can be used for PWM. Look for pins associated with the
-#  channels of timers in the STM32 data sheet. Reference: 
+#  channels of timers in the STM32 data sheet.
+#
+#  Reference: 
 #  https://docs.micropython.org/en/latest/pyboard/library/pyb.Timer.html
 #  @code
 #  pinA1 = pyb.Pin (pyb.Pin.board.PA1, pyb.Pin.OUT_PP)
@@ -161,7 +166,9 @@
 #  each A/D pin. Excessive or negative voltages can destroy things. Not all
 #  pins can be used as A/D pins; see the STM32 datasheet pin alternate 
 #  function table to find out which ones will work (or just try some in the
-#  REPL and see which don't give you a @c ValueError ). Reference:
+#  REPL and see which don't give you a @c ValueError ).
+#
+#  Reference:
 #  https://docs.micropython.org/en/latest/pyboard/library/pyb.ADC.html
 #  @code
 #  adcpin = pyb.ADC (pyb.Pin.board.PA4)
@@ -177,7 +184,8 @@
 #  @subsection ssi2c I&sup2;C
 #  The following example sends the bytes @c 07 and @c FF to the register at
 #  internal address 5 in a sensor at I<sup>2</sup>C bus address 0x2A and 
-#  reads a byte of data from the sensor's register at internal address 7. 
+#  reads a byte of data from the sensor's register at internal address 7.
+#
 #  Reference: 
 #  https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html
 #  @code
@@ -219,10 +227,12 @@
 #  "removing" depending on what your OS calls it) the PYBFLASH drive on the PC, 
 #  then unplugging the MicroPython board, waiting several seconds, and plugging 
 #  it in again.
+#
 #  Reference: 
 #  https://docs.micropython.org/en/latest/pyboard/pyboard/tutorial/reset.html
 #
 #  @b Newer @b (Yet) @b Procedure - MicroPython 1.13 from 2021 and later
+#
 #  Make sure you're at the REPL prompt and run the following lines:
 #  @code
 #  import os, pyb
