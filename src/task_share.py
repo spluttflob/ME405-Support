@@ -8,6 +8,7 @@ of data corruption by interrupts.
 @date   2021-Dec-18 JRR Docstrings changed to work without DoxyPyPy
 @copyright This program is copyright (c) 2017-2021 by JR Ridgely and released
            under the GNU Public License, version 3.0. 
+"""
 
 import array
 import gc
