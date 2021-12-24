@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     # Create a share and a queue to test function and diagnostic printouts
     share0 = task_share.Share ('h', thread_protect = False, name = "Share 0")
-    q0 = task_share.Queue ('i', 16, thread_protect = False, overwrite = False,
+    q0 = task_share.Queue ('L', 16, thread_protect = False, overwrite = False,
                            name = "Queue 0")
 
     # Create the tasks. If trace is enabled for any task, memory will be
@@ -84,4 +84,3 @@ if __name__ == "__main__":
     print (task_share.show_all ())
     print (task1.get_trace ())
     print ('\r\n')
-

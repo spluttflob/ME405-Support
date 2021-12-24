@@ -20,6 +20,14 @@ import micropython
 #  used to create diagnostic printouts. 
 share_list = []
 
+## This dictionary allows readable printouts of queue and share data types.
+type_code_strings = {'b' : "int8",   'B' : "uint8",
+                     'h' : "int16",  'H' : "uint16",
+                     'i' : "int(?)", 'I' : "uint(?)",
+                     'l' : "int32",  'L' : "uint32",
+                     'q' : "int64",  'Q' : "uint64",
+                     'f' : "float",  'd' : "double"}
+
 
 def show_all ():
     """!
@@ -31,7 +39,33 @@ def show_all ():
     return '\n'.join (gen)
 
 
-class Queue:
+# ============================================================================
+
+class BaseShare:
+    """!
+    Base class for queues and shares which exchange data between tasks.
+    
+    One should never create an object from this class; it doesn't do anything
+    useful. It exists to implement things which are common between its child
+    classes @c Queue and @c Share. 
+    """
+
+    def __init__ (self, type_code, thread_protect = True, name = None):
+        """!
+        Create a base queue object when called by a child class initializer.
+
+        This method creates the things which queues and shares have in common.
+        """
+        self._type_code = type_code
+        self._thread_protect = thread_protect
+
+        # Add this queue to the global share and queue list
+        share_list.append (self)
+
+
+# ============================================================================
+
+class Queue (BaseShare):
     """!
     A queue which is used to transfer data from one task to another.
 
@@ -88,26 +122,24 @@ class Queue:
                is a serial number for the queue
 
         """
-        self._size = size
-        self._thread_protect = thread_protect
-        self._overwrite = overwrite
-        Queue.ser_num += 1
+        # First call the parent class initializer
+        super ().__init__ (type_code, thread_protect, name)
 
+        self._size = size
+        self._overwrite = overwrite
         self._name = str (name) if name != None \
             else 'Queue' + str (Queue.ser_num)
+        Queue.ser_num += 1
 
         # Allocate memory in which the queue's data will be stored
         try:
-            self._buffer = array.array (type_code, size * [0])
+            self._buffer = array.array (type_code, range (size))
         except MemoryError:
             self._buffer = None
             raise
         except ValueError:
             self._buffer = None
             raise
-
-        # Add this queue to the global share and queue list
-        share_list.append (self)
 
         # Initialize pointers to be used for reading and writing data
         self.clear ()
@@ -264,14 +296,13 @@ class Queue:
         It shows the queue's name and type as well as the maximum number of
         items and queue size. 
         """
-        return ('{:<12s} Queue {: 8d} Max {:d}/{:d}'.format (self._name, 
-                len (self._buffer), self._max_full, self._size))
+        return ('{:<12s} Queue<{:s}> Max Full {:d}/{:d}'.format (self._name,
+                type_code_strings[self._type_code], self._max_full, self._size))
 
 
 # ============================================================================
 
-
-class Share:
+class Share (BaseShare):
     """!
     An item which holds data to be shared between tasks.
     This class implements a shared data item which can be protected against
@@ -297,6 +328,7 @@ class Share:
     ## A counter used to give serial numbers to shares for diagnostic use.
     ser_num = 0
 
+
     def __init__ (self, type_code, thread_protect = True, name = None):
         """!
         Create a shared data item used to transfer data between tasks.
@@ -321,14 +353,14 @@ class Share:
         @param name A short name for the share, default @c ShareN where @c N
                is a serial number for the share
         """
+        # First call the parent class initializer
+        super ().__init__ (type_code, thread_protect, name)
+
         self._buffer = array.array (type_code, [0])
-        self._thread_protect = thread_protect
 
         self._name = str (name) if name != None \
             else 'Share' + str (Share.ser_num)
-
-        # Add this share to the global share and queue list
-        share_list.append (self)
+        Share.ser_num += 1
 
 
     @micropython.native
@@ -382,8 +414,9 @@ class Share:
         """!
         Puts diagnostic information about the share into a string.
 
-        Shares are pretty simple, so there's not much to put. 
+        Shares are pretty simple, so we just put the name and type. 
         """
+        return ("{:<12s} Share<{:s}>".format (self._name,
+                type_code_strings[self._type_code]))
 
-        return ('{:<12s} Share'.format (self._name))
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['queue_40',['Queue',['../classtask__share_1_1Queue.html',1,'task_share']]]
+  ['baseshare_43',['BaseShare',['../classtask__share_1_1BaseShare.html',1,'task_share']]]
 ];

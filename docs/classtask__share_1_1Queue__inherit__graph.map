@@ -1,0 +1,4 @@
+<map id="task_share.Queue" name="task_share.Queue">
+<area shape="rect" id="node1" title="A queue which is used to transfer data from one task to another." alt="" coords="19,80,147,107"/>
+<area shape="rect" id="node2" href="$classtask__share_1_1BaseShare.html" title="Base class for queues and shares which exchange data between tasks." alt="" coords="5,5,160,32"/>
+</map>

@@ -106,6 +106,9 @@ $(document).ready(function(){initNavTree('task__share_8py.html',''); initResizab
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1BaseShare.html">task_share.BaseShare</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for queues and shares which exchange data between tasks.  <a href="classtask__share_1_1BaseShare.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtask__share_1_1Queue.html">task_share.Queue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A queue which is used to transfer data from one task to another.  <a href="classtask__share_1_1Queue.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,6 +127,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a75818e5b662453e3723d0f234c85e519"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a75818e5b662453e3723d0f234c85e519">task_share.share_list</a> = []</td></tr>
 <tr class="memdesc:a75818e5b662453e3723d0f234c85e519"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a system-wide list of all the queues and shared variables.  <a href="task__share_8py.html#a75818e5b662453e3723d0f234c85e519">More...</a><br /></td></tr>
 <tr class="separator:a75818e5b662453e3723d0f234c85e519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20669bcd5137496d47c279196fd7fbc5"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="task__share_8py.html#a20669bcd5137496d47c279196fd7fbc5">task_share.type_code_strings</a></td></tr>
+<tr class="memdesc:a20669bcd5137496d47c279196fd7fbc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This dictionary allows readable printouts of queue and share data types.  <a href="task__share_8py.html#a20669bcd5137496d47c279196fd7fbc5">More...</a><br /></td></tr>
+<tr class="separator:a20669bcd5137496d47c279196fd7fbc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file contains classes which allow tasks to share data without the risk of data corruption by interrupts.</p>
@@ -171,13 +177,35 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a20669bcd5137496d47c279196fd7fbc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20669bcd5137496d47c279196fd7fbc5">&#9670;&nbsp;</a></span>type_code_strings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dictionary task_share.type_code_strings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  {<span class="stringliteral">&#39;b&#39;</span> : <span class="stringliteral">&quot;int8&quot;</span>,   <span class="stringliteral">&#39;B&#39;</span> : <span class="stringliteral">&quot;uint8&quot;</span>,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                     <span class="stringliteral">&#39;h&#39;</span> : <span class="stringliteral">&quot;int16&quot;</span>,  <span class="stringliteral">&#39;H&#39;</span> : <span class="stringliteral">&quot;uint16&quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     <span class="stringliteral">&#39;i&#39;</span> : <span class="stringliteral">&quot;int(?)&quot;</span>, <span class="stringliteral">&#39;I&#39;</span> : <span class="stringliteral">&quot;uint(?)&quot;</span>,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                     <span class="stringliteral">&#39;l&#39;</span> : <span class="stringliteral">&quot;int32&quot;</span>,  <span class="stringliteral">&#39;L&#39;</span> : <span class="stringliteral">&quot;uint32&quot;</span>,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                     <span class="stringliteral">&#39;q&#39;</span> : <span class="stringliteral">&quot;int64&quot;</span>,  <span class="stringliteral">&#39;Q&#39;</span> : <span class="stringliteral">&quot;uint64&quot;</span>,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                     <span class="stringliteral">&#39;f&#39;</span> : <span class="stringliteral">&quot;float&quot;</span>,  <span class="stringliteral">&#39;d&#39;</span> : <span class="stringliteral">&quot;double&quot;</span>}</div>
+</div><!-- fragment -->
+<p>This dictionary allows readable printouts of queue and share data types. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="task__share_8py.html">task_share.py</a></li>
-    <li class="footer">Generated on Fri Dec 24 2021 13:07:05 for ME405 Library by
+    <li class="footer">Generated on Fri Dec 24 2021 14:32:04 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
