@@ -109,14 +109,12 @@ class Queue:
         # Add this queue to the global share and queue list
         share_list.append (self)
 
+        # Initialize pointers to be used for reading and writing data
+        self.clear ()
+
         # Since we may have allocated a bunch of memory, call the garbage
         # collector to neaten up what memory is left for future use
         gc.collect ()
-
-        # Initialize pointers to be used for reading and writing data
-        self._rd_idx = 0
-        self._wr_idx = 0
-        self._num_items = 0
 
 
     @micropython.native
@@ -154,8 +152,10 @@ class Queue:
         if self._wr_idx >= self._size:
             self._wr_idx = 0
         self._num_items += 1
-        if self._num_items >= self._size:
+        if self._num_items >= self._size:        # Can't be fuller than full
             self._num_items = self._size
+        if self._num_items > self._max_full:     # Record maximum fillage
+            self._max_full = self._num_items
 
         # Re-enable interrupts
         if self._thread_protect and not in_ISR:
@@ -247,12 +247,25 @@ class Queue:
         return (self._num_items)
 
 
+    def clear (self):
+        """!
+        Remove all contents from the queue.
+        """
+        self._rd_idx = 0
+        self._wr_idx = 0
+        self._num_items = 0
+        self._max_full = 0
+
+
     def __repr__ (self):
         """!
         This method puts diagnostic information about the queue into a string.
+
+        It shows the queue's name and type as well as the maximum number of
+        items and queue size. 
         """
-        return ('{:<12s} Queue {: 8d} R:{:d} W:{:d}'.format (self._name, 
-                len (self._buffer), self._rd_idx, self._wr_idx))
+        return ('{:<12s} Queue {: 8d} Max {:d}/{:d}'.format (self._name, 
+                len (self._buffer), self._max_full, self._size))
 
 
 # ============================================================================
