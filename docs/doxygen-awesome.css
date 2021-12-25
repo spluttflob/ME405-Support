@@ -933,12 +933,16 @@ div.toc ul li.level2, div.toc ul li.level3 {
 
 /*
  Code & Fragments
+ 2021-Dec-24 JRR Added 'white-space: pre' per:
+   https://stackoverflow.com/questions/11190838/doxygen-code-tag-kills-indentation
+   ...but it's not working
  */
 
 code, div.fragment, pre.fragment {
     border-radius: var(--border-radius-small);
     border: none;
     overflow: hidden;
+    /* white-space: pre; */
 }
 
 code {

@@ -159,7 +159,15 @@ class Queue (BaseShare):
         parameter was set to @c True to allow old data to be clobbered. If
         non-blocking behavior without overwriting is needed, one should call
         @c full() to ensure that the queue is not full before putting data
-        into it.
+        into it:
+        @code
+        |   def some_task ():
+        |       # Setup
+        |       while True:
+        |           if not my_queue.full ():
+        |               my_queue.put (create_something_to_put ())
+        |           yield 0
+        @endcode
         @param item The item to be placed into the queue
         @param in_ISR Set this to @c True if calling from within an ISR
         """
@@ -202,7 +210,17 @@ class Queue (BaseShare):
         If there isn't anything in there, wait (blocking the calling process)
         until something becomes available. If non-blocking reads are needed,
         one should call @c any() to check for items before attempting to read
-        from the queue.
+        from the queue. This is usually done in a low priority task:
+        @code
+        |   def some_task ():
+        |       # Setup
+        |       while True:
+        |           if my_queue.any ():
+        |               something = my_queue.get ()
+        |               do_something_with (something)
+        |           # More loop stuff
+        |           yield 0
+        @endcode
         @param in_ISR Set this to @c True if calling from within an ISR
         """
         # Wait until there's something in the queue to be returned
