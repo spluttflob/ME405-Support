@@ -21,7 +21,7 @@ them at the REPL:
     >>> import serial
     >>> serpt = serial.Serial ("COM42", 115200)    # or "/dev/tty<something>"
     >>> serpt.write (b"Something\r\n")             # "\r\n" is carriage return
-    >>> ser.close ()                               # Close serial port
+    >>> serpt.close ()                             # Close serial port
     >>> exit ()                                    # Exit PC Python REPL
 
 @author    JR Ridgely
