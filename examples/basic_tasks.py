@@ -71,7 +71,7 @@ if __name__ == "__main__":
     gc.collect ()
 
     # Run the scheduler with the chosen scheduling algorithm. Quit if any 
-    # character is sent through the serial port
+    # character is received through the serial port
     vcp = pyb.USB_VCP ()
     while not vcp.any ():
         cotask.task_list.pri_sched ()
