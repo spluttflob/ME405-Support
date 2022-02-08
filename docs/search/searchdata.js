@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "bqst",
   2: "cpt",
   3: "_acefgnprs",
-  4: "bgnpst",
+  4: "gnpst",
   5: "t"
 };
 

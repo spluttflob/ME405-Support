@@ -130,3 +130,4 @@ dmypy.json
 
 examples/task_experiments.py
 testing/*
+doxygen-awesome.css

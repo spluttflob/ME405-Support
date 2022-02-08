@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['go_5fflag_72',['go_flag',['../classcotask_1_1Task.html#a96733bb9f4349a3f284083d1d4e64f9f',1,'cotask::Task']]]
+  ['name_71',['name',['../classcotask_1_1Task.html#ab54e069dd0b4f0a2f8e7f00c94998a10',1,'cotask::Task']]]
 ];

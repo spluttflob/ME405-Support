@@ -102,6 +102,7 @@ print_queue = task_share.Queue ('B', PT_BUF_SIZE, name = "Print Queue",
                                 thread_protect = False, overwrite = False)
 
 
+## @cond DO_NOT_DOXY_THIS
 # This test code is only run when this file is used as the main file; it isn't
 # run when the file is imported as a module
 if __name__ == "__main__":
@@ -155,3 +156,5 @@ if __name__ == "__main__":
     print ('\n' + str (cotask.task_list))
     print (task_share.show_all ())
     print ('\r\n')
+
+## @endcond

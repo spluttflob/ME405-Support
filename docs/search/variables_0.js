@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buf_5fsize_71',['BUF_SIZE',['../print__task_8py.html#a88f04f8dbccfe4f94fc04afbc194a7b0',1,'print_task']]]
+  ['go_5fflag_70',['go_flag',['../classcotask_1_1Task.html#a96733bb9f4349a3f284083d1d4e64f9f',1,'cotask::Task']]]
 ];

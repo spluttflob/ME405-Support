@@ -118,6 +118,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6102bc35d7cb1ce292abc85d4ddc23e1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#a6102bc35d7cb1ce292abc85d4ddc23e1">ready</a> (self)</td></tr>
 <tr class="memdesc:a6102bc35d7cb1ce292abc85d4ddc23e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method checks if the task is ready to run.  <a href="classcotask_1_1Task.html#a6102bc35d7cb1ce292abc85d4ddc23e1">More...</a><br /></td></tr>
 <tr class="separator:a6102bc35d7cb1ce292abc85d4ddc23e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a310e065fb576dff0e23d075c4e83a5f4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#a310e065fb576dff0e23d075c4e83a5f4">set_period</a> (self, new_period)</td></tr>
+<tr class="memdesc:a310e065fb576dff0e23d075c4e83a5f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method sets the period between runs of the task to the given number of milliseconds, or <code>None</code> if the task is triggered by calls to <code><a class="el" href="classcotask_1_1Task.html#a78e74d18a5ba94074c2b5309394409a5" title="Method to set a flag so that this task indicates that it&#39;s ready to run.">go()</a></code> rather than time.  <a href="classcotask_1_1Task.html#a310e065fb576dff0e23d075c4e83a5f4">More...</a><br /></td></tr>
+<tr class="separator:a310e065fb576dff0e23d075c4e83a5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bcbfa7dd7086112af20b7247ffa4a2e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#a1bcbfa7dd7086112af20b7247ffa4a2e">reset_profile</a> (self)</td></tr>
 <tr class="memdesc:a1bcbfa7dd7086112af20b7247ffa4a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method resets the variables used for execution time profiling.  <a href="classcotask_1_1Task.html#a1bcbfa7dd7086112af20b7247ffa4a2e">More...</a><br /></td></tr>
 <tr class="separator:a1bcbfa7dd7086112af20b7247ffa4a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,7 +145,7 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:aeced93c7b7d23e33de9693d278aef88b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The task's priority, an integer with higher numbers meaning higher priority. <br /></td></tr>
 <tr class="separator:aeced93c7b7d23e33de9693d278aef88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44f980f61f1908764c6821fa886590ca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#a44f980f61f1908764c6821fa886590ca">period</a></td></tr>
-<tr class="memdesc:a44f980f61f1908764c6821fa886590ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">The period, in milliseconds, between runs of the task's <code><a class="el" href="print__task_8py.html#abe2a60b9d48d38a4c9ec85bd891aafca">run()</a></code> method.  <a href="classcotask_1_1Task.html#a44f980f61f1908764c6821fa886590ca">More...</a><br /></td></tr>
+<tr class="memdesc:a44f980f61f1908764c6821fa886590ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">The period, in milliseconds, between runs of the task's <code>run()</code> method.  <a href="classcotask_1_1Task.html#a44f980f61f1908764c6821fa886590ca">More...</a><br /></td></tr>
 <tr class="separator:a44f980f61f1908764c6821fa886590ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96733bb9f4349a3f284083d1d4e64f9f"><td class="memItemLeft" align="right" valign="top"><a id="a96733bb9f4349a3f284083d1d4e64f9f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcotask_1_1Task.html#a96733bb9f4349a3f284083d1d4e64f9f">go_flag</a></td></tr>
@@ -371,6 +374,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a310e065fb576dff0e23d075c4e83a5f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a310e065fb576dff0e23d075c4e83a5f4">&#9670;&nbsp;</a></span>set_period()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def cotask.Task.set_period </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>new_period</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This method sets the period between runs of the task to the given number of milliseconds, or <code>None</code> if the task is triggered by calls to <code><a class="el" href="classcotask_1_1Task.html#a78e74d18a5ba94074c2b5309394409a5" title="Method to set a flag so that this task indicates that it&#39;s ready to run.">go()</a></code> rather than time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_period</td><td>The new period in milliseconds between task runs </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a44f980f61f1908764c6821fa886590ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a44f980f61f1908764c6821fa886590ca">&#9670;&nbsp;</a></span>period</h2>
@@ -384,8 +423,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The period, in milliseconds, between runs of the task's <code><a class="el" href="print__task_8py.html#abe2a60b9d48d38a4c9ec85bd891aafca">run()</a></code> method. </p>
-<p>If the period is <code>None</code>, the <code><a class="el" href="print__task_8py.html#abe2a60b9d48d38a4c9ec85bd891aafca">run()</a></code> method won't be run on a time basis but will instead be run by the scheduler as soon as feasible after code such as an interrupt handler calls the <code><a class="el" href="classcotask_1_1Task.html#a78e74d18a5ba94074c2b5309394409a5" title="Method to set a flag so that this task indicates that it&#39;s ready to run.">go()</a></code> method. </p>
+<p>The period, in milliseconds, between runs of the task's <code>run()</code> method. </p>
+<p>If the period is <code>None</code>, the <code>run()</code> method won't be run on a time basis but will instead be run by the scheduler as soon as feasible after code such as an interrupt handler calls the <code><a class="el" href="classcotask_1_1Task.html#a78e74d18a5ba94074c2b5309394409a5" title="Method to set a flag so that this task indicates that it&#39;s ready to run.">go()</a></code> method. </p>
 
 </div>
 </div>
@@ -399,7 +438,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>cotask</b></li><li class="navelem"><a class="el" href="classcotask_1_1Task.html">Task</a></li>
-    <li class="footer">Generated on Fri Dec 24 2021 20:21:05 for ME405 Library by
+    <li class="footer">Generated on Mon Feb 7 2022 18:50:49 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
