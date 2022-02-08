@@ -207,6 +207,19 @@ class Task:
         return self.go_flag
 
 
+    def set_period (self, new_period):
+        """!
+        This method sets the period between runs of the task to the given
+        number of milliseconds, or @c None if the task is triggered by calls
+        to @c go() rather than time.
+        @param new_period The new period in milliseconds between task runs
+        """
+        if new_period is None:
+            self.period = None
+        else:
+            self.period = int (new_period) * 1000
+
+
     def reset_profile (self):
         """!
         This method resets the variables used for execution time profiling.
