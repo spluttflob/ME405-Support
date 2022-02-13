@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['name_13',['name',['../classcotask_1_1Task.html#ab54e069dd0b4f0a2f8e7f00c94998a10',1,'cotask::Task']]],
-  ['num_5fin_14',['num_in',['../classtask__share_1_1Queue.html#a713321bacac5d93ecf89c4be1c15fe30',1,'task_share::Queue']]]
+  ['input_5fstring_13',['input_string',['../nb__input__task_8py.html#ab9b94f9cb9e7e4c8952a1199d84dc249',1,'nb_input_task']]],
+  ['input_5ftask_14',['input_task',['../nb__input__task_8py.html#a8055d69723ffd0b85d9fbbbc8541fec7',1,'nb_input_task']]]
 ];

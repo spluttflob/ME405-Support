@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['task_5flist_79',['task_list',['../cotask_8py.html#ae54e25f8d14958f642bcc22ddeb6c56f',1,'cotask']]],
-  ['type_5fcode_5fstrings_80',['type_code_strings',['../task__share_8py.html#a20669bcd5137496d47c279196fd7fbc5',1,'task_share']]]
+  ['ser_5fnum_83',['ser_num',['../classtask__share_1_1Queue.html#a6f9d87b116eb16dba0867d3746af9f5f',1,'task_share.Queue.ser_num()'],['../classtask__share_1_1Share.html#a2e8df029af46fbfd44ef0c2e7e8c7af6',1,'task_share.Share.ser_num()']]],
+  ['share_5flist_84',['share_list',['../task__share_8py.html#a75818e5b662453e3723d0f234c85e519',1,'task_share']]]
 ];
