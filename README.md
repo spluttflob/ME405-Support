@@ -12,19 +12,19 @@ The documentation pages are at <https://spluttflob.github.io/ME405-Support/>.
 
 ### Other Lab Support Files
 
+* `src/nb_input.py` contains a class which implements non-blocking input from
+  a serial port on a microcontroller running MicroPython.
+
 * `examples/what_you_said.py` helps to test serial communications between a
   microcontroller running MicroPython and a PC running a regular Python 
   program.
 
-* `test_kbd.py` demonstrates one way to use the `keyboard` module to
+* `examples/test_kbd.py` demonstrates one way to use the `keyboard` module to
    allow Python to read individual key presses **on a PC,** not on a
    microcontroller. 
 
-* `vend_kb.py` demonstrates another method to do non-blocking reads on
+* `examples/vend_kb.py` demonstrates another method to do non-blocking reads on
    a PC.
-
-<!--* To read keys without blocking a microcontroller running MicroPython,
-  you may use the `USB_VCP` class. -->
 
   
 ### Firmware File
@@ -42,3 +42,4 @@ The documentation pages are at <https://spluttflob.github.io/ME405-Support/>.
 
 Most homework support is maintained by the course instructors. 
 If any additional files are needed, they may be kept here. 
+
