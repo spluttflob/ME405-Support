@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['queue_45',['Queue',['../classtask__share_1_1Queue.html',1,'task_share']]]
+  ['nb_5finput_45',['NB_Input',['../classnb__input_1_1NB__Input.html',1,'nb_input']]]
 ];
