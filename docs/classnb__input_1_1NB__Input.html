@@ -126,9 +126,11 @@ Public Member Functions</h2></td></tr>
 <p>The result is code that can be used similarly to the Python <code>input()</code> function but doesn't block other tasks while waiting for the lazy bum user to type something. Lines of text which have been received are put into a list; the lines can then be read from the list as they become available.</p>
 <h1><a class="anchor" id="input_task_usage"></a>
 Usage Example</h1>
-<p>The class in this module is designed to be run within a task which is run by the scheduler in <code><a class="el" href="cotask_8py.html">cotask.py</a></code>. See the example file <code>basic_tasks.py</code> and the test code at the bottom of this file for examples of such tasks. </p><div class="fragment"><div class="line"><span class="keyword">import</span> nb_input</div>
+<p>The class in this module is designed to be run within a task which is run by the scheduler in <code><a class="el" href="cotask_8py.html">cotask.py</a></code>. See the example file <code>basic_tasks.py</code> and the test code at the bottom of this file for examples of such tasks. </p><div class="fragment"><div class="line"><span class="keyword">from</span> pyb <span class="keyword">import</span> USB_VCP</div>
+<div class="line"><span class="keyword">from</span> nb_input <span class="keyword">import</span> NB_Input</div>
 <div class="line"><span class="comment"># ...</span></div>
-<div class="line">nb_in = NB_Input (USB_VCP (), echo=<span class="keyword">True</span>)</div>
+<div class="line">serial_stream = USB_VCP ()</div>
+<div class="line">nb_in = NB_Input (serial_stream, echo=<span class="keyword">True</span>)</div>
 <div class="line"><span class="comment"># ...</span></div>
 <div class="line"><span class="keyword">def </span>blinky_task ():</div>
 <div class="line">    <span class="stringliteral">&#39;&#39;&#39;!  Task which demonstrates non-blocking input. This task should run</span></div>
@@ -259,7 +261,7 @@ Feature</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>nb_input</b></li><li class="navelem"><a class="el" href="classnb__input_1_1NB__Input.html">NB_Input</a></li>
-    <li class="footer">Generated on Sun Feb 13 2022 20:53:28 for ME405 Library by
+    <li class="footer">Generated on Sun Feb 13 2022 21:16:25 for ME405 Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

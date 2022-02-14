@@ -26,9 +26,11 @@ class NB_Input:
     by the scheduler in @c cotask.py.  See the example file @c basic_tasks.py
     and the test code at the bottom of this file for examples of such tasks.
     ```.py
-    import nb_input
+    from pyb import USB_VCP
+    from nb_input import NB_Input
     # ...
-    nb_in = NB_Input (USB_VCP (), echo=True)
+    serial_stream = USB_VCP ()
+    nb_in = NB_Input (serial_stream, echo=True)
     # ...
     def blinky_task ():
         '''!  Task which demonstrates non-blocking input. This task should run
