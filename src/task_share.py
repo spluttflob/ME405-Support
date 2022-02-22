@@ -92,7 +92,7 @@ class Queue (BaseShare):
     ## A counter used to give serial numbers to queues for diagnostic use.
     ser_num = 0
 
-    def __init__ (self, type_code, size, thread_protect = True, 
+    def __init__ (self, type_code, size, thread_protect = False, 
                   overwrite = False, name = None):
         """!
         Initialize a queue object to carry and buffer data between tasks.
