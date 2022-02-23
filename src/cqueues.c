@@ -8,19 +8,35 @@
  *  @date   2022-Feb-20 JRR Original file, based on some excellent examples 
  *          from the micropython-usermod project, 
  *          @c https://github.com/v923z/micropython-usermod
+ *          as well as code in MicroPython's objarray.c.
  *
  *  @copyright (c) 2019-2020 Zoltán Vörös
- *  @copyright (c) 2022 by JR Ridgely, released under the MIT License (MIT) in
- *          terms matching those of the micropython-usermod project.
+ *  @copyright (c) 2022 by JR Ridgely, released under the MIT License (MIT)
+ *              under terms matching those of the micropython-usermod project.
  *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 #include <stdio.h>
 #include "py/runtime.h"
 #include "py/obj.h"
 
-
-//=============================================================================
 
 /** This structure holds the data of the IntQueue class.
  */
@@ -71,20 +87,23 @@ STATIC mp_obj_t IntQueue_clear(mp_obj_t self_in);
  *  Preallocating the memory is important when we need to pass information from
  *  an interrupt callback, as interrupt code isn't allowed to allocate memory.
  */
-STATIC mp_obj_t IntQueue_make_new(const mp_obj_type_t *type, 
-                                  size_t n_args, 
-                                  size_t n_kw, 
-                                  const mp_obj_t *args) 
+STATIC mp_obj_t IntQueue_make_new(const mp_obj_type_t *type,
+                                  size_t n_args,
+                                  size_t n_kw,
+                                  const mp_obj_t *args)
 {
     mp_arg_check_num(n_args, n_kw, 1, 1, true);
     cqueue_IntQueue_obj_t *self = m_new_obj(cqueue_IntQueue_obj_t);
     self->base.type = &cqueue_IntQueue_type;
-
     self->size = mp_obj_get_int(args[0]);
 
     IntQueue_clear (self);
 
-    self->p_data = malloc (self->size * sizeof (int32_t)); // Allocate for data
+    // Tried using malloc(); it usually works but occasionally crashes an ESP32
+    // apparently when the memory is accessed some time after allocation.
+    // After that, tried using n_new() as in objarray.c's array_new()
+    // self->p_data = malloc (self->size * sizeof (int32_t));
+    self->p_data = (int32_t*)(m_new(byte, sizeof(int32_t) * self->size));
 
     return MP_OBJ_FROM_PTR(self);
 }
@@ -284,7 +303,7 @@ STATIC void FloatQueue_print(const mp_print_t *print,
 {
     (void)kind;
     cqueue_FloatQueue_obj_t *self = MP_OBJ_TO_PTR(self_in);
-    mp_print_str(print, "IntQueue[");
+    mp_print_str(print, "FloatQueue[");
     mp_obj_print_helper(print, mp_obj_new_int(self->size), PRINT_REPR);
     mp_print_str(print, "]:");
     for (size_t index = 0; index < self->size; index++)
@@ -321,7 +340,7 @@ STATIC mp_obj_t FloatQueue_make_new(const mp_obj_type_t *type,
 
     FloatQueue_clear (self);
 
-    self->p_data = malloc (self->size * sizeof (float));   // Allocate for data
+    self->p_data = (float*)(m_new(byte, sizeof(float) * self->size));
 
     return MP_OBJ_FROM_PTR(self);
 }
