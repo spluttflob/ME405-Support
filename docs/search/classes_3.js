@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['share_47',['Share',['../classtask__share_1_1Share.html',1,'task_share']]]
+  ['nb_5finput_0',['NB_Input',['../classnb__input_1_1NB__Input.html',1,'nb_input']]]
 ];

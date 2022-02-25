@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['the_20shoe_20of_20brian_38',['The Shoe of Brian',['../shoe_info.html',1,'index']]],
-  ['task_39',['Task',['../classcotask_1_1Task.html',1,'cotask']]],
-  ['task_5flist_40',['task_list',['../cotask_8py.html#ae54e25f8d14958f642bcc22ddeb6c56f',1,'cotask']]],
-  ['task_5fshare_2epy_41',['task_share.py',['../task__share_8py.html',1,'']]],
-  ['tasklist_42',['TaskList',['../classcotask_1_1TaskList.html',1,'cotask']]],
-  ['type_5fcode_5fstrings_43',['type_code_strings',['../task__share_8py.html#a20669bcd5137496d47c279196fd7fbc5',1,'task_share']]]
+  ['ready_0',['ready',['../classcotask_1_1Task.html#a6102bc35d7cb1ce292abc85d4ddc23e1',1,'cotask::Task']]],
+  ['reset_5fprofile_1',['reset_profile',['../classcotask_1_1Task.html#a1bcbfa7dd7086112af20b7247ffa4a2e',1,'cotask::Task']]],
+  ['rr_5fsched_2',['rr_sched',['../classcotask_1_1TaskList.html#a01614098aedc87b465d5525c6ccb47ce',1,'cotask::TaskList']]]
 ];

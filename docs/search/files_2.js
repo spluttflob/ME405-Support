@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['print_5ftask_2epy_52',['print_task.py',['../print__task_8py.html',1,'']]]
+  ['nb_5finput_2epy_0',['nb_input.py',['../nb__input_8py.html',1,'']]]
 ];
