@@ -55,7 +55,7 @@ if __name__ == "__not_me__":
                      float_queue.put(count)  # Or do this in interrupt callback
                  ...
                  while float_queue.any():
-                     print(float_queue.get)
+                     print(float_queue.get())
                  @endcode
         """
 
@@ -153,7 +153,7 @@ if __name__ == "__not_me__":
                      int_queue.put(count)    # Or do this in interrupt callback
                  ...
                  while int_queue.any():
-                     print(int_queue.get)
+                     print(int_queue.get())
                  @endcode
         """
 
@@ -226,11 +226,115 @@ if __name__ == "__not_me__":
             @return  The maximum number of items that have been in the queue
             """
 
+    class ByteQueue:
+        """!
+        @brief   A fast, pre-allocated queue of characters for MicroPython.
+        @details Either bytes or Unicode (str) characters may be written into a
+                 ByteQueue; only bytes will be stored and retrieved from it.
+                 This class is written in C for speed. When a ByteQueue
+                 object is created, memory is allocated to hold the given
+                 number of items. Data is put into the queue with its put()
+                 method, and the oldest available data is retrieved with the
+                 get() method. Because running put() and get() doesn't
+                 allocate any memory, it can be used in interrupt callbacks.
+                 
+                 When one creates a queue, one specifies the number of items
+                 which can be stored at once in the queue. After creating a
+                 queue, one writes items into a queue using its put() method.
+                 Writing into a full queue causes the oldest data to be erased;
+                 method full() can be used before writing to check for such a
+                 problem. Reading from the queue is done by a call to get(),
+                 which returns the oldest available data item or @c None if the
+                 queue is empty:
+                 @code
+                 QUEUE_SIZE = 128
+                 my_queue = cqueue.ByteQueue(QUEUE_SIZE)
+                 for count in range(10):
+                     my_queue.put(f"{count},", end="")
+                 ...
+                 while int_queue.any():
+                     print(my_queue.get())
+                 @endcode
+        """
+
+        def __init__(self, size : int):
+            """!
+            @brief   Create a fast queue for characters.
+            @details When the queue is created, memory is allocated for the
+                     given number of items. Putting items into the queue won't
+                     cause new memory to be allocated, so the queue can be used
+                     in interrupt callbacks and will run quickly.
+            @param   size The maximum number of integers that the queue can
+                     hold
+            """
+
+        def any() -> bool:
+            """!
+            @brief   Checks if there are any items available in the queue.
+            @returns @c True if there is at least one item in the queue,
+                     @c False if not
+            """
+
+        def available() -> int:
+            """!
+            @brief   Checks how many items are available to be read from the
+                     queue.
+            @returns An integer containing the number of items in the queue
+            """
+
+        def put(data : int):
+            """!
+            @brief   Put an integer into the queue.
+            @details If the queue is already full, the oldest data will be
+                     overwritten. If this could cause problems, one can call
+                     @c full() to check if the queue is already full before
+                     writing the data.
+            @param   data An integer to be put into the back of the queue
+            """
+
+        def get() -> int:
+            """!
+            @brief   Get an item from the queue if one is available.
+            @details If the queue is empty, @c None will be returned.
+            @returns The oldest integer in the queue, or @c None if the queue
+                     is currently empty.
+            """
+
+        def clear():
+            """!
+            @brief   Empty the queue.
+            @details The pointers used to access data in the queue are reset to
+                     their empty positions. The contents of the memory are not
+                     changed and no new memory is allocated.
+            """
+
+        def full() -> bool:
+            """!
+            @brief   Check whether the queue is currently full.
+            @details If the queue is full, writing new data will cause the
+                     oldest data to be overwritten and lost. 
+            @returns @c True if the queue is currently full or @c False if not
+            """
+
+        def max_full() -> int:
+            """!
+            @brief   Get the maximum number of unread items that have been in
+                     the queue.
+            @details This method returns the maximum number of items that have
+                     been in the queue at any point since the queue was created
+                     or cleared.
+            @return  The maximum number of items that have been in the queue
+            """
+
+
 import utime
 import cqueue
 
 ## The number of elements in each queue which we create and test
 TEST_SIZE = 2000
+
+## The number of characters in the test byte queue
+BYTE_QUEUE_SIZE = 500
 
 ## The number of times we repeat the whole test
 NUM_RUNS = 50
@@ -245,6 +349,7 @@ def main():
     """
     int_queue = cqueue.IntQueue(TEST_SIZE)
     float_queue = cqueue.FloatQueue(TEST_SIZE)
+    byte_queue = cqueue.ByteQueue(BYTE_QUEUE_SIZE)
 
     intdursum = 0                        # Sums of durations of put() calls
     floatdursum = 0
@@ -266,11 +371,24 @@ def main():
         floatdursum += dur
         floatdurmax = dur if dur > floatdurmax else floatdurmax
 
+    for count in range (BYTE_QUEUE_SIZE // 2):
+        count += 1
+        byte_queue.put (f"{count},")
+
     while int_queue.any() and float_queue.any():
         got_this = int_queue.get()
         got_that = float_queue.get()
         if (float(got_this) - got_that) / got_that > 0.0001:
             print (f"Error: got_this != got_that")
+
+    count = 0
+    print('')
+    while byte_queue.any():
+        got_char = byte_queue.get()
+        if count < 50:
+            print(got_char.decode(), end='')
+            count += 1
+    print('')
 
     print(f"for queue size {TEST_SIZE}:")
     print(f"Ints:   Avg {intdursum / TEST_SIZE:.1f}, Max {intdurmax} us")
