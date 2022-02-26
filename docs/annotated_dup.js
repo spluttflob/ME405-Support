@@ -5,6 +5,7 @@ var annotated_dup =
       [ "TaskList", "classcotask_1_1TaskList.html", "classcotask_1_1TaskList" ]
     ] ],
     [ "cqueue", null, [
+      [ "ByteQueue", "classcqueue_1_1ByteQueue.html", "classcqueue_1_1ByteQueue" ],
       [ "FloatQueue", "classcqueue_1_1FloatQueue.html", "classcqueue_1_1FloatQueue" ],
       [ "IntQueue", "classcqueue_1_1IntQueue.html", "classcqueue_1_1IntQueue" ]
     ] ],
