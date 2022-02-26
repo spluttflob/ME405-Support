@@ -4,7 +4,7 @@ This file contains documentation and a test program for the custom C queues
 used in the ME405 library. These queues are faster than regular Python based
 queues and don't allocate memory.
 
-The code in this file is @c not the source code which makes the C queues work.
+The code in this file is @b not the source code which makes the C queues work.
 That code is written in C as the file @c cqueues.c and compiled into the
 MicroPython image used in the ME405 course. 
 
