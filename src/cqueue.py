@@ -284,7 +284,7 @@ if __name__ == "__not_me__":
 
         def put(data : int):
             """!
-            @brief   Put an integer into the queue.
+            @brief   Put a character or string into the queue.
             @details If the queue is already full, the oldest data will be
                      overwritten. If this could cause problems, one can call
                      @c full() to check if the queue is already full before
@@ -296,7 +296,7 @@ if __name__ == "__not_me__":
             """!
             @brief   Get an item from the queue if one is available.
             @details If the queue is empty, @c None will be returned.
-            @returns The oldest integer in the queue, or @c None if the queue
+            @returns The oldest character in the queue, or @c None if the queue
                      is currently empty.
             """
 
@@ -334,10 +334,23 @@ import cqueue
 TEST_SIZE = 2000
 
 ## The number of characters in the test byte queue
-BYTE_QUEUE_SIZE = 500
+BYTE_QUEUE_SIZE = 20
+
+## The number of times we try to put something into the byte queue. It's kept
+#  somewhat small so we're putting in printable ASCII characters
+BYTE_T_SIZE = 94
 
 ## The number of times we repeat the whole test
-NUM_RUNS = 50
+NUM_RUNS = 10
+
+## The results of running tests repeatedly
+overall = {"Int Sum"   : 0,
+           "Int Max"   : 0,
+           "Float Sum" : 0,
+           "Float Max" : 0,
+           "Byte Sum"  : 0,
+           "Byte Max"  : 0
+          }
 
 
 def main():
@@ -353,9 +366,13 @@ def main():
 
     intdursum = 0                        # Sums of durations of put() calls
     floatdursum = 0
+    bytedursum = 0
     intdurmax = 0                        # Maximum durations of the put() calls
     floatdurmax = 0
-    for count in range(TEST_SIZE):
+    bytedurmax = 0
+
+    # Write things into queues, overwriting some data to make sure that's OK
+    for count in range(TEST_SIZE * 3 // 2):
         count += 1                       # Prevent division by zero in test
         begin_time = utime.ticks_us()
         int_queue.put(count)
@@ -363,7 +380,7 @@ def main():
         intdursum += dur
         intdurmax = dur if dur > intdurmax else intdurmax
 
-    for count in range(TEST_SIZE):
+    for count in range(TEST_SIZE * 3 // 2):
         count += 1
         begin_time = utime.ticks_us()
         float_queue.put(count)
@@ -371,9 +388,19 @@ def main():
         floatdursum += dur
         floatdurmax = dur if dur > floatdurmax else floatdurmax
 
-    for count in range (BYTE_QUEUE_SIZE // 2):
+    # Put characters into the byte queue, either one character at a time or by
+    # making a string and dumping that into the queue. It seems putting known
+    # characters in the queue is very fast; construting f-strings, not so much
+    for count in range (BYTE_T_SIZE):
+        a_chr = chr(ord('!') + count)
         count += 1
-        byte_queue.put (f"{count},")
+        begin_time = utime.ticks_us()
+#         byte_queue.put (a_chr)                # A single character at a time
+        byte_queue.put ('Floofala')             # Several characters at once
+#         byte_queue.put (f"{a_chr}")           # An f-string of characters
+        dur = utime.ticks_diff(utime.ticks_us(), begin_time)
+        bytedursum += dur
+        bytedurmax = dur if dur > bytedurmax else bytedurmax
 
     while int_queue.any() and float_queue.any():
         got_this = int_queue.get()
@@ -381,6 +408,8 @@ def main():
         if (float(got_this) - got_that) / got_that > 0.0001:
             print (f"Error: got_this != got_that")
 
+    # Print just the last 50 characters, or however many are available, from
+    # the byte queue. This has been used to verify that the contents are OK
     count = 0
     print('')
     while byte_queue.any():
@@ -391,8 +420,16 @@ def main():
     print('')
 
     print(f"for queue size {TEST_SIZE}:")
-    print(f"Ints:   Avg {intdursum / TEST_SIZE:.1f}, Max {intdurmax} us")
-    print(f"Floats: Avg {floatdursum / TEST_SIZE:.1f}, Max {floatdurmax} us")
+    print(f"Ints:    Avg {intdursum / TEST_SIZE:.1f}, Max {intdurmax} us")
+    print(f"Floats:  Avg {floatdursum / TEST_SIZE:.1f}, Max {floatdurmax} us")
+    print(f"Strings: Avg {bytedursum / BYTE_T_SIZE:.1f}, Max {bytedurmax} us")
+
+    overall["Int Sum"] += intdursum
+    overall["Int Max"] = max(overall["Int Max"], intdurmax)
+    overall["Float Sum"] += floatdursum
+    overall["Float Max"] = max(overall["Float Max"], floatdurmax)
+    overall["Byte Sum"] += bytedursum
+    overall["Byte Max"] = max(overall["Byte Max"], bytedurmax)
 
 
 # Run the test suite the given numer of times for a crude reliability test. A
@@ -400,8 +437,31 @@ def main():
 # many times
 for run in range (NUM_RUNS):
     print("")
-    print(f"Run {run} of {NUM_RUNS}", end=' ')
+    print(f"Run {run + 1} of {NUM_RUNS}", end=' ')
     main()
+
+print("")
+print(f"Overall results from {NUM_RUNS} runs:")
+print(f"Ints:    Avg {overall["Int Sum"] / (TEST_SIZE * NUM_RUNS):.1f}, " +
+      f"Max {overall["Int Max"]} us")
+print(f"Floats:  Avg {overall["Float Sum"] / (TEST_SIZE * NUM_RUNS):.1f}, " +
+      f"Max {overall["Float Max"]} us")
+print(f"Strings: Avg {overall["Byte Sum"] / (BYTE_T_SIZE * NUM_RUNS):.1f}, " +
+      f"Max {overall["Byte Max"]} us")
+print("")
+
+# Check that if invalid data is sent to the queue, an exception is thrown
+# rather than having a crash and reboot. It seems particularly evil to try
+# to put a queue object into itself
+print("The following should throw some TypeErrors:")
+booq = cqueue.ByteQueue(10)
+for attempt in (1.234, [0, 1, 2], {'one' : 1}, main, "Hel", b"lo!"):
+    try:
+        booq.put(attempt)
+    except TypeError as ohnoes:
+        print(f"    Error \"{ohnoes}\" due to put({attempt})")
+
+print(booq)
 
 print("Test finished.")
 
