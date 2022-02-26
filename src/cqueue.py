@@ -331,7 +331,7 @@ import utime
 import cqueue
 
 ## The number of elements in each queue which we create and test
-TEST_SIZE = 2000
+TEST_SIZE = 3000
 
 ## The number of characters in the test byte queue
 BYTE_QUEUE_SIZE = 20
@@ -360,8 +360,8 @@ def main():
     track of the time it took to put things into the queues, as this can be
     important if putting data into a queue within an interrupt callback.
     """
-    int_queue = cqueue.IntQueue(TEST_SIZE)
-    float_queue = cqueue.FloatQueue(TEST_SIZE)
+    int_queue = cqueue.IntQueue(TEST_SIZE * 2 // 3)
+    float_queue = cqueue.FloatQueue(TEST_SIZE * 2 // 3)
     byte_queue = cqueue.ByteQueue(BYTE_QUEUE_SIZE)
 
     intdursum = 0                        # Sums of durations of put() calls
@@ -372,7 +372,7 @@ def main():
     bytedurmax = 0
 
     # Write things into queues, overwriting some data to make sure that's OK
-    for count in range(TEST_SIZE * 3 // 2):
+    for count in range(TEST_SIZE):
         count += 1                       # Prevent division by zero in test
         begin_time = utime.ticks_us()
         int_queue.put(count)
@@ -380,7 +380,7 @@ def main():
         intdursum += dur
         intdurmax = dur if dur > intdurmax else intdurmax
 
-    for count in range(TEST_SIZE * 3 // 2):
+    for count in range(TEST_SIZE):
         count += 1
         begin_time = utime.ticks_us()
         float_queue.put(count)
@@ -408,21 +408,20 @@ def main():
         if (float(got_this) - got_that) / got_that > 0.0001:
             print (f"Error: got_this != got_that")
 
+    print(f"for queue size {TEST_SIZE}:")
+    print(f"Ints:    Avg {intdursum / TEST_SIZE:.1f}, Max {intdurmax} us")
+    print(f"Floats:  Avg {floatdursum / TEST_SIZE:.1f}, Max {floatdurmax} us")
+    print(f"Strings: Avg {bytedursum / BYTE_T_SIZE:.1f}, Max {bytedurmax} us")
+
     # Print just the last 50 characters, or however many are available, from
     # the byte queue. This has been used to verify that the contents are OK
     count = 0
-    print('')
     while byte_queue.any():
         got_char = byte_queue.get()
         if count < 50:
             print(got_char.decode(), end='')
             count += 1
     print('')
-
-    print(f"for queue size {TEST_SIZE}:")
-    print(f"Ints:    Avg {intdursum / TEST_SIZE:.1f}, Max {intdurmax} us")
-    print(f"Floats:  Avg {floatdursum / TEST_SIZE:.1f}, Max {floatdurmax} us")
-    print(f"Strings: Avg {bytedursum / BYTE_T_SIZE:.1f}, Max {bytedurmax} us")
 
     overall["Int Sum"] += intdursum
     overall["Int Max"] = max(overall["Int Max"], intdurmax)
