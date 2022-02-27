@@ -330,8 +330,11 @@ if __name__ == "__not_me__":
 import utime
 import cqueue
 
-## The number of elements in each queue which we create and test
+## The number of times to call put() for each queue
 TEST_SIZE = 3000
+
+## The number of elements in each queue which we create and test
+NUM_QUEUE_SIZE = 2000
 
 ## The number of characters in the test byte queue
 BYTE_QUEUE_SIZE = 20
@@ -341,7 +344,7 @@ BYTE_QUEUE_SIZE = 20
 BYTE_T_SIZE = 94
 
 ## The number of times we repeat the whole test
-NUM_RUNS = 10
+NUM_RUNS = 25
 
 ## The results of running tests repeatedly
 overall = {"Int Sum"   : 0,
@@ -360,8 +363,8 @@ def main():
     track of the time it took to put things into the queues, as this can be
     important if putting data into a queue within an interrupt callback.
     """
-    int_queue = cqueue.IntQueue(TEST_SIZE * 2 // 3)
-    float_queue = cqueue.FloatQueue(TEST_SIZE * 2 // 3)
+    int_queue = cqueue.IntQueue(NUM_QUEUE_SIZE)
+    float_queue = cqueue.FloatQueue(NUM_QUEUE_SIZE)
     byte_queue = cqueue.ByteQueue(BYTE_QUEUE_SIZE)
 
     intdursum = 0                        # Sums of durations of put() calls
@@ -396,8 +399,8 @@ def main():
         count += 1
         begin_time = utime.ticks_us()
 #         byte_queue.put (a_chr)                # A single character at a time
-        byte_queue.put ('Floofala')             # Several characters at once
-#         byte_queue.put (f"{a_chr}")           # An f-string of characters
+#         byte_queue.put ('Floofala')             # Several characters at once
+        byte_queue.put (f"{a_chr}")           # An f-string of characters
         dur = utime.ticks_diff(utime.ticks_us(), begin_time)
         bytedursum += dur
         bytedurmax = dur if dur > bytedurmax else bytedurmax
@@ -408,7 +411,7 @@ def main():
         if (float(got_this) - got_that) / got_that > 0.0001:
             print (f"Error: got_this != got_that")
 
-    print(f"for queue size {TEST_SIZE}:")
+    print(f"for {TEST_SIZE} calls to put() in {NUM_QUEUE_SIZE} size queues:")
     print(f"Ints:    Avg {intdursum / TEST_SIZE:.1f}, Max {intdurmax} us")
     print(f"Floats:  Avg {floatdursum / TEST_SIZE:.1f}, Max {floatdurmax} us")
     print(f"Strings: Avg {bytedursum / BYTE_T_SIZE:.1f}, Max {bytedurmax} us")
