@@ -69,8 +69,8 @@ class Task:
       """
 
 
-    def __init__ (self, run_fun, name = "NoName", priority = 0, 
-                  period = None, profile = False, trace = False):
+    def __init__(self, run_fun, name="NoName", priority=0, period=None,
+                 profile=False, trace=False, shares=()):
         """!
         Initialize a task object so it may be run by the scheduler.
 
@@ -90,18 +90,23 @@ class Task:
         @param profile Set to @c True to enable run-time profiling 
         @param trace Set to @c True to generate a list of transitions between
                states. @b Note: This slows things down and allocates memory.
+        @param shares A list or tuple of shares and queues used by this task.
+               If no list is given, no shares are passed to the task
         """
         # The function which is run to implement this task's code. Since it 
         # is a generator, we "run" it here, which doesn't actually run it but
         # gets it going as a generator which is ready to yield values
-        self._run_gen = run_fun ()
+        if shares:
+            self._run_gen = run_fun(shares)
+        else:
+            self._run_gen = run_fun()
 
         ## The name of the task, hopefully a short and descriptive string.
         self.name = name
 
         ## The task's priority, an integer with higher numbers meaning higher 
         #  priority. 
-        self.priority = int (priority)
+        self.priority = int(priority)
 
         ## The period, in milliseconds, between runs of the task's @c run()
         #  method. If the period is @c None, the @c run() method won't be run
@@ -109,8 +114,8 @@ class Task:
         #  as feasible after code such as an interrupt handler calls the 
         #  @c go() method. 
         if period != None:
-            self.period = int (period * 1000)
-            self._next_run = utime.ticks_us () + self.period
+            self.period = int(period * 1000)
+            self._next_run = utime.ticks_us() + self.period
         else:
             self.period = period
             self._next_run = None
@@ -118,7 +123,7 @@ class Task:
         # Flag which causes the task to be profiled, in which the execution
         #  time of the @c run() method is measured and basic statistics kept. 
         self._prof = profile
-        self.reset_profile ()
+        self.reset_profile()
 
         # The previous state in which the task last ran. It is used to watch
         # for and track state transitions.
@@ -128,14 +133,14 @@ class Task:
         # which to store transition (time, to-state) stamps
         self._trace = trace
         self._tr_data = []
-        self._prev_time = utime.ticks_us ()
+        self._prev_time = utime.ticks_us()
 
         ## Flag which is set true when the task is ready to be run by the
         #  scheduler
         self.go_flag = False
 
 
-    def schedule (self) -> bool:
+    def schedule(self) -> bool:
         """!
         This method is called by the scheduler; it attempts to run this task.
         If the task is not yet ready to run, this method returns @c False
@@ -144,26 +149,26 @@ class Task:
 
         @return @c True if the task ran or @c False if it did not
         """
-        if self.ready ():
+        if self.ready():
 
             # Reset the go flag for the next run
             self.go_flag = False
 
             # If profiling, save the start time
             if self._prof:
-                stime = utime.ticks_us ()
+                stime = utime.ticks_us()
 
             # Run the method belonging to the state which should be run next
-            curr_state = next (self._run_gen)
+            curr_state = next(self._run_gen)
 
             # If profiling or tracing, save timing data
             if self._prof or self._trace:
-                etime = utime.ticks_us ()
+                etime = utime.ticks_us()
 
             # If profiling, save timing data
             if self._prof:
                 self._runs += 1
-                runt = utime.ticks_diff (etime, stime)
+                runt = utime.ticks_diff(etime, stime)
                 if self._runs > 2:
                     self._run_sum += runt
                     if runt > self._slowest:
@@ -175,12 +180,12 @@ class Task:
             if self._trace:
                 try:
                     if curr_state != self._prev_state:
-                        self._tr_data.append (
-                            (utime.ticks_diff (etime, self._prev_time),
+                        self._tr_data.append(
+                            (utime.ticks_diff(etime, self._prev_time),
                              curr_state))
                 except MemoryError:
                     self._trace = False
-                    gc.collect ()
+                    gc.collect()
 
                 self._prev_state = curr_state
                 self._prev_time = etime
@@ -192,7 +197,7 @@ class Task:
 
 
     @micropython.native
-    def ready (self) -> bool:
+    def ready(self) -> bool:
         """!
         This method checks if the task is ready to run.
         If the task runs on a timer, this method checks what time it is; if not,
@@ -203,11 +208,11 @@ class Task:
         # If this task uses a timer, check if it's time to run run() again. If
         # so, set go flag and set the timer to go off at the next run time
         if self.period != None:
-            late = utime.ticks_diff (utime.ticks_us (), self._next_run)
+            late = utime.ticks_diff(utime.ticks_us(), self._next_run)
             if late > 0:
                 self.go_flag = True
-                self._next_run = utime.ticks_diff (self.period, 
-                                                   -self._next_run)
+                self._next_run = utime.ticks_diff(self.period, 
+                                                  -self._next_run)
 
                 # If keeping a latency profile, record the data
                 if self._prof:
@@ -219,7 +224,7 @@ class Task:
         return self.go_flag
 
 
-    def set_period (self, new_period):
+    def set_period(self, new_period):
         """!
         This method sets the period between runs of the task to the given
         number of milliseconds, or @c None if the task is triggered by calls
@@ -229,10 +234,10 @@ class Task:
         if new_period is None:
             self.period = None
         else:
-            self.period = int (new_period) * 1000
+            self.period = int(new_period) * 1000
 
 
-    def reset_profile (self):
+    def reset_profile(self):
         """!
         This method resets the variables used for execution time profiling.
         This method is also used by @c __init__() to create the variables.
@@ -244,7 +249,7 @@ class Task:
         self._latest = 0
 
 
-    def get_trace (self):
+    def get_trace(self):
         """!
         This method returns a string containing the task's transition trace.
         The trace is a set of tuples, each of which contains a time and the
@@ -263,10 +268,10 @@ class Task:
                 last_state = item[1]
         else:
             tr_str += ' not traced'
-        return (tr_str)
+        return tr_str
 
 
-    def go (self):
+    def go(self):
         """!
         Method to set a flag so that this task indicates that it's ready to run.
         This method may be called from an interrupt service routine or from
@@ -275,27 +280,25 @@ class Task:
         self.go_flag = True
 
 
-    def __repr__ (self):
+    def __repr__(self):
         """!
         This method converts the task to a string for diagnostic use.
         It shows information about the task, including execution time
         profiling results if profiling has been done.
         """
-        rst = '{:<16s}{: 4d}'.format (self.name, self.priority)
+        rst = f"{self.name:<16s}{self.priority: 4d}"
         try:
-            rst += '{: 10.1f}'.format (self.period / 1000.0)
+            rst += f"{(self.period / 1000.0): 10.1f}"
         except TypeError:
             rst += '         -'
-        rst += '{: 8d}'.format (self._runs)
+        rst += f"{self._runs: 8d}"
 
         if self._prof and self._runs > 0:
             avg_dur = (self._run_sum / self._runs) / 1000.0
             avg_late = (self._late_sum / self._runs) / 1000.0
-            rst += '{: 10.3f}{: 10.3f}'.format (avg_dur, 
-                self._slowest / 1000.0)
+            rst += f"{avg_dur: 10.3f}{(self._slowest / 1000.0): 10.3f}"
             if self.period != None:
-                rst += '{: 10.3f}{: 10.3f}'.format (avg_late, 
-                                            self._latest / 1000.0)
+                rst += f"{avg_late: 10.3f}{(self._latest / 1000.0): 10.3f}"
         return rst
 
 
@@ -316,7 +319,7 @@ class TaskList:
     "round-robin" fashion.
     """
 
-    def __init__ (self):
+    def __init__(self):
         """!
         Initialize the task list. This creates the list of priorities in
         which tasks will be organized by priority.
@@ -328,7 +331,7 @@ class TaskList:
         self.pri_list = []
 
 
-    def append (self, task):
+    def append(self, task):
         """!
         Append a task to the task list. The list will be sorted by task 
         priorities so that the scheduler can quickly find the highest priority
@@ -340,7 +343,7 @@ class TaskList:
         for pri in self.pri_list:
             # If a tasklist with this priority exists, add this task to it.
             if pri[0] == new_pri:
-                pri.append (task)
+                pri.append(task)
                 break
 
         # If the priority isn't in the list, this else clause starts a new 
@@ -349,14 +352,14 @@ class TaskList:
         # round-robin scheduling those tasks) as the second item, and tasks
         # after those
         else:
-            self.pri_list.append ([new_pri, 2, task])
+            self.pri_list.append([new_pri, 2, task])
 
         # Make sure the main list (of lists at each priority) is sorted
-        self.pri_list.sort (key=lambda pri: pri[0], reverse=True)
+        self.pri_list.sort(key=lambda pri: pri[0], reverse=True)
 
 
     @micropython.native
-    def rr_sched (self):
+    def rr_sched(self):
         """!
         Run tasks in order, ignoring the tasks' priorities.
 
@@ -371,11 +374,11 @@ class TaskList:
         # For each priority level, run all tasks at that level
         for pri in self.pri_list:
             for task in pri[2:]:
-                task.schedule ()
+                task.schedule()
 
 
     @micropython.native
-    def pri_sched (self):
+    def pri_sched(self):
         """!
         Run tasks according to their priorities.
 
@@ -389,9 +392,9 @@ class TaskList:
             # Each priority list is [priority, index, task, task, ...] where
             # index is the index of the next task in the list to be run
             tries = 2
-            length = len (pri)
+            length = len(pri)
             while tries < length:
-                ran = pri[pri[1]].schedule ()
+                ran = pri[pri[1]].schedule()
                 tries += 1
                 pri[1] += 1
                 if pri[1] >= length:
@@ -400,7 +403,7 @@ class TaskList:
                     return
 
 
-    def __repr__ (self):
+    def __repr__(self):
         """!
         Create some diagnostic text showing the tasks in the task list.
         """
@@ -408,14 +411,14 @@ class TaskList:
             'DUR  AVG LATE  MAX LATE\n'
         for pri in self.pri_list:
             for task in pri[2:]:
-                ret_str += str (task) + '\n'
+                ret_str += str(task) + '\n'
 
         return ret_str
 
 
 ## This is @b the main task list which is created for scheduling when 
 #  @c cotask.py is imported into a program. 
-task_list = TaskList ()
+task_list = TaskList()
 
 
 
