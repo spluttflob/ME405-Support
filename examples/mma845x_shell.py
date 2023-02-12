@@ -1,4 +1,4 @@
-"""
+"""!
 @file mma845x.py
 This file contains a @b partly @b written MicroPython driver for the MMA8451 
 and MMA8452 accelerometers. It is intended to be used as a starting point for
@@ -65,7 +65,7 @@ RANGE_8g = micropython.const (2)
 
 
 class MMA845x:
-    """ This class implements a simple driver for MMA8451 and MMA8452
+    """! This class implements a simple driver for MMA8451 and MMA8452
     accelerometers. These inexpensive phone accelerometers talk to the CPU 
     over I<sup>2</sup>C. Only basic functionality is supported: 
     * The device can be switched from standby mode to active mode and back
@@ -85,7 +85,7 @@ class MMA845x:
     board. """
 
     def __init__ (self, i2c, address, accel_range = 0):
-        """ Initialize an MMA845x driver on the given I<sup>2</sup>C bus. The 
+        """! Initialize an MMA845x driver on the given I<sup>2</sup>C bus. The 
         I<sup>2</sup>C bus object must have already been initialized, as we're
         going to use it to get the accelerometer's WHO_AM_I code right away. 
         @param i2c An I<sup>2</sup>C bus already set up in MicroPython
@@ -120,7 +120,7 @@ class MMA845x:
 
 
     def active (self):
-        """ Put the MMA845x into active mode so that it takes data. In active
+        """! Put the MMA845x into active mode so that it takes data. In active
         mode, the accelerometer's settings can't be messed with. Active mode
         is set by setting the @c ACTIVE bit in register @c CTRL_REG1 to one.
         """
@@ -132,7 +132,7 @@ class MMA845x:
 
 
     def standby (self):
-        """ Put the MMA845x into standby mode so its settings can be changed.
+        """! Put the MMA845x into standby mode so its settings can be changed.
         No data will be taken in standby mode, so before measurements are to
         be made, one must call @c active(). """
 
@@ -143,7 +143,7 @@ class MMA845x:
 
 
     def get_ax_bits (self):
-        """ Get the X acceleration from the accelerometer in A/D bits and 
+        """! Get the X acceleration from the accelerometer in A/D bits and 
         return it.
         @return The measured X acceleration in A/D conversion bits """
 
@@ -152,7 +152,7 @@ class MMA845x:
 
 
     def get_ay_bits (self):
-        """ Get the Y acceleration from the accelerometer in A/D bits and 
+        """! Get the Y acceleration from the accelerometer in A/D bits and 
         return it.
         @return The measured Y acceleration in A/D conversion bits """
 
@@ -161,7 +161,7 @@ class MMA845x:
 
 
     def get_az_bits (self):
-        """ Get the Z acceleration from the accelerometer in A/D bits and 
+        """! Get the Z acceleration from the accelerometer in A/D bits and 
         return it.
         @return The measured Z acceleration in A/D conversion bits """
 
@@ -170,7 +170,7 @@ class MMA845x:
 
 
     def get_ax (self):
-        """ Get the X acceleration from the accelerometer in g's, assuming
+        """! Get the X acceleration from the accelerometer in g's, assuming
         that the accelerometer was correctly calibrated at the factory.
         @return The measured X acceleration in g's """
 
@@ -179,7 +179,7 @@ class MMA845x:
 
 
     def get_ay (self):
-        """ Get the Y acceleration from the accelerometer in g's, assuming
+        """! Get the Y acceleration from the accelerometer in g's, assuming
         that the accelerometer was correctly calibrated at the factory. The
         measurement is adjusted for the range (2g, 4g, or 8g) setting.
         @return The measured Y acceleration in g's """
@@ -189,7 +189,7 @@ class MMA845x:
 
 
     def get_az (self):
-        """ Get the Z acceleration from the accelerometer in g's, assuming
+        """! Get the Z acceleration from the accelerometer in g's, assuming
         that the accelerometer was correctly calibrated at the factory. The
         measurement is adjusted for the range (2g, 4g, or 8g) setting.
         @return The measured Z acceleration in g's """
@@ -199,7 +199,7 @@ class MMA845x:
 
 
     def get_accels (self):
-        """ Get all three accelerations from the MMA845x accelerometer. The
+        """! Get all three accelerations from the MMA845x accelerometer. The
         measurement is adjusted for the range (2g, 4g, or 8g) setting.
         @return A tuple containing the X, Y, and Z accelerations in g's """
 
@@ -207,7 +207,7 @@ class MMA845x:
 
 
     def __repr__ (self):
-        """ 'Convert' The MMA845x accelerometer to a string. The string 
+        """! 'Convert' The MMA845x accelerometer to a string. The string 
         contains information about the configuration and status of the
         accelerometer. 
         @return A string containing diagnostic information """
