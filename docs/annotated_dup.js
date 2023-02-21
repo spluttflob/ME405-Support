@@ -5,9 +5,12 @@ var annotated_dup =
       [ "TaskList", "classcotask_1_1TaskList.html", "classcotask_1_1TaskList" ]
     ] ],
     [ "cqueue", null, [
-      [ "ByteQueue", "classcqueue_1_1ByteQueue.html", "classcqueue_1_1ByteQueue" ],
       [ "FloatQueue", "classcqueue_1_1FloatQueue.html", "classcqueue_1_1FloatQueue" ],
-      [ "IntQueue", "classcqueue_1_1IntQueue.html", "classcqueue_1_1IntQueue" ]
+      [ "IntQueue", "classcqueue_1_1IntQueue.html", "classcqueue_1_1IntQueue" ],
+      [ "ByteQueue", "classcqueue_1_1ByteQueue.html", "classcqueue_1_1ByteQueue" ]
+    ] ],
+    [ "mlx_cam", null, [
+      [ "MLX_Cam", "classmlx__cam_1_1MLX__Cam.html", "classmlx__cam_1_1MLX__Cam" ]
     ] ],
     [ "nb_input", null, [
       [ "NB_Input", "classnb__input_1_1NB__Input.html", "classnb__input_1_1NB__Input" ]

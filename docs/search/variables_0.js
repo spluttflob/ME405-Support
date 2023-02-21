@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['byte_5fqueue_5fsize_0',['BYTE_QUEUE_SIZE',['../cqueue_8py.html#ab369103f3b5d711b92e37437004a5778',1,'cqueue']]],
-  ['byte_5ft_5fsize_1',['BYTE_T_SIZE',['../cqueue_8py.html#a967f4d8a1d43daf8ac53de56851b8eee',1,'cqueue']]]
+  ['asc_109',['asc',['../classmlx__cam_1_1MLX__Cam.html#adf2e609b86e8eda268f028f2f9c467ce',1,'mlx_cam::MLX_Cam']]]
 ];

@@ -1,6 +1,6 @@
 var classcotask_1_1Task =
 [
-    [ "__init__", "classcotask_1_1Task.html#a912aa5a1bed736fa76e110ab0448e97b", null ],
+    [ "__init__", "classcotask_1_1Task.html#a9374f7f7d280f51cd715856ecabdf278", null ],
     [ "__repr__", "classcotask_1_1Task.html#a2dcb50b9bf2676dfaac176649bc7d3f9", null ],
     [ "get_trace", "classcotask_1_1Task.html#a6e51a228f985aec8c752bd72a73730ae", null ],
     [ "go", "classcotask_1_1Task.html#a78e74d18a5ba94074c2b5309394409a5", null ],
