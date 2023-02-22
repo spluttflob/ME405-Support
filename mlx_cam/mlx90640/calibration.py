@@ -79,7 +79,7 @@ class PixelCalibrationData:
         for idx in range(len(self)):
             yield self[idx]
 
-TEMP_K = const(273.15)
+TEMP_K = 273.15
 
 class CameraCalibration:
     def __init__(self, iface, eeprom, *, emissivity=1, use_tgc=False):
@@ -168,7 +168,7 @@ class CameraCalibration:
         self.ct = (ct1, ct2, ct3, ct4)
 
         alpha_1 = 1.0/(1.0 + ksto1*(ct2 - ct1))
-        alpha_2 = const(1.0)
+        alpha_2 = 1.0
         alpha_3 = (1.0 + ksto2*(ct3 - ct2))
         alpha_4 = alpha_3*(1.0 + ksto3*(ct4 - ct3))
         self.alpha_ext = (alpha_1, alpha_2, alpha_3, alpha_4)

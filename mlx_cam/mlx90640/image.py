@@ -12,7 +12,7 @@ from mlx90640.utils import (
 from mlx90640.regmap import REG_SIZE
 from mlx90640.calibration import NUM_COLS, IMAGE_SIZE, TEMP_K
 
-PIX_STRUCT_FMT = const('>h')
+PIX_STRUCT_FMT = '>h'
 PIX_DATA_ADDRESS = const(0x0400)
 
 class _BasePattern:
