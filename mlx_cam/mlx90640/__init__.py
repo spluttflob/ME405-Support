@@ -1,3 +1,4 @@
+from gc import collect
 from ucollections import namedtuple
 from mlx90640.regmap import (
     REGISTER_MAP,
@@ -55,8 +56,15 @@ class MLX90640:
         self.last_read = None
 
     def setup(self, *, calib=None, raw=None, image=None):
+        # We've been having some memory allocation errors which usually happen
+        # as this method runs. As a workaround, run gc.collect() several times
+        # to keep memory cleaned up, as when the process is finished, there is
+        # a bunch of free memory (~27KB or more on STM32L476) available
+        collect()
         self.calib = calib or CameraCalibration(self.iface, self.eeprom)
+        collect()
         self.raw = raw or RawImage()
+        collect()
         self.image = image or ProcessedImage(self.calib)
 
     @property
