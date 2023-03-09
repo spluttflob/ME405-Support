@@ -1,5 +1,10 @@
 """!
 @file mlx_cam.py
+
+RAW VERSION
+This version uses a stripped down MLX90640 driver which produces only raw data,
+not calibrated data, in order to save memory.
+
 This file contains a wrapper that facilitates the use of a Melexis MLX90640
 thermal infrared camera for general use. The wrapper contains a class MLX_Cam
 whose use is greatly simplified in comparison to that of the base class,
@@ -61,7 +66,7 @@ class MLX_Cam:
         self._camera.setup()
 
         ## A local reference to the image object within the camera driver
-        self._image = self._camera.image
+        self._image = self._camera.raw
 
 
     def ascii_image(self, array, pixel="██", textcolor="0;180;0"):
@@ -118,7 +123,7 @@ class MLX_Cam:
                  by a bad pixel in the camera. 
         @param   array The array to be shown, probably @c image.v_ir
         """
-        scale = 10 / (max(array) - min(array))
+        scale = len(MLX_Cam.asc) / (max(array) - min(array))
         offset = -min(array)
         for row in range(self._height):
             line = ""
@@ -154,11 +159,10 @@ class MLX_Cam:
             line = ""
             for col in range(self._width):
                 pix = int((array[row * self._width + (self._width - col - 1)]
-                          * scale) + offset)
+                          + offset) * scale)
                 if col:
                     line += ","
                 line += f"{pix}"
-#             line += "\r\n"
             yield line
         return
 
@@ -168,17 +172,17 @@ class MLX_Cam:
         @brief   Get one image from a MLX90640 camera.
         @details Grab one image from the given camera and return it. Both
                  subframes (the odd checkerboard portions of the image) are
-                 grabbed and combined. This assumes that the camera is in the
-                 ChessPattern (default) mode as it probably should be.
+                 grabbed and combined (maybe; this is the raw version, so the
+                 combination is sketchy and not fully tested). It is assumed
+                 that the camera is in the ChessPattern (default) mode as it
+                 probably should be.
         @returns A reference to the image object we've just filled with data
         """
         for subpage in (0, 1):
             while not self._camera.has_data:
                 time.sleep_ms(50)
                 print('.', end='')
-            self._camera.read_image(subpage)
-            state = self._camera.read_state()
-            image = self._camera.process_image(subpage, state)
+            image = self._camera.read_image(subpage)
 
         return image
 
@@ -225,14 +229,14 @@ if __name__ == "__main__":
             # could also be written to a file. Spreadsheets, Matlab(tm), or
             # CPython can read CSV and make a decent false-color heat plot.
             show_image = False
-            show_csv = False
+            show_csv = True
             if show_image:
-                camera.ascii_image(image.buf)
+                camera.ascii_image(image)
             elif show_csv:
-                for line in camera.get_csv(image.v_ir, limits=(0, 99)):
+                for line in camera.get_csv(image, limits=(0, 99)):
                     print(line)
             else:
-                camera.ascii_art(image.v_ir)
+                camera.ascii_art(image)
             time.sleep_ms(10000)
 
         except KeyboardInterrupt:
