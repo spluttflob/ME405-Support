@@ -96,123 +96,123 @@ _INTERP_NEIGHBOURS = tuple(
     if row != 0 or col != 0
 )
 
-class ProcessedImage:
-    def __init__(self, calib):
-        # pix_data should be a sequence of ints
-        self.calib = calib
-        self.v_ir = array_filled('f', IMAGE_SIZE, 0.0)
-        self.alpha = array_filled('f', IMAGE_SIZE, 1.0)
-        self.buf = array_filled('f', IMAGE_SIZE, 1.0)
-
-    def update(self, pix_data, subpage, state):
-        if self.calib.use_tgc:
-            pix_os_cp = self._calc_os_cp(subpage, state)
-            pix_alpha_cp = self.calib.pix_alpha_cp[subpage.id]
-
-        for idx, raw in pix_data:
-            ## IR data compensation - offset, Vdd, and Ta
-            kta = self.calib.pix_kta[idx]
-
-            row, col = divmod(idx, NUM_COLS)
-            kv = self.calib.kv_avg[row % 2][col % 2]
-            
-            offset = self.calib.pix_os_ref[idx]
-            offset *= (1 + kta*state.ta)*(1 + kv*state.vdd)
-
-            v_os = raw*state.gain - offset
-            if subpage.pattern is InterleavedPattern:
-                v_os += self.calib.il_offset[idx]
-            v_ir = v_os / self.calib.emissivity
-
-            ## IR data gradient compensation
-            if self.calib.use_tgc:
-                v_ir -= self.calib.tgc*pix_os_cp
-
-            # preserve v_ir for temperature calculations
-            self.v_ir[idx] = v_ir
-
-            alpha = self._calc_alpha(idx, state.ta)
-            self.buf[idx] = v_ir/alpha
-
-    def _calc_os_cp(self, subpage, state):
-        pix_os_cp = self.calib.pix_os_cp[subpage.id]
-        if subpage.pattern is InterleavedPattern:
-            pix_os_cp += self.calib.il_chess_c1
-        return state.gain_cp[subpage.id] - pix_os_cp*(1 + self.calib.kta_cp*state.ta)*(1 + self.calib.kv_cp*state.vdd)
-
-    def _calc_os_cp2(self, pattern, state):
-        pix_os_cp = list(self.calib.pix_os_cp)
-        if pattern is InterleavedPattern:
-            for i in range(len(pix_os_cp)):
-                pix_os_cp[i] += self.calib.il_chess_c1
-
-        k = (1 + self.calib.kta_cp*state.ta)*(1 + self.calib.kv_cp*state.vdd)
-        return [
-            gain_cp_sp - pix_os_cp_sp*k
-            for pix_os_cp_sp, gain_cp_sp in zip(pix_os_cp, state.gain_cp)
-        ]
-
-    def _calc_alpha(self, idx, ta):
-        alpha = self.calib.pix_alpha[idx]
-        if self.calib.use_tgc:
-            alpha -= self.calib.tgc*pix_alpha_cp
-        alpha *= (1 + self.calib.ksta*ta)
-        return alpha
-
-    def _calc_to(self, idx, alpha, ta_r):
-        v_ir = self.v_ir[idx]
-
-        s_x = v_ir*(alpha**3) + ta_r*(alpha**4)
-        s_x = math.sqrt(math.sqrt(s_x))*self.calib.ksto[1]
-
-        to = v_ir/(alpha*(1 - TEMP_K*self.calib.ksto[1]) + s_x) + ta_r
-        to = math.sqrt(math.sqrt(to)) - TEMP_K
-        return to + self.calib.drift
-
-    def calc_temperature(self, idx, state):
-        alpha = self._calc_alpha(idx, state.ta)
-        return self._calc_to(idx, alpha, state.ta_r)
-
-    def calc_temperature_ext(self, idx, state):
-        v_ir = self.v_ir[idx]
-        alpha = self._calc_alpha(idx, state.ta)
-        to = self._calc_to(idx, alpha, state.ta_r)
-
-        band = self._get_range_band(to)
-        if band < 0:
-            return self.calib.ct[0]
-
-        alpha_ext = self.calib.alpha_ext[band]
-        ksto_ext = self.calib.ksto[band]
-        ct = self.calib.ct[band]
-        to_ext = v_ir/(alpha*alpha_ext*(1 + ksto_ext*(to - ct))) + state.ta_r
-        to_ext = math.sqrt(math.sqrt(to_ext)) - TEMP_K
-        return to_ext  + self.calib.drift
-
-    def _get_range_band(self, t):
-        return sum(1 for ct in self.calib.ct if t >= ct) - 1
-
-    def calc_limits(self, *, exclude_idx=()):
-        # find min/max in place to keep mem usage down
-        min_h, min_idx = None, None
-        max_h, max_idx = None, None
-        for idx, h in enumerate(self.buf):
-            if idx in exclude_idx:
-                continue
-            if min_h is None or h < min_h:
-                min_h, min_idx = h, idx
-            if max_h is None or h > max_h:
-                max_h, max_idx = h, idx
-        return ImageLimits(min_h, max_h, min_idx, max_idx)
-
-    def interpolate_bad_pixels(self, bad_pixels):
-        for bad_idx in bad_pixels:
-            count = 0
-            total = 0
-            for offset in _INTERP_NEIGHBOURS:
-                idx = bad_idx + offset
-                if idx in range(IMAGE_SIZE) and idx not in bad_pixels:
-                    count += 1
-                    total += self.buf[idx]
-            if count > 0:
-                self.buf[bad_idx] = total/count
+# class ProcessedImage:
+#     def __init__(self, calib):
+#         # pix_data should be a sequence of ints
+#         self.calib = calib
+#         self.v_ir = array_filled('f', IMAGE_SIZE, 0.0)
+#         self.alpha = array_filled('f', IMAGE_SIZE, 1.0)
+#         self.buf = array_filled('f', IMAGE_SIZE, 1.0)
+# 
+#     def update(self, pix_data, subpage, state):
+#         if self.calib.use_tgc:
+#             pix_os_cp = self._calc_os_cp(subpage, state)
+#             pix_alpha_cp = self.calib.pix_alpha_cp[subpage.id]
+# 
+#         for idx, raw in pix_data:
+#             ## IR data compensation - offset, Vdd, and Ta
+#             kta = self.calib.pix_kta[idx]
+# 
+#             row, col = divmod(idx, NUM_COLS)
+#             kv = self.calib.kv_avg[row % 2][col % 2]
+#             
+#             offset = self.calib.pix_os_ref[idx]
+#             offset *= (1 + kta*state.ta)*(1 + kv*state.vdd)
+# 
+#             v_os = raw*state.gain - offset
+#             if subpage.pattern is InterleavedPattern:
+#                 v_os += self.calib.il_offset[idx]
+#             v_ir = v_os / self.calib.emissivity
+# 
+#             ## IR data gradient compensation
+#             if self.calib.use_tgc:
+#                 v_ir -= self.calib.tgc*pix_os_cp
+# 
+#             # preserve v_ir for temperature calculations
+#             self.v_ir[idx] = v_ir
+# 
+#             alpha = self._calc_alpha(idx, state.ta)
+#             self.buf[idx] = v_ir/alpha
+# 
+#     def _calc_os_cp(self, subpage, state):
+#         pix_os_cp = self.calib.pix_os_cp[subpage.id]
+#         if subpage.pattern is InterleavedPattern:
+#             pix_os_cp += self.calib.il_chess_c1
+#         return state.gain_cp[subpage.id] - pix_os_cp*(1 + self.calib.kta_cp*state.ta)*(1 + self.calib.kv_cp*state.vdd)
+# 
+#     def _calc_os_cp2(self, pattern, state):
+#         pix_os_cp = list(self.calib.pix_os_cp)
+#         if pattern is InterleavedPattern:
+#             for i in range(len(pix_os_cp)):
+#                 pix_os_cp[i] += self.calib.il_chess_c1
+# 
+#         k = (1 + self.calib.kta_cp*state.ta)*(1 + self.calib.kv_cp*state.vdd)
+#         return [
+#             gain_cp_sp - pix_os_cp_sp*k
+#             for pix_os_cp_sp, gain_cp_sp in zip(pix_os_cp, state.gain_cp)
+#         ]
+# 
+#     def _calc_alpha(self, idx, ta):
+#         alpha = self.calib.pix_alpha[idx]
+#         if self.calib.use_tgc:
+#             alpha -= self.calib.tgc*pix_alpha_cp
+#         alpha *= (1 + self.calib.ksta*ta)
+#         return alpha
+# 
+#     def _calc_to(self, idx, alpha, ta_r):
+#         v_ir = self.v_ir[idx]
+# 
+#         s_x = v_ir*(alpha**3) + ta_r*(alpha**4)
+#         s_x = math.sqrt(math.sqrt(s_x))*self.calib.ksto[1]
+# 
+#         to = v_ir/(alpha*(1 - TEMP_K*self.calib.ksto[1]) + s_x) + ta_r
+#         to = math.sqrt(math.sqrt(to)) - TEMP_K
+#         return to + self.calib.drift
+# 
+#     def calc_temperature(self, idx, state):
+#         alpha = self._calc_alpha(idx, state.ta)
+#         return self._calc_to(idx, alpha, state.ta_r)
+# 
+#     def calc_temperature_ext(self, idx, state):
+#         v_ir = self.v_ir[idx]
+#         alpha = self._calc_alpha(idx, state.ta)
+#         to = self._calc_to(idx, alpha, state.ta_r)
+# 
+#         band = self._get_range_band(to)
+#         if band < 0:
+#             return self.calib.ct[0]
+# 
+#         alpha_ext = self.calib.alpha_ext[band]
+#         ksto_ext = self.calib.ksto[band]
+#         ct = self.calib.ct[band]
+#         to_ext = v_ir/(alpha*alpha_ext*(1 + ksto_ext*(to - ct))) + state.ta_r
+#         to_ext = math.sqrt(math.sqrt(to_ext)) - TEMP_K
+#         return to_ext  + self.calib.drift
+# 
+#     def _get_range_band(self, t):
+#         return sum(1 for ct in self.calib.ct if t >= ct) - 1
+# 
+#     def calc_limits(self, *, exclude_idx=()):
+#         # find min/max in place to keep mem usage down
+#         min_h, min_idx = None, None
+#         max_h, max_idx = None, None
+#         for idx, h in enumerate(self.buf):
+#             if idx in exclude_idx:
+#                 continue
+#             if min_h is None or h < min_h:
+#                 min_h, min_idx = h, idx
+#             if max_h is None or h > max_h:
+#                 max_h, max_idx = h, idx
+#         return ImageLimits(min_h, max_h, min_idx, max_idx)
+# 
+#     def interpolate_bad_pixels(self, bad_pixels):
+#         for bad_idx in bad_pixels:
+#             count = 0
+#             total = 0
+#             for offset in _INTERP_NEIGHBOURS:
+#                 idx = bad_idx + offset
+#                 if idx in range(IMAGE_SIZE) and idx not in bad_pixels:
+#                     count += 1
+#                     total += self.buf[idx]
+#             if count > 0:
+#                 self.buf[bad_idx] = total/count

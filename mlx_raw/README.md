@@ -1,7 +1,8 @@
-# Melexis MLX90640 Thermal Camera Drivers
+# Simplified Melexis MLX90640 Thermal Camera Driver
 
 This directory contains a simplified MicroPython driver for the MLX90640
-thermal infrared camera.
+thermal infrared camera which only gets **raw images**, not calibrated ones.
+This saves time and memory and is usable for a mechatronics class exercise.
 
 ## Quick Start
 
@@ -13,7 +14,19 @@ folder for camera driver files.
 
 The file `mlx_cam.py` contains test code which will, by default, capture
 a thermal image every 10 seconds (approximately) and display an ASCII art
-rendition of the image. 
+rendition of the image.  There are several modes in which the image may
+be displayed:
+
+* ASCII art, the default, usable for testing but not a great quality image
+
+* CSV (comma separated variable) format, usable by spreadsheets to make a
+  quick "heat map"
+
+* Grayscale blocks, using ANSI terminal color commands to control the
+  shade of gray of each block. This type of image can only be viewed on a
+  serial port terminal program which recognizes these color commands. 
+  PuTTY <https://putty.org> works, while Thonny and Screen (on a Mac) 
+  don't
 
 
 ## Detailed Version

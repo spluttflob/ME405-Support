@@ -90,10 +90,10 @@ class MLX90640:
 #         collect()
 #         self.calib = calib or CameraCalibration(self.iface, self.eeprom)
         collect()
-        print(f"setup: {mem_free()}", end='')
+#         print(f"setup: {mem_free()}", end='')
         self.raw = raw or RawImage()
         collect()
-        print(f" -> {mem_free()}")
+#         print(f" -> {mem_free()}")
 #         self.image = image or ProcessedImage(self.calib)
 
 
