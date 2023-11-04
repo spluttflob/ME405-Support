@@ -15,6 +15,7 @@ from mlx90640.calibration import NUM_COLS, IMAGE_SIZE, TEMP_K
 PIX_STRUCT_FMT = '>h'
 PIX_DATA_ADDRESS = const(0x0400)
 
+
 class _BasePattern:
     @classmethod
     def sp_range(cls, sp_id):
@@ -29,12 +30,14 @@ class _BasePattern:
             cls.get_sp(idx) for idx in range(IMAGE_SIZE)
         )
 
+
 class ChessPattern(_BasePattern):
     pattern_id = 0x1
 
     @classmethod
     def get_sp(cls, idx):
         return (idx//32 - (idx//64)*2) ^ (idx - (idx//2)*2)
+
 
 class InterleavedPattern(_BasePattern):
     pattern_id = 0x0
@@ -46,6 +49,7 @@ class InterleavedPattern(_BasePattern):
 _READ_PATTERNS = {
     pat.pattern_id : pat for pat in (ChessPattern, InterleavedPattern)
 }
+
 
 def get_pattern_by_id(pattern_id):
     return _READ_PATTERNS.get(pattern_id)
@@ -61,6 +65,7 @@ class Subpage:
 
 
 ## Image Buffers
+
 
 class RawImage:
     def __init__(self):
@@ -85,6 +90,7 @@ _INTERP_NEIGHBOURS = tuple(
     for col in (-1, 0, 1)
     if row != 0 or col != 0
 )
+
 
 class ProcessedImage:
     def __init__(self, calib):

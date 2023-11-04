@@ -228,7 +228,7 @@ if __name__ == "__main__":
             # Display pixellated grayscale or numbers in CSV format; the CSV
             # could also be written to a file. Spreadsheets, Matlab(tm), or
             # CPython can read CSV and make a decent false-color heat plot.
-            show_image = True
+            show_image = False
             show_csv = False
             if show_image:
                 camera.ascii_image(image)
