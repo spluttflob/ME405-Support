@@ -14,14 +14,24 @@ the ME405 board set, which includes:
 It should be possible to do this on any of the common operating systems. 
 The author uses Linux Mint. 
 
+It is assumed that you have installed an ARM Cortex&trade; compiler on
+your computer, you are familiar with using the command line, you have
+a Unix&trade;/Linux-like environment on your computer (such as LSW) if
+you're running Windows&trade;, and you have and can use the `make`
+utility to build programs. 
+
+
 ## Building Stock MicroPython
-You should first set up a build environment for regular MicroPython. 
+You should first set up a build environment for regular MicroPython, 
+then test it and make sure it compiles MicroPython successfully. 
+Also verify that you can flash a MicroPython binary onto your Nucleo&trade;
+or other board. 
+
 Make sure to set up the MicroPython subdirectory in its own folder on
 your computer, as you may want to add other modules in that directory,
 next to the MicroPython source code directory tree. 
 Instructions for downloading and setting up MicroPython source code 
-are found at:
-
+are found at:  
 <https://docs.micropython.org/en/latest/develop/gettingstarted.html>
 
 When following all the instructions carefully (which you _gotta_ do), 
@@ -71,7 +81,8 @@ is created in the same directory where the base `micropython` directory lives
 
 * **cqueue** is a set of custom classes which implement fast queues to carry
   data from tasks to other tasks.  These are hosted on GitHub&trade; at  
-  <>
+  <https://github.com/spluttflob/ME405-Support/tree/main/custom_micropython/modules/cqueue>  
+  ...in other words, pretty much right here.
 
 ## The MicroPython Source Tree
 A partial listing of the source tree, highlighting the files of most 

@@ -132,3 +132,4 @@ examples/task_experiments.py
 testing/*
 old/*
 doxygen-awesome.css
+custom_micropython/README.html
