@@ -26,16 +26,22 @@ The documentation pages are at <https://spluttflob.github.io/ME405-Support/>.
 * `examples/vend_kb.py` demonstrates another method to do non-blocking reads on
    a PC.
 
+* `custom_micropython` has some support to help those who wish to compile their
+  own ME405 style custom MicroPython firmware.
+
   
-### Firmware File
+### Firmware Files
 
 * The file `firmware.bin` contains a custom version of MicroPython for use only
   on an STM32L476RG Nucleo. It supports extra UARTs, DAC, and the use of the 
   USB-OTG connector on the Shoe of Brian (see the github-pages documents) to
   connect the `/flash` directory as a USB drive. CAN is not supported, as the 
-  pins needed are used by the USB-OTG connector. This firmware file also
-  contains **MicroPython-ulab,** the NumPy/SciPy partial workalike library
-  found at <https://github.com/v923z/micropython-ulab>.
+  pins needed are used by the USB-OTG connector. 
+  
+  This firmware file also contains **MicroPython-ulab,** the NumPy/SciPy partial 
+  workalike library found at <https://github.com/v923z/micropython-ulab>, and
+  `cqueue`, a module hosted in this repository which contains fast and efficient 
+  queues to transfer data between tasks.
 
   
 ### Homework Support Files
