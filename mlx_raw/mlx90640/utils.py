@@ -1,5 +1,4 @@
-""" Buffer carving utilties.
-"""
+## Buffer carving utilties.
 
 from array import array
 from ucollections import namedtuple

@@ -1,11 +1,10 @@
-"""
-@file __init__.py
-This file contains a class which controls an MLX90640 thermal infrared camera.
-
-RAW VERSION
-This version is a stripped down MLX90640 driver which produces only raw data,
-not calibrated data, in order to save memory.
-"""
+## @file __init__.py
+#  This file contains a class which controls an MLX90640 thermal infrared
+#  camera.
+#
+#  RAW VERSION
+#  This version is a stripped down MLX90640 driver which produces only raw
+#  data, not calibrated data, in order to save memory.
 
 from gc import collect, mem_free
 from ucollections import namedtuple
@@ -26,16 +25,16 @@ class CameraDetectError(Exception):
     pass
 
 
+## Detect the MLX90640 camera with the assumption that it is the only device on
+#  the I2C interface.
+#  @returns A reference to a new MLX90640 object which has been created
 def detect_camera(i2c):
-    """ Detect the camera with the assumption that it is the only device on the
-    I2C interface.
-    @returns A reference to a new MLX90640 object which has been created
-    """
+
     scan = i2c.scan()
     if len(scan) == 0:
         raise CameraDetectError("No camera detected")
     if len(scan) > 1:
-        scan = ", ".join(str(s) for s in scan)
+        scan = ", ".join(hex(s) for s in scan)
         raise CameraDetectError(f"Multiple devices on I2C bus: {scan}")
     cam_addr = scan[0]
     return MLX90640(i2c, cam_addr)
@@ -69,8 +68,6 @@ class DataNotAvailableError(Exception):
 class MLX90640:
 
     def __init__(self, i2c, addr):
-        """!
-        """
         self.iface = CameraInterface(i2c, addr)
         self.registers = RegisterMap(self.iface, REGISTER_MAP)
         self.eeprom = RegisterMap(self.iface, EEPROM_MAP, readonly=True)
@@ -81,51 +78,35 @@ class MLX90640:
 
 
     def setup(self, *, calib=None, raw=None, image=None):
-        """!
-        """
         # We've been having some memory allocation errors which usually happen
-        # as this method runs. As a workaround, run gc.collect() several times
-        # to keep memory cleaned up, as when the process is finished, there is
-        # a bunch of free memory (~27KB or more on STM32L476) available
-#         collect()
+        # as this method runs. As a workaround, run gc.collect() to keep memory
+        # cleaned up, as when the process is finished, there is more free
+        # memory available. Also running from frozen bytecode helps a lot
 #         self.calib = calib or CameraCalibration(self.iface, self.eeprom)
-        collect()
-#         print(f"setup: {mem_free()}", end='')
         self.raw = raw or RawImage()
         collect()
-#         print(f" -> {mem_free()}")
 #         self.image = image or ProcessedImage(self.calib)
 
 
     @property
     def refresh_rate(self):
-        """!
-        """
         return RefreshRate.get_freq(self.registers['refresh_rate'])
 
     @refresh_rate.setter
     def refresh_rate(self, freq):
-        """!
-        """
         self.registers['refresh_rate'] = RefreshRate.from_freq(freq)
 
 
     def get_pattern(self):
-        """!
-        """
         return get_pattern_by_id(self.registers['read_pattern'])
 
 
     def set_pattern(self, pat):
-        """!
-        """
         self.registers['read_pattern'] = pat.pattern_id
 
 
+    ## Turned off to save memory for raw driver version.
     def read_vdd(self):
-        """!
-        Turned off to save memory for raw driver version.
-        """
         # supply voltage calculation (delta Vdd)
         # type: (self) -> float
         vdd_pix = self.registers['vdd_pix'] * self._adc_res_corr()
@@ -133,20 +114,16 @@ class MLX90640:
         return float(vdd_pix)
 
 
+    ## Turned off to save memory for raw driver version.
     def _adc_res_corr(self):
-        """!
-        Turned off to save memory for raw driver version.
-        """
         # type: (self) -> float
 #         res_exp = self.calib.res_ee - self.registers['adc_resolution']
 #         return 1 << res_exp
         return 0
 
 
+    ## Turned off to save memory for raw driver version.
     def read_ta(self):
-        """!
-        Turned off to save memory for raw driver version.
-        """
         # ambient temperature calculation (delta Ta in degC)
         # type: (self) -> float
         v_ptat = self.registers['ta_ptat']
@@ -163,10 +140,8 @@ class MLX90640:
         return 0.0
 
 
+    ## Turned off to save memory for raw driver version.
     def read_gain(self):
-        """!
-        Turned off to save memory for raw driver version.
-        """
         # gain calculation
         # type: (self) -> float
 #         return self.calib.gain / self.registers['gain']
@@ -201,24 +176,18 @@ class MLX90640:
         )
 
 
+    ## Report whether there's data available from the camera.
     @property
     def has_data(self):
-        """!
-        Report whether there's data available from the camera.
-        """
         return bool(self.registers['data_available'])
 
 
     @property
     def last_subpage(self):
-        """!
-        """
         return self.registers['last_subpage']
 
 
     def read_image(self, sp_id = None):
-        """!
-        """
         if not self.has_data:
             raise DataNotAvailableError
 

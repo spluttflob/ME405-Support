@@ -1,5 +1,4 @@
-""" MLX90640 register mapping
-"""
+## MLX90640 register mapping
 
 from mlx90640.utils import (
     field_desc,

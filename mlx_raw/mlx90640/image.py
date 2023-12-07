@@ -1,29 +1,24 @@
-"""!
-@file image.py
-This file contains image storage and processing classes for the MLX90640 camera
-driver.
-
-RAW VERSION
-This version is a stripped down MLX90640 driver which produces only raw data,
-not calibrated data, in order to save memory.
-"""
+## @file image.py
+#  This file contains image storage and processing classes for the MLX90640 camera
+#  driver.
+#
+#  RAW VERSION
+#  This version is a stripped down MLX90640 driver which produces only raw data,
+#  not calibrated data, in order to save memory.
 
 import math
 import struct
 from array import array
 from ucollections import namedtuple
-from mlx90640.utils import (
-    Struct,
-    StructProto,
-    field_desc,
-    array_filled,
-)
+from mlx90640.utils import (Struct, StructProto, field_desc, array_filled)
 
 from mlx90640.regmap import REG_SIZE
 from mlx90640.calibration import NUM_COLS, IMAGE_SIZE, TEMP_K
 
+
 PIX_STRUCT_FMT = '>h'
 PIX_DATA_ADDRESS = const(0x0400)
+
 
 class _BasePattern:
     @classmethod
@@ -39,12 +34,14 @@ class _BasePattern:
             cls.get_sp(idx) for idx in range(IMAGE_SIZE)
         )
 
+
 class ChessPattern(_BasePattern):
     pattern_id = 0x1
 
     @classmethod
     def get_sp(cls, idx):
         return (idx//32 - (idx//64)*2) ^ (idx - (idx//2)*2)
+
 
 class InterleavedPattern(_BasePattern):
     pattern_id = 0x0
@@ -53,9 +50,11 @@ class InterleavedPattern(_BasePattern):
     def get_sp(cls, idx):
         return idx//32 - (idx//64)*2
 
+
 _READ_PATTERNS = {
     pat.pattern_id : pat for pat in (ChessPattern, InterleavedPattern)
 }
+
 
 def get_pattern_by_id(pattern_id):
     return _READ_PATTERNS.get(pattern_id)
@@ -89,12 +88,14 @@ class RawImage:
 
 ImageLimits = namedtuple('ScaleLimits', ('min_h', 'max_h', 'min_idx', 'max_idx'))
 
+
 _INTERP_NEIGHBOURS = tuple(
     row * NUM_COLS + col
     for row in (-1, 0, 1)
     for col in (-1, 0, 1)
     if row != 0 or col != 0
 )
+
 
 # class ProcessedImage:
 #     def __init__(self, calib):
