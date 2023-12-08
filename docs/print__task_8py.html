@@ -136,15 +136,15 @@ Variables</h2></td></tr>
 <div class="line"> </div>
 <div class="line"><span class="comment"># In the main module or wherever tasks are created:</span></div>
 <div class="line">print_task = <a class="code" href="classcotask_1_1Task.html">cotask.Task</a> (print_task_function, name = <span class="stringliteral">&#39;Printing&#39;</span>, </div>
-<div class="line">                          priority = 0, profile = <span class="keyword">True</span>)</div>
+<div class="line">                         priority = 0, profile = <span class="keyword">True</span>)</div>
 <div class="line">cotask.task_list.append (print_task)</div>
 <div class="line"> </div>
 <div class="line"><span class="comment"># In a task which needs to print something:</span></div>
 <div class="line">print_queue.put (<span class="stringliteral">&quot;This is a string&quot;</span>)</div>
 <div class="line">print_queue.put_bytes (bytearray (<span class="stringliteral">&quot;A bytearray&quot;</span>))</div>
 <div class="line">print_queue.put (<span class="stringliteral">&quot;A number: {:d}\r\n&quot;</span>.format (number))</div>
-<div class="ttc" id="aclasscotask_1_1Task_html"><div class="ttname"><a href="classcotask_1_1Task.html">cotask.Task</a></div><div class="ttdoc">Implements multitasking with scheduling and some performance logging.</div><div class="ttdef"><b>Definition:</b> cotask.py:36</div></div>
-</div><!-- fragment --><dl class="section copyright"><dt>Copyright</dt><dd>This program is copyrighted by JR Ridgely and released under the GNU Public License, version 3.0.</dd></dl>
+<div class="ttc" id="aclasscotask_1_1Task_html"><div class="ttname"><a href="classcotask_1_1Task.html">cotask.Task</a></div><div class="ttdoc">Implements multitasking with scheduling and some performance logging.</div><div class="ttdef"><b>Definition:</b> cotask.py:66</div></div>
+</div><!-- fragment --><dl class="section copyright"><dt>Copyright</dt><dd>This program is copyright (c) 2018-2023 by JR Ridgely and released under the GNU Public License, version 3.0.</dd></dl>
 <p>It is intended for educational use only, but its use is not limited thereto. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ad34c02219d799b143cf0507f093378db"></a>
@@ -233,7 +233,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  <a class="code" href="classtask__share_1_1Queue.html">task_share.Queue</a> (<span class="stringliteral">&#39;B&#39;</span>, PT_BUF_SIZE, name = <span class="stringliteral">&quot;Print Queue&quot;</span>, </div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                thread_protect = <span class="keyword">False</span>, overwrite = <span class="keyword">False</span>)</div>
-<div class="ttc" id="aclasstask__share_1_1Queue_html"><div class="ttname"><a href="classtask__share_1_1Queue.html">task_share.Queue</a></div><div class="ttdoc">A queue which is used to transfer data from one task to another.</div><div class="ttdef"><b>Definition:</b> task_share.py:80</div></div>
+<div class="ttc" id="aclasstask__share_1_1Queue_html"><div class="ttname"><a href="classtask__share_1_1Queue.html">task_share.Queue</a></div><div class="ttdoc">A queue which is used to transfer data from one task to another.</div><div class="ttdef"><b>Definition:</b> task_share.py:90</div></div>
 </div><!-- fragment -->
 <p>This queue holds characters to be printed when the print task gets around to it. </p>
 <p>It is always created when print_task is imported as a module. </p>
@@ -246,7 +246,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="print__task_8py.html">print_task.py</a></li>
-    <li class="footer">Generated on Mon Feb 20 2023 20:27:34 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Dec 7 2023 19:12:27 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

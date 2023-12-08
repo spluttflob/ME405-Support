@@ -155,25 +155,25 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements multitasking with scheduling and some performance logging. </p>
 <p>This class implements behavior common to tasks in a cooperative multitasking system which runs in MicroPython. The ability to be scheduled on the basis of time or an external software trigger or interrupt is implemented, state transitions can be recorded, and run times can be profiled. The user's task code must be implemented in a generator which yields the state (and the CPU) after it has run for a short and bounded period of time.</p>
-<p>Example: </p><div class="fragment"><div class="line"><span class="keyword">def </span>task1_fun ():</div>
-<div class="line">    <span class="stringliteral">&#39;&#39;&#39;! This function switches states repeatedly for no reason &#39;&#39;&#39;</span></div>
-<div class="line">    state = 0</div>
-<div class="line">    <span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
-<div class="line">        <span class="keywordflow">if</span> state == 0:</div>
-<div class="line">            state = 1</div>
-<div class="line">        <span class="keywordflow">elif</span> state == 1:</div>
-<div class="line">            state = 0</div>
-<div class="line">        <span class="keywordflow">yield</span> (state)</div>
+<p><b>Example:</b> </p><div class="fragment"><div class="line"><span class="keyword">def </span>task1_fun ():</div>
+<div class="line">     <span class="stringliteral">&#39;&#39;&#39;! This function switches states repeatedly for no reason &#39;&#39;&#39;</span></div>
+<div class="line">     state = 0</div>
+<div class="line">     <span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
+<div class="line">         <span class="keywordflow">if</span> state == 0:</div>
+<div class="line">             state = 1</div>
+<div class="line">         <span class="keywordflow">elif</span> state == 1:</div>
+<div class="line">             state = 0</div>
+<div class="line">         <span class="keywordflow">yield</span> (state)</div>
 <div class="line"> </div>
-<div class="line"><span class="comment"># In main routine, create this task and set it to run twice per second</span></div>
-<div class="line">task1 = <a class="code" href="classcotask_1_1Task.html">cotask.Task</a> (task1_fun, name = <span class="stringliteral">&#39;Task 1&#39;</span>, priority = 1, </div>
-<div class="line">                     period = 500, profile = <span class="keyword">True</span>, trace = <span class="keyword">True</span>)</div>
+<div class="line"> <span class="comment"># In main routine, create this task and set it to run twice per second</span></div>
+<div class="line"> task1 = <a class="code" href="classcotask_1_1Task.html">cotask.Task</a> (task1_fun, name = <span class="stringliteral">&#39;Task 1&#39;</span>, priority = 1, </div>
+<div class="line">                      period = 500, profile = <span class="keyword">True</span>, trace = <span class="keyword">True</span>)</div>
 <div class="line"> </div>
-<div class="line"><span class="comment"># Add the task to the list (so it will be run) and run scheduler</span></div>
-<div class="line">cotask.task_list.append (task1)</div>
-<div class="line"><span class="keywordflow">while</span> <span class="keyword">True</span>: </div>
-<div class="line">    cotask.task_list.pri_sched ()</div>
-<div class="ttc" id="aclasscotask_1_1Task_html"><div class="ttname"><a href="classcotask_1_1Task.html">cotask.Task</a></div><div class="ttdoc">Implements multitasking with scheduling and some performance logging.</div><div class="ttdef"><b>Definition:</b> cotask.py:36</div></div>
+<div class="line"> <span class="comment"># Add the task to the list (so it will be run) and run scheduler</span></div>
+<div class="line"> cotask.task_list.append (task1)</div>
+<div class="line"> <span class="keywordflow">while</span> <span class="keyword">True</span>: </div>
+<div class="line">     cotask.task_list.pri_sched ()</div>
+<div class="ttc" id="aclasscotask_1_1Task_html"><div class="ttname"><a href="classcotask_1_1Task.html">cotask.Task</a></div><div class="ttdoc">Implements multitasking with scheduling and some performance logging.</div><div class="ttdef"><b>Definition:</b> cotask.py:66</div></div>
 </div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9374f7f7d280f51cd715856ecabdf278"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9374f7f7d280f51cd715856ecabdf278">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -272,7 +272,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method converts the task to a string for diagnostic use. </p>
-<p>It shows information about the task, including execution time profiling results if profiling has been done. </p>
+<p>It shows information about the task, including execution time profiling results if profiling has been done. </p><dl class="section return"><dt>Returns</dt><dd>The string which represents the task </dd></dl>
 
 </div>
 </div>
@@ -445,7 +445,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>cotask</b></li><li class="navelem"><a class="el" href="classcotask_1_1Task.html">Task</a></li>
-    <li class="footer">Generated on Mon Feb 20 2023 20:27:34 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Dec 7 2023 19:12:27 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

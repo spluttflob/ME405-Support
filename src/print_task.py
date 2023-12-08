@@ -1,44 +1,43 @@
-"""!
-@file print_task.py
-This file contains code for a task which prints things from a queue. It helps
-to reduce latency in a system having tasks which print because it sends things
-to be printed out the serial port one character at a time, even when other
-tasks put whole strings into the queue at once. When run as a low-priority
-task, this allows higher priority tasks to interrupt the printing between
-characters, even when all the tasks are being cooperatively scheduled with a
-priority-based scheduler. 
-
-Example code:
-@code
-# In each module which needs to print something:
-import print_task
-
-# In the main module or wherever tasks are created:
-print_task = cotask.Task (print_task_function, name = 'Printing', 
-                          priority = 0, profile = True)
-cotask.task_list.append (print_task)
-
-# In a task which needs to print something:
-print_queue.put ("This is a string")
-print_queue.put_bytes (bytearray ("A bytearray"))
-print_queue.put ("A number: {:d}\r\n".format (number))
-@endcode
-
-@copyright This program is copyrighted by JR Ridgely and released under the
-GNU Public License, version 3.0. 
-
-It is intended for educational use only, but its use is not limited thereto.
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-"""
+## @file print_task.py
+#  This file contains code for a task which prints things from a queue. It helps
+#  to reduce latency in a system having tasks which print because it sends
+#  things to be printed out the serial port one character at a time, even when
+#  other tasks put whole strings into the queue at once. When run as a
+#  low-priority task, this allows higher priority tasks to interrupt the
+#  printing between characters, even when all the tasks are being cooperatively
+#  scheduled with a priority-based scheduler. 
+#
+#  Example code:
+#  @code
+#  # In each module which needs to print something:
+#  import print_task
+# 
+#  # In the main module or wherever tasks are created:
+#  print_task = cotask.Task (print_task_function, name = 'Printing', 
+#                           priority = 0, profile = True)
+#  cotask.task_list.append (print_task)
+# 
+#  # In a task which needs to print something:
+#  print_queue.put ("This is a string")
+#  print_queue.put_bytes (bytearray ("A bytearray"))
+#  print_queue.put ("A number: {:d}\r\n".format (number))
+#  @endcode
+# 
+#  @copyright This program is copyright (c) 2018-2023 by JR Ridgely and
+#             released under the GNU Public License, version 3.0. 
+# 
+#  It is intended for educational use only, but its use is not limited thereto.
+#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+#  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+#  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+#  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+#  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+#  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+#  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+#  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+#  POSSIBILITY OF SUCH DAMAGE.
 
 # import pyb
 import cotask
@@ -51,18 +50,16 @@ from micropython import const
 PT_BUF_SIZE = const (1000)
 
 
+## Put a string into the print queue so it can be printed by the printing 
+#  task whenever that task gets a chance. If the print queue is full, 
+#  characters are lost; this is better than blocking to wait for space in the
+#  queue, as we'd block the printing task and space would never open up. When 
+#  a character has been put into the queue, the @c go() method of the print 
+#  task is called so that the run method will be called as soon as the print 
+#  task is run by the task scheduler. 
+#  @param a_string A string to be put into the queue
 @micropython.native
 def put (a_string):
-    """!
-    Put a string into the print queue so it can be printed by the printing 
-    task whenever that task gets a chance. If the print queue is full, 
-    characters are lost; this is better than blocking to wait for space in the
-    queue, as we'd block the printing task and space would never open up. When 
-    a character has been put into the queue, the @c go() method of the print 
-    task is called so that the run method will be called as soon as the print 
-    task is run by the task scheduler. 
-    @param a_string A string to be put into the queue
-    """
     for a_ch in a_string:
         print_task.go ()
 #         if not print_queue.full ():
@@ -70,31 +67,29 @@ def put (a_string):
 #             print_task.go ()
 
 
+## Put bytes from a @c bytearray or @c bytes into the print queue. When 
+#  characters have been put into the queue, the @c go() method of the print
+#  task is called so that the run method will be called as soon as the print 
+#  task is run by the task scheduler. 
+#  @param b_arr The bytearray whose contents go into the queue
 @micropython.native
 def put_bytes (b_arr):
-    """!
-    Put bytes from a @c bytearray or @c bytes into the print queue. When 
-    characters have been put into the queue, the @c go() method of the print
-    task is called so that the run method will be called as soon as the print 
-    task is run by the task scheduler. 
-    @param b_arr The bytearray whose contents go into the queue
-    """
+
     for byte in b_arr:
         if not print_queue.full ():
             print_queue.put (byte)
             print_task.go ()
 
 
+## Task function for the task which prints stuff. This function checks for
+#  any characters to be printed in the queue; if any characters are found 
+#  then one character is printed, after which the print task yields so other 
+#  tasks can run. This function must be called periodically; the normal way 
+#  is to make it the run function of a low priority task in a cooperatively 
+#  multitasked system so that the task scheduler calls this function when 
+#  the higher priority tasks don't need to run.
 def print_task_function ():
-    """!
-    Task function for the task which prints stuff. This function checks for
-    any characters to be printed in the queue; if any characters are found 
-    then one character is printed, after which the print task yields so other 
-    tasks can run. This function must be called periodically; the normal way 
-    is to make it the run function of a low priority task in a cooperatively 
-    multitasked system so that the task scheduler calls this function when 
-    the higher priority tasks don't need to run. 
-    """
+
     while True:
         # If there's a character in the queue, print it
         if print_queue.any ():

@@ -19,8 +19,8 @@
 # 
 #  @author mwerezak Original files, Summer 2022
 #  @author JR Ridgely Added simplified wrapper class @c MLX_Cam, January 2023
-#  @copyright (c) 2022 by the authors and released under the GNU Public License,
-#      version 3.
+#  @copyright (c) 2022-2023 by the authors and released under the GNU Public
+#      License, version 3.
 
 import utime as time
 from machine import Pin, I2C
@@ -29,8 +29,11 @@ from mlx90640.calibration import NUM_ROWS, NUM_COLS, IMAGE_SIZE, TEMP_K
 from mlx90640.image import ChessPattern, InterleavedPattern
 
 
-# @brief   Class which wraps an MLX90640 thermal infrared camera driver to
-#          make it easier to grab and use an image.
+## @brief   Class which wraps an MLX90640 thermal infrared camera driver to
+#           make it easier to grab and use an image. 
+#  @details This image is in "raw" mode, meaning it has not been calibrated
+#           (which takes lots of time and memory) and only gives relative IR
+#           emission seen by pixels, not estimates of the temperatures.
 class MLX_Cam:
 
     ## @brief   Set up an MLX90640 camera.
