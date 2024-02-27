@@ -191,7 +191,7 @@ Digital to Analog Conversion (DAC or D/A)</h2>
 <p>Some STM32 chips have digial to analog converters, and others don't. Digital to analog conversion is not officially supported on ME405 boards, but you can look for class <code>pyb.DAC</code> and if it's there, search for MicroPython documentation on how to use it.</p>
 <h2><a class="anchor" id="ssi2c"></a>
 I²C</h2>
-<p>The following example sends the bytes <code>07</code> and <code>FF</code> to the register at internal address 5 in a sensor at I<sup>2</sup>C bus address 0x2A and reads a byte of data from the sensor's register at internal address 7.</p>
+<p>The following example is for hardware I&sup2;C on the STM32.</p>
 <p>Reference: <a href="https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html">https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html</a> </p><div class="fragment"><div class="line">i2c1 = pyb.I2C (1, pyb.I2C.CONTROLLER, baudrate = 100000)</div>
 <div class="line">i2c1.scan ()                             <span class="comment"># Check for devices on the bus</span></div>
 <div class="line">i2c1.mem_write (<span class="stringliteral">&#39;\x07&#39;</span>, 0x2A, 0x05)      <span class="comment"># Send a 7 to sensor at 0x2A, register 0x05</span></div>
@@ -218,7 +218,7 @@ Flash Memory Problems</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Feb 26 2024 21:11:37 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Feb 26 2024 21:19:47 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -182,9 +182,7 @@
 #  MicroPython documentation on how to use it.
 #
 #  @subsection ssi2c I&sup2;C
-#  The following example sends the bytes @c 07 and @c FF to the register at
-#  internal address 5 in a sensor at I<sup>2</sup>C bus address 0x2A and 
-#  reads a byte of data from the sensor's register at internal address 7.
+#  The following example is for hardware I&sup2;C on the STM32.
 #
 #  Reference: 
 #  https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html
