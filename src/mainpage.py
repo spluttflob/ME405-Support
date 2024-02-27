@@ -189,33 +189,28 @@
 #  Reference: 
 #  https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html
 #  @code
-#  i2c1 = pyb.I2C (1, pyb.I2C.MASTER, baudrate = 100000)
-#  i2c1.scan ()                       # Check for devices on the bus
-#  i2c1.mem_write ('\x07', 0x2A, 5)   # Send command and parameter to sensor
-#  rsp = i2c1.mem_read (1, 0x2A, 7)   # Read sensor data
+#  i2c1 = pyb.I2C (1, pyb.I2C.CONTROLLER, baudrate = 100000)
+#  i2c1.scan ()                            # Check for devices on the bus
+#  i2c1.mem_write ('\x07', 0x2A, 5)        # Send command and parameter to sensor
+#  rsp = i2c1.mem_read (1, 0x2A, 7)        # Read sensor data
 #  @endcode
 #
 #  @subsection flashprob Flash Memory Problems
 #  It is possible that the flash memory on a Nucleo may become corrupted. 
 #  This problem seems to manifest itself by read or write errors with source
-#  files on the PYBFLASH drive.  A solution may be attempted by reformatting
+#  files on the PYBFLASH drive, or by Thonny complaining about its backend. 
+#  A solution may be attempted by reformatting
 #  the processor's internal flash drive (unless you are using a MicroSD card,
 #  in which case just take that out and reformat it in a PC).  The following
-#  procedures should reformat the flash, but this procedure has not been tested
-#  very many times, and your mileage may vary.  There are @b no @b guarantees
-#  this will work and not harm your system. Before you run these commands, 
-#  make sure to back up any files on the MicroPython board if you can read 
-#  them. 
+#  procedures should reformat the flash, but your mileage may vary.  
+#  There are @b no @b guarantees this will work and not harm your system. 
+#  Before you run these commands, make sure to back up any files on the 
+#  MicroPython board if you can read them. 
 #
-#  @b Old @b Procedure - MicroPython prior to version 1.10 or so
-#  @code
-#  import uos
-#  uos.mkfs (pyb.Flash, '/flash')
-#  @endcode
+#  @b Recommended @b Procedure - as of 2024, anyway
 #
-#  @b Somewhat @b Newer @b Procedure - MicroPython up to version 1.13 or so
-#
-#  Hold the blue button down and briefly push the black reset button.
+#  Hold the blue button down and briefly push the black reset button
+#  **while continuing to hold the blue button.** 
 #  The green LED will blink once, then twice, then three times; after the
 #  three flashes, release the blue button and wait a few seconds while the
 #  green light does more blinky things -- and then wait another 10 seconds
@@ -231,7 +226,7 @@
 #  Reference: 
 #  https://docs.micropython.org/en/latest/pyboard/pyboard/tutorial/reset.html
 #
-#  @b Newer @b (Yet) @b Procedure - MicroPython 1.13 from 2021 and later
+#  @b Alternative @b Procedure - MicroPython 1.13 from 2021 and later (maybe)
 #
 #  Make sure you're at the REPL prompt and run the following lines:
 #  @code
@@ -245,7 +240,7 @@
 #  name, but it will have been newly set up and should work well again. 
 #
 #  @copyright 
-#  The ME405 software suite is copyright 2016-2021 by JR Ridgely and released
+#  The ME405 software suite is copyright 2016-2024 by JR Ridgely and released
 #  under the GNU Public License, version 3. It intended for educational use 
 #  only, but its use is not limited thereto. 
 #  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
