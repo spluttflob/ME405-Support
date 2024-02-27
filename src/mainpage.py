@@ -190,9 +190,10 @@
 #  https://docs.micropython.org/en/latest/pyboard/library/pyb.I2C.html
 #  @code
 #  i2c1 = pyb.I2C (1, pyb.I2C.CONTROLLER, baudrate = 100000)
-#  i2c1.scan ()                            # Check for devices on the bus
-#  i2c1.mem_write ('\x07', 0x2A, 5)        # Send command and parameter to sensor
-#  rsp = i2c1.mem_read (1, 0x2A, 7)        # Read sensor data
+#  i2c1.scan ()                             # Check for devices on the bus
+#  i2c1.mem_write ('\x07', 0x2A, 0x05)      # Send a 7 to sensor at 0x2A, register 0x05
+#  buffy = bytearray(2)                     # To store 
+#  rsp = i2c1.mem_read (buffy, 0x2A, 0x07)  # Read 2 bytes from sensor's register 0x07
 #  @endcode
 #
 #  @subsection flashprob Flash Memory Problems
