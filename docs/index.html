@@ -196,7 +196,8 @@ I²C</h2>
 <div class="line">i2c1.scan ()                             <span class="comment"># Check for devices on the bus</span></div>
 <div class="line">i2c1.mem_write (<span class="stringliteral">&#39;\x07&#39;</span>, 0x2A, 0x05)      <span class="comment"># Send a 7 to sensor at 0x2A, register 0x05</span></div>
 <div class="line">buffy = bytearray(2)                     <span class="comment"># To store </span></div>
-<div class="line">rsp = i2c1.mem_read (buffy, 0x2A, 0x07)  <span class="comment"># Read 2 bytes from sensor&#39;s register 0x07</span></div>
+<div class="line">i2c1.mem_read (buffy, 0x2A, 0x07)        <span class="comment"># Read 2 bytes from register 0x07 into buffy</span></div>
+<div class="line">rsp = i2c1.mem_read (2, 0x2A, 0x07)      <span class="comment"># Or read and return 2 bytes from register 0x07</span></div>
 </div><!-- fragment --><h2><a class="anchor" id="flashprob"></a>
 Flash Memory Problems</h2>
 <p>It is possible that the flash memory on a Nucleo may become corrupted. This problem seems to manifest itself by read or write errors with source files on the PYBFLASH drive, or by Thonny complaining about its backend. A solution may be attempted by reformatting the processor's internal flash drive (unless you are using a MicroSD card, in which case just take that out and reformat it in a PC). The following procedures should reformat the flash, but your mileage may vary. <br  />
@@ -218,7 +219,7 @@ Flash Memory Problems</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Feb 26 2024 21:19:47 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Feb 27 2024 21:50:10 for ME405 Library by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -191,7 +191,8 @@
 #  i2c1.scan ()                             # Check for devices on the bus
 #  i2c1.mem_write ('\x07', 0x2A, 0x05)      # Send a 7 to sensor at 0x2A, register 0x05
 #  buffy = bytearray(2)                     # To store 
-#  rsp = i2c1.mem_read (buffy, 0x2A, 0x07)  # Read 2 bytes from sensor's register 0x07
+#  i2c1.mem_read (buffy, 0x2A, 0x07)        # Read 2 bytes from register 0x07 into buffy
+#  rsp = i2c1.mem_read (2, 0x2A, 0x07)      # Or read and return 2 bytes from register 0x07
 #  @endcode
 #
 #  @subsection flashprob Flash Memory Problems
