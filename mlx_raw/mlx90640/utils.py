@@ -1,4 +1,14 @@
-## Buffer carving utilties.
+## @file utils.py
+#  @brief Buffer carving utilities for MicroPython, providing helpers for 
+#  defining and accessing structured binary data.
+#  This module includes:
+#  - Functions for creating filled arrays and converting values to two's 
+#    complement.
+#  - Field descriptor utilities for defining binary layouts.
+#  - Classes for describing and accessing structured binary data using field 
+#    descriptors.
+#  Designed for use with MicroPython and low-level sensor data parsing 
+#  (e.g., MLX90640).
 
 from array import array
 from ucollections import namedtuple
@@ -16,6 +26,13 @@ from uctypes import (
 def array_filled(typecode, length, fill=0):
     return array(typecode, (fill for i in range(length)))
 
+
+## Convert a value to its two's complement representation for a given bit width.
+#  If the value is negative, it wraps around using the bit width.
+#  If the value is above the signed range, it wraps to negative.
+#  @param bits: The number of bits for the two's complement representation.
+#  @param value: The integer value to convert.
+#  @return: The two's complement representation of the input value.
 def twos_complement(bits, value):
     if value < 0:
         return value + (1 << bits)
@@ -23,10 +40,22 @@ def twos_complement(bits, value):
         return value - (1 << bits)
     return value
 
+
 FD_BYTE = object()
 FD_WORD = object()
 
+
 FieldDesc = namedtuple('FieldDesc', ('name', 'layout', 'signed_bits'))
+
+##
+# @brief Creates a FieldDesc object describing a field's layout in a data structure.
+# 
+# @param name The name of the field.
+# @param bits The number of bits in the field, or a constant indicating 
+#        word/byte size.
+# @param pos The bit position of the field within the structure (default is 0).
+# @param signed Boolean indicating if the field is signed (default is False).
+# @return FieldDesc object representing the field's layout and properties.
 def field_desc(name, bits, pos=0, signed=False):
     if bits is FD_WORD:
         layout = 0 | (INT16 if signed else UINT16)
@@ -50,6 +79,7 @@ class StructProto:
             self.layout[fld.name] = fld.layout
             if fld.signed_bits is not None:
                 self.signed[fld.name] = fld.signed_bits
+
 
 class Struct:
     def __init__(self, buf, proto):
