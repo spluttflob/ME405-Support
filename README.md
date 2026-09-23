@@ -1,6 +1,6 @@
 # README
 
-This repository holds code used in the ME405 course at Cal Poly. 
+This repository holds code used in the ME405/ME4305 course at Cal Poly. 
 
 The documentation pages are at <https://spluttflob.github.io/ME405-Support/>.
 
